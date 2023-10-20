@@ -16,7 +16,12 @@ colors:{
     textSecondary: '#ffffff',
     primary: '#404040',
     secondary: '#404040', 
-    secondaryLight: '#8d8d8d'
+    secondaryLight: '#8d8d8d',
+    lightblue: '#49BFEC',
+    purple: '#4A3597',
+    purple1: '#5359D1',
+    gray: '#EFEFEF',
+    gray1: '#A0A0A0'
 },
 
 fontSizes:{

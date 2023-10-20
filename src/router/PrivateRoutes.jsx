@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { Navigate } from "react-router-native";
+import { Navigate } from 'react-router-native';
 
 
-const PrivateRoutes = ({children}) => {
+const PrivateRoutes = ({ children }) => {
   return (
     true
     ? children

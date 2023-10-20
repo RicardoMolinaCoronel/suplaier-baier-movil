@@ -1,26 +1,35 @@
 import {React} from 'react'
-import { Routes, Route } from 'react-router-native'
+import { Routes, Route, } from 'react-router-native'
 import StyledText from '../../styles/StyledText';
 import { StatusBar } from 'expo-status-bar';
 import {View, StyleSheet} from 'react-native'
+import { Navigate, useNavigate, useLocation } from 'react-router-native'
 
+import HomeRoutes from './HomeRoutes';
+import AppProvBar from '../components/AppProvBar';
+import NavigationBar from '../components/NavigationBar';
+const ProveedorRoutes = ({closeButtonOffset, scaleValue, offsetValue, showMenu, setShowMenu}) => {
 
-
-const ProveedorRoutes = () => {
-    return(
+let location = useLocation();  
+  return(
+      
         <Routes>
-        <Route path='/' element={<View>
-          <StyledText fontWeight="bold"> HOME</StyledText>
+        <Route path='/*' element={
+          <>
+          <AppProvBar closeButtonOffset={closeButtonOffset} scaleValue={scaleValue} offsetValue={offsetValue} showMenu={showMenu} setShowMenu={setShowMenu}/>   
           <StatusBar style="light" />  
-          </View>}/>
-          <Route path='/proveedor/search' element={          <View>
-          <StyledText fontWeight="bold"> SEARCH</StyledText>
-          <StatusBar style="light" />  
-          </View>}/>
-          <Route path='/proveedor/notifications' element={          <View>
-          <StyledText fontWeight="bold"> NOTIFICATIONS</StyledText>
-          <StatusBar style="light" />  
-          </View>}/>
+<NavigationBar/> 
+<HomeRoutes/>
+{
+location.pathname=="/" && <Navigate to="/proveedor/home/ofertas"/>
+}
+</>
+          }/>
+          <Route path='/proveedor/profile' element={<View>
+          <StyledText fontWeight="bold"> PERFIL</StyledText>
+          <StatusBar style="light" />         
+          </View>}
+          />
         </Routes>
     )
 }

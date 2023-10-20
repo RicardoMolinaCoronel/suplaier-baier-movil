@@ -2,13 +2,13 @@
 import {View} from 'react-native'
 import StyledText from '../../styles/StyledText'
 import { StatusBar } from 'expo-status-bar'
-const HomeProveedorPage = () => {
+const SearchProveedorPage = () => {
     return(
 <View>
-          <StyledText  fontWeight="bold"> OFFERS</StyledText>
+          <StyledText  fontWeight="bold"> SEARCH</StyledText>
           <StatusBar style="light" />  
           </View>
 )
 }
 
-export default HomeProveedorPage
+export default SearchProveedorPage

@@ -96,11 +96,15 @@ const AppRouter = () => {
             </View>
             </PublicRoutes>
           }/>
-          <Route path="/*" element={
+          {/* <Route path="/*" element={
             <PrivateRoutes>
               {getRoutesByTypeOfUser("proveedor")}
             </PrivateRoutes>
-          }/>
+          }/> */}
+          <Route path="/*" element={
+            <MainProveedor/>
+          }/> 
+
         </Routes>
       </>
     )
