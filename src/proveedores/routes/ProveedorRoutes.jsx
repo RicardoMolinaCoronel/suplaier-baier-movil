@@ -11,10 +11,10 @@ import NavigationBar from '../components/NavigationBar';
 const ProveedorRoutes = ({closeButtonOffset, scaleValue, offsetValue, showMenu, setShowMenu}) => {
 
 let location = useLocation();  
-
+console.log(location)
   return(
         <Routes>
-        <Route path='/*' element={
+        <Route path='/proveedor/home/*' element={
           <>
           <AppProvBar closeButtonOffset={closeButtonOffset} scaleValue={scaleValue} offsetValue={offsetValue} showMenu={showMenu} setShowMenu={setShowMenu}/>   
           <StatusBar style="light" />  

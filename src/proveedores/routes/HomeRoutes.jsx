@@ -9,9 +9,9 @@ import NotificationsProveedorPage from '../pages/NotificationsProveedorPage';
 const HomeRoutes = () => {
     return(
         <Routes>
-        <Route path='/proveedor/home/ofertas' element={<HomeProveedorPage/>}/>
-          <Route path='/proveedor/home/search' element={<SearchProveedorPage/>}/>
-          <Route path='/proveedor/home/notifications' element={<NotificationsProveedorPage/>}/>
+        <Route path='ofertas' element={<HomeProveedorPage/>}/>
+          <Route path='search' element={<SearchProveedorPage/>}/>
+          <Route path='notifications' element={<NotificationsProveedorPage/>}/>
         </Routes>
     )
 }

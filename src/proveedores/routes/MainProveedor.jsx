@@ -19,6 +19,7 @@ const MainProveedor = () =>{
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
     return (
       <>
+
         <View style={styles.containerView}>
             <TabProfile name="ricardom2314" profileImage={'../../../public/suplaier_horizontal_celeste.png'}/>
             <View style={styles.borderLine}/>
@@ -36,6 +37,7 @@ const MainProveedor = () =>{
             <TabButton currentTab={currentTab} setCurrentTab={setCurrentTab} text={logOutTab.text} icon={logOutTab.icon} key={logOutTab.id}></TabButton>
             </View>
         </View>
+       
 <Animated.View style={{ flex: 1,
       backgroundColor: 'white',
       position: 'absolute',
@@ -50,7 +52,8 @@ const MainProveedor = () =>{
       { translateX: offsetValue }
       ]}}>
 <ProveedorRoutes closeButtonOffset={closeButtonOffset} scaleValue={scaleValue} offsetValue={offsetValue} showMenu={showMenu} setShowMenu={setShowMenu}/>
-</Animated.View>       
+</Animated.View> 
+      
 </>                     
       );
 }
