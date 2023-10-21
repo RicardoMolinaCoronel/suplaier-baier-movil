@@ -6,7 +6,7 @@ import {View} from 'react-native'
 import PrivateRoutes from './PrivateRoutes.jsx';
 import PublicRoutes from './PublicRoutes.jsx';
 import MainProveedor from '../proveedores/routes/MainProveedor.jsx';
-
+import LoginPage from '../auth/pages/LoginPage.jsx';
 const AppRouter = () => {
     // return(
     //     <Routes>
@@ -42,13 +42,12 @@ const AppRouter = () => {
     return (
       <>
         <Routes>
+        <Route path="/" element={
+            <Navigate to="/login"/>
+          }/>
           <Route path="/login" element={
             <PublicRoutes>
-              <View>
-            <StyledText fontWeight="bold"> COMPRADOR</StyledText>
-            <StatusBar style="light" />
-            <Navigate to="/proveedor/search"/>  
-            </View>
+              <LoginPage/>
             </PublicRoutes>
           }/>
           <Route path="/signup" element={
@@ -102,7 +101,7 @@ const AppRouter = () => {
             </PrivateRoutes>
           }/> */}
           <Route path="/*" element={
-            <MainProveedor/>
+            <MainProveedor/>           
           }/> 
 
         </Routes>

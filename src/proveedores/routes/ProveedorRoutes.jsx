@@ -11,8 +11,8 @@ import NavigationBar from '../components/NavigationBar';
 const ProveedorRoutes = ({closeButtonOffset, scaleValue, offsetValue, showMenu, setShowMenu}) => {
 
 let location = useLocation();  
+
   return(
-      
         <Routes>
         <Route path='/*' element={
           <>
@@ -21,7 +21,7 @@ let location = useLocation();
 <NavigationBar/> 
 <HomeRoutes/>
 {
-location.pathname=="/" && <Navigate to="/proveedor/home/ofertas"/>
+location.pathname=="/proveedor/home" && <Navigate to="/proveedor/home/ofertas"/>
 }
 </>
           }/>

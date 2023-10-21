@@ -3,8 +3,21 @@ export const tabs=[
     { id: 2, text: "Perfil",  icon:   'user-shape'  },
     {
         id: 3,
+        text: "Crear oferta",
+        icon:  'add-plus-button' ,
+    },
+    {
+        id: 4,
+        text: "Crear producto",
+        icon:  'attachment-clip' ,
+    },
+    {
+        id: 5,
         text: "Órdenes",
         icon:  'shopping-basket-button' ,
     },
+
+
+
 ];
-export const logOutTab={ id: 5, text: "Cerrar sesión",  icon:   'enter-arrow'  };
+export const logOutTab={ id: 6, text: "Cerrar sesión",  icon:   'enter-arrow'  };

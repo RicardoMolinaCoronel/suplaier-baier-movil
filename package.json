@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@react-navigation/drawer": "^6.6.4",
     "@react-navigation/native": "^6.1.8",
     "expo": "~49.0.13",
@@ -50,8 +51,10 @@
     "parserOptions": {
       "requireConfigFile": false,
       "babelOptions": {
-        "presets": ["@babel/preset-react"]
-     }
+        "presets": [
+          "@babel/preset-react"
+        ]
+      }
     }
   }
 }

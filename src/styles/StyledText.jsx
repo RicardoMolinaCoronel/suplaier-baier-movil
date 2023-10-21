@@ -16,11 +16,23 @@ const styles = StyleSheet.create({
     colorSecondary: {
         color: theme.colors.textSecondary
     },
+    colorTertiary: {
+        color: theme.colors.textTertiary
+    },
     bold: {
         fontWeight: theme.fontWeights.bold
     },
+    normal: {
+        fontWeight: theme.fontWeights.normal
+    },
     subheading: {
         fontSize: theme.fontSizes.subheading
+    },
+    title: {
+        fontSize: theme.fontSizes.title
+    },
+    subtitle: {
+        fontSize: theme.fontSizes.subtitle
     },
 
     
@@ -31,8 +43,13 @@ export default function StyledText({children,color,fontSize, fontWeight, style, 
         styles.text,
         color === 'primary' && styles.colorPrimary,
         color === 'secondary' && styles.colorSecondary,
+        color === 'tertiary' && styles.colorTertiary,
         fontSize === 'subheading' && styles.subheading,
-        fontWeight === 'bold' && styles.bold
+        fontSize === 'title' && styles.title,
+        fontSize === 'subtitle' && styles.subtitle,
+        fontWeight === 'bold' && styles.bold,
+        fontWeight === 'normal' && styles.normal,
+        style
     ]
     return (
         <Text style={textStyles} {...restOfProps}>

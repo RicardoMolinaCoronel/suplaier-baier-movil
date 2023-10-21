@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
     },
     containerView: {
-      justifyContent: 'flex-start',
       padding: 15
     },
     borderLine:{

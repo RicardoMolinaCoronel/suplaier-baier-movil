@@ -16,7 +16,7 @@ export const TabButton =({currentTab, setCurrentTab, text, icon} )=>{
             setCurrentTab(text)
             switch (text) {
                 case 'Inicio':
-                    navigate("/", {
+                    navigate("/proveedor/home", {
                         replace: true,
                       });
                       
@@ -29,6 +29,10 @@ export const TabButton =({currentTab, setCurrentTab, text, icon} )=>{
                 case 'Órdenes':                  
                   console.log('Ordenes');
                   break;
+                case 'Cerrar sesión':
+                    navigate("/login", {
+                        replace: true,
+                      });
                 default:
               }
 
