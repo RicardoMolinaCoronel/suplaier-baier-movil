@@ -1,14 +1,14 @@
 
-import { Button, StyleSheet, TextInput, View, Image, TouchableOpacity } from "react-native"
+import { StyleSheet, TextInput, View, Image, TouchableOpacity } from "react-native"
 import { useState } from "react";
 import { Formik, useField } from "formik"
 import { StatusBar } from 'expo-status-bar';
 import { Octicons, Ionicons } from "@expo/vector-icons";
+import { useNavigate } from "react-router-native";
+import { loginValidationSchema } from "../components/loginValidationSchema";
 import theme from "../../theme"
 import StyledText from "../../styles/StyledText";
-import { useNavigate } from "react-router-native";
-import Constants from 'expo-constants'
-
+import StyledTextInput from "../../styles/StyledTextInput";
 const initialValues={
     user: '',
     password: ''
@@ -19,8 +19,10 @@ const FormikInputValue = ({name, icon, label, isPassword, hidePassword, setHideP
         <View>
             <Octicons style={styles.leftIcon} name={icon} size={30} color={theme.colors.purple1}/>
         <StyledText style={styles.textInputLabel}>{label}</StyledText>
-        <TextInput value={field.value}
-        onChangeText={value => helpers.setValue(value)} style={styles.textInput}
+        <StyledTextInput
+        error={meta.error}
+        value={field.value}
+        onChangeText={value => helpers.setValue(value)}
         {...props}
         />
         {isPassword && ( <TouchableOpacity style={styles.rightIcon} onPress={() => setHidePassword(!hidePassword)}>
@@ -28,6 +30,7 @@ const FormikInputValue = ({name, icon, label, isPassword, hidePassword, setHideP
         />
         </TouchableOpacity>
         )}
+        {meta.error && <StyledText style={styles.errorText} fontSize={"body"}>{meta.error}</StyledText>}
         </View>
                     
     )
@@ -42,7 +45,7 @@ const LoginPage = () => {
             <Image resizeMode="cover" source={require('../../../public/suplaier_horizontal_degradado_recortado.png')} style={styles.pageLogo}/>
     <StyledText color={"tertiary"} fontWeight={"bold"} fontSize={"title"} style={styles.pageTitle}>Iniciar sesión</StyledText>
     <StyledText color={"tertiary"} fontWeight={"normal"} fontSize={"subheading"} style={styles.subtitle}>Para comenzar inicia sesión con tu usuario y contraseña</StyledText>
-    <Formik initialValues={initialValues} onSubmit={values => navigate("/proveedor/home", {
+    <Formik validationSchema={loginValidationSchema} initialValues={initialValues} onSubmit={values => navigate("/proveedor/home", {
                         
                       })}>
         {({handleSubmit}) => {
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
         flex:1,      
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: theme.colors.lightGray,
+        backgroundColor: "white",
         position: 'absolute',
         top: 0,
         bottom: 0,
@@ -111,18 +114,6 @@ const styles = StyleSheet.create({
     },
     form:{
         margin:20,
-    },
-    textInput:{
-        backgroundColor:theme.colors.gray2,
-        padding:15,
-        paddingLeft:55,
-        paddingRight:67,
-        borderRadius:5,
-        fontSize: theme.fontSizes.subheading,
-        height: 60,
-        marginVertical:3,
-        marginBottom:15,
-        color:"black"
     },
     textInputLabel:{
         color: "black",
@@ -172,6 +163,11 @@ const styles = StyleSheet.create({
     bottomText:{
         marginTop:10,
         textAlign: "center"
+    },
+    errorText:{
+        color:theme.colors.red,
+        marginBottom:10,
+        marginTop:-13
     }
 
 })

@@ -26,7 +26,8 @@ colors:{
     lightGray: '#F5F5F5',
     gray: '#EFEFEF',
     gray1: '#A0A0A0',
-    gray2: '#DBDBDB'
+    gray2: '#DBDBDB',
+    red: '#FC327A'
 },
 
 fontSizes:{

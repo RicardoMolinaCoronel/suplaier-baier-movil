@@ -10,8 +10,8 @@ import AppProvBar from '../components/AppProvBar';
 import NavigationBar from '../components/NavigationBar';
 const ProveedorRoutes = ({closeButtonOffset, scaleValue, offsetValue, showMenu, setShowMenu}) => {
 
-let location = useLocation();  
-console.log(location)
+let location = useLocation();
+
   return(
         <Routes>
         <Route path='/proveedor/home/*' element={
