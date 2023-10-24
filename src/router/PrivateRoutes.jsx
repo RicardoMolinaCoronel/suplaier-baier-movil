@@ -1,13 +1,8 @@
-import { useContext } from "react";
-import { Navigate } from 'react-router-native';
-
+/* eslint-disable no-constant-condition */
+import { Navigate } from "react-router-native";
 
 const PrivateRoutes = ({ children }) => {
-  return (
-    true
-    ? children
-    : <Navigate to="/login"/>
-  )
-}
+  return true ? children : <Navigate to="/login" />;
+};
 
-export default PrivateRoutes
+export default PrivateRoutes;
