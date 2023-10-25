@@ -134,13 +134,21 @@ const LoginPage = () => {
                     Registrarse
                   </StyledText>
                 </TouchableOpacity>
-                <StyledText
-                  fontSize="subheading"
-                  color="primary"
-                  style={styles.bottomText}
-                >
-                  ¿Aún no tienes cuenta?, ¡Regístrate!
-                </StyledText>
+                <View style={styles.extraView}>
+                  <StyledText
+                    fontSize="subheading"
+                    color="primary"
+                    style={styles.extraText}
+                  >
+                    ¿Aún no tienes cuenta?,{" "}
+                  </StyledText>
+                  <TouchableOpacity style={styles.extraTextLink}>
+                    <StyledText fontSize="subheading" style={styles.textLink}>
+                      ¡Regístrate!
+                    </StyledText>
+                  </TouchableOpacity>
+                </View>
+
                 {/* <Button onPress={handleSubmit} title='Iniciar sesión'/> */}
               </View>
             );
@@ -230,6 +238,23 @@ const styles = StyleSheet.create({
     color: theme.colors.red,
     marginBottom: 10,
     marginTop: -13,
+  },
+  extraView: {
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 5,
+  },
+  extraText: {
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  extraTextLink: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textLink: {
+    color: theme.colors.purple,
   },
 });
 

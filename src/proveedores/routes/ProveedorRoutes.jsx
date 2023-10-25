@@ -3,7 +3,6 @@ import { Routes, Route, Navigate, useLocation } from "react-router-native";
 import StyledText from "../../styles/StyledText";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
-
 import HomeRoutes from "./HomeRoutes";
 import AppProvBar from "../components/AppProvBar";
 import NavigationBar from "../components/NavigationBar";
@@ -30,11 +29,12 @@ const ProveedorRoutes = ({
               setShowMenu={setShowMenu}
             />
             <StatusBar style="light" />
-            <NavigationBar />
+
             <HomeRoutes />
             {location.pathname == "/proveedor/home" && (
               <Navigate to="/proveedor/home/ofertas" />
             )}
+            <NavigationBar />
           </>
         }
       />
