@@ -4,6 +4,7 @@ import StyledText from "../../styles/StyledText";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 import HomeRoutes from "./HomeRoutes";
+import ProfileRoutes from "./ProfileRoutes";
 import AppProvBar from "../components/AppProvBar";
 import NavigationBar from "../components/NavigationBar";
 const ProveedorRoutes = ({
@@ -39,12 +40,23 @@ const ProveedorRoutes = ({
         }
       />
       <Route
-        path="/proveedor/profile"
+        path="/proveedor/profile/*"
         element={
-          <View>
-            <StyledText fontWeight="bold"> PERFIL</StyledText>
+          <>
+            <AppProvBar
+              closeButtonOffset={closeButtonOffset}
+              scaleValue={scaleValue}
+              offsetValue={offsetValue}
+              showMenu={showMenu}
+              setShowMenu={setShowMenu}
+            />
             <StatusBar style="light" />
-          </View>
+            
+            <ProfileRoutes />
+            {location.pathname == "/proveedor/profile" && (
+              <Navigate to="/proveedor/profile/information" />
+            )}
+          </>
         }
       />
     </Routes>
