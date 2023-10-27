@@ -1,12 +1,15 @@
-import { React, useState, useRef } from "react";
-import { StyleSheet, View, Animated } from "react-native";
+import { React, useState, useRef, useContext } from "react";
+import { StyleSheet, View, Animated, SafeAreaView } from "react-native";
 import { TabButton } from "../components/TabButton.jsx";
 import { tabs, logOutTab } from "../components/tabs";
+import { AuthContext } from "../../auth/context/AuthContext.jsx";
 import theme from "../../theme.js";
 import ProveedorRoutes from "./ProveedorRoutes.jsx";
 import TabProfile from "../components/TabProfile.jsx";
+import StyledText from "../../styles/StyledText.jsx";
 
 const MainProveedor = () => {
+  const { authState } = useContext(AuthContext);
   const [currentTab, setCurrentTab] = useState("Inicio");
   // To get the curretn Status of menu
   const [showMenu, setShowMenu] = useState(false);
@@ -16,11 +19,12 @@ const MainProveedor = () => {
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
   return (
-    <>
+    <SafeAreaView style={styles.containerSafe}>
       <View style={styles.containerView}>
         <TabProfile
-          name="ricardom2314"
-          profileImage="../../../public/suplaier_horizontal_celeste.png"
+          name={authState.user.Usuario}
+          pais={authState.user.Pais}
+          profileImage={authState.user.UrlLogoEmpresa}
         />
         <View style={styles.borderLine} />
         <View style={{ flexGrow: 1, marginTop: 30 }}>
@@ -70,10 +74,16 @@ const MainProveedor = () => {
           setShowMenu={setShowMenu}
         />
       </Animated.View>
-    </>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
+  containerSafe: {
+    flex: 1,
+    backgroundColor: theme.colors.purple,
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",

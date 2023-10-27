@@ -1,6 +1,8 @@
 import { Navigate } from "react-router-native";
-
+import { useContext } from "react";
+import { AuthContext } from "../auth/context/AuthContext";
 const PublicRoutes = ({ children }) => {
+  const { authState } = useContext(AuthContext);
   const tipoPage = (tipo) => {
     switch (tipo) {
       case "comprador":
@@ -10,10 +12,7 @@ const PublicRoutes = ({ children }) => {
     }
   };
 
-  return (
-    // eslint-disable-next-line no-constant-condition
-    true ? children : <Navigate to={tipoPage("proveedor")} />
-  );
+  return !authState.logged ? children : <Navigate to={tipoPage("proveedor")} />;
 };
 
 export default PublicRoutes;

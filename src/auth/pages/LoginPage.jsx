@@ -1,10 +1,12 @@
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Formik, useField } from "formik";
 import { StatusBar } from "expo-status-bar";
 import { Octicons, Ionicons } from "@expo/vector-icons";
-import { useNavigate } from "react-router-native";
+import { useNavigate, Navigate } from "react-router-native";
 import { loginValidationSchema } from "../components/loginValidationSchema";
+import { apiUrl } from "../../../apiUrl";
+import { AuthContext } from "../context/AuthContext";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 import StyledTextInput from "../../styles/StyledTextInput";
@@ -61,7 +63,56 @@ const FormikInputValue = ({
 
 const LoginPage = () => {
   const [hidePassword, setHidePassword] = useState(true);
+  const [credentialsIncorrect, setCredentialsIncorrect] = useState(false);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+
+  const getAuthResponse = async (username, password) => {
+    const body = {
+      usuario: username,
+      pass: password,
+    };
+    const resp = await global.fetch(`${apiUrl}/auth`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await resp.json();
+    console.log("peticion");
+
+    if (data.length === 0) {
+      return null;
+    } else {
+      return data[0];
+    }
+  };
+
+  const onSubmitLogin = (values) => {
+    getAuthResponse(values.user, values.password).then((user) => {
+      if (!!user) {
+        login(user);
+        setCredentialsIncorrect(false);
+        switch (user.Rol) {
+          // comprador
+          case "comprador":
+            navigate("/comprador/home", {
+              replace: true,
+            });
+            break;
+          // proveedor
+          case "proveedor":
+            navigate("/proveedor/home", {
+              replace: true,
+            });
+            break;
+        }
+      } else {
+        setCredentialsIncorrect(true);
+      }
+    });
+  };
   return (
     <>
       <View style={styles.container}>
@@ -89,11 +140,18 @@ const LoginPage = () => {
         <Formik
           validationSchema={loginValidationSchema}
           initialValues={initialValues}
-          onSubmit={(values) => navigate("/proveedor/home", {})}
+          onSubmit={(values) => onSubmitLogin(values)}
         >
           {({ handleSubmit }) => {
             return (
               <View style={styles.form}>
+                {credentialsIncorrect && (
+                  <View style={styles.containerCredentialsIncorrect}>
+                    <StyledText style={styles.errorText} fontSize="body">
+                      Usuario y/o contraseña incorrectos
+                    </StyledText>
+                  </View>
+                )}
                 <FormikInputValue
                   name="user"
                   icon="person"
@@ -112,6 +170,7 @@ const LoginPage = () => {
                   hidePassword={hidePassword}
                   setHidePassword={setHidePassword}
                 />
+
                 <TouchableOpacity
                   style={styles.submitButton}
                   onPress={handleSubmit}
@@ -121,7 +180,7 @@ const LoginPage = () => {
                     color="secondary"
                     fontWeight="bold"
                   >
-                    Log in
+                    Iniciar sesión
                   </StyledText>
                 </TouchableOpacity>
                 <View style={styles.borderLine} />
@@ -171,6 +230,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
+  containerCredentialsIncorrect: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
   pageLogo: {
     width: 307.98,
     height: 61.14,
@@ -182,11 +245,15 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 20,
   },
+  credentialsIncorrect: {
+    marginTop: 5,
+    marginBottom: 5,
+  },
   form: {
     margin: 20,
   },
   textInputLabel: {
-    color: "black",
+    color: theme.colors.purple,
     textAlign: "left",
   },
   subtitle: {

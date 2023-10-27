@@ -1,16 +1,23 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import React from "react";
 
-const TabProfile = ({ name, profileImage }) => {
+const TabProfile = ({ name, pais, profileImage }) => {
   return (
     <View style={{ marginTop: "15%", marginLeft: "3%" }}>
       <Image
-        source={require("../../../public/user_icon.png")}
+        source={
+          profileImage != null
+            ? {
+                uri: profileImage,
+              }
+            : require("../../../public/user_icon.png")
+        }
         style={{
-          width: 70,
-          height: 70,
-          borderRadius: 10,
+          width: 80,
+          height: 80,
+          borderRadius: 80 / 2,
           marginTop: 8,
+          resizeMode: "center",
         }}
       />
 
@@ -24,8 +31,18 @@ const TabProfile = ({ name, profileImage }) => {
       >
         @{name}
       </Text>
+      <Text
+        style={{
+          fontSize: 18,
+          fontWeight: "normal",
+          color: "white",
+          marginTop: 4,
+        }}
+      >
+        {pais}
+      </Text>
 
-      <TouchableOpacity>
+      {/* <TouchableOpacity>
         <Text
           style={{
             marginTop: 4,
@@ -34,7 +51,7 @@ const TabProfile = ({ name, profileImage }) => {
         >
           Ver Perfil
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

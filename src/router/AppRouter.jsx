@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-native";
 import StyledText from "../styles/StyledText.jsx";
 import { StatusBar } from "expo-status-bar";
@@ -11,14 +11,17 @@ const AppRouter = () => {
   const getRoutesByTypeOfUser = (tipo) => {
     switch (tipo) {
       case "comprador":
+        console.log("En approuter comprador");
+
         return (
           <View>
             <StyledText fontWeight="bold"> COMPRADOR</StyledText>
             <StatusBar style="light" />
-            <Navigate to="/proveedor/search" />
           </View>
         );
       case "proveedor":
+        console.log("aqudfasdfadi");
+
         return <MainProveedor />;
     }
   };

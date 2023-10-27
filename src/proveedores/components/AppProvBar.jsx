@@ -1,4 +1,5 @@
 import React from "react";
+import { useContext } from "react";
 import {
   View,
   Image,
@@ -10,6 +11,7 @@ import {
 import Constants from "expo-constants";
 import theme from "../../theme.js";
 import Icon from "react-native-ico-material-design";
+import { AuthContext } from "../../auth/context/AuthContext.jsx";
 
 const AppProvBar = ({
   closeButtonOffset,
@@ -18,6 +20,7 @@ const AppProvBar = ({
   showMenu,
   setShowMenu,
 }) => {
+  const { authState } = useContext(AuthContext);
   const iconHeight = 26;
   const iconWidth = 26;
   return (
@@ -100,7 +103,13 @@ const AppProvBar = ({
         <Pressable onPress={() => false} style={styles.iconBehave}>
           <Image
             style={styles.profileImgSize}
-            source={require("../../../public/user_icon.png")}
+            source={
+              authState.user.UrlLogoEmpresa != null
+                ? {
+                    uri: authState.user.UrlLogoEmpresa,
+                  }
+                : require("../../../public/user_icon.png")
+            }
           />
         </Pressable>
       </Animated.View>
@@ -131,6 +140,8 @@ const styles = StyleSheet.create({
   profileImgSize: {
     width: 30,
     height: 30,
+    resizeMode: "contain",
+    borderRadius: 30 / 2,
   },
 });
 

@@ -21,6 +21,7 @@ const HomeProveedorPage = () => {
         <View style={styles.borderLine} />
       </View>
       <OfertasList />
+      <View style={styles.spaceBorder} />
       <StatusBar style="light" />
     </View>
   );
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     padding: 10,
+    flex: 1,
   },
   misOfertasContainer: {},
   topContainer: {
@@ -43,6 +45,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginTop: 5,
     marginBottom: 10,
+  },
+  spaceBorder: {
+    marginTop: 45,
   },
 });
 export default HomeProveedorPage;

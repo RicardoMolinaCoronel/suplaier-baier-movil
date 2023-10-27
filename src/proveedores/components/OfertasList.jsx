@@ -12,19 +12,19 @@ const OfertasList = () => {
       renderItem={({ item: oferta }) => (
         <View style={styles.ofertaContainer}>
           <View style={styles.textoImagenContainer}>
-            <StyledText fontWeight="bold" fontSize="subheading">
+            <StyledText fontWeight="bold" fontSize="subheading" color="purple">
               {oferta.nombreItem}
             </StyledText>
             <Image
               source={require("../../../public/manzanas.jpg")}
               style={styles.imageContainer}
             />
-            <StyledText>{oferta.empresa}</StyledText>
+            <StyledText color="purple">{oferta.empresa}</StyledText>
           </View>
           <View style={styles.enOfertaContainer}>
-            <StyledText>En oferta: </StyledText>
-            <StyledText>16/</StyledText>
-            <StyledText>{oferta.cantidad}</StyledText>
+            <StyledText color="purple">En oferta: </StyledText>
+            <StyledText color="purple">16/</StyledText>
+            <StyledText color="purple">{oferta.cantidad}</StyledText>
           </View>
           <View style={styles.progressContainer}>
             <View style={styles.progressBar}>
@@ -41,16 +41,16 @@ const OfertasList = () => {
             </View>
           </View>
           <View style={styles.vigenciaContainer}>
-            <StyledText>Fecha vigencia: </StyledText>
-            <StyledText>{oferta.vigencia}</StyledText>
+            <StyledText color="purple">Fecha vigencia: </StyledText>
+            <StyledText color="purple">{oferta.vigencia}</StyledText>
           </View>
           <View style={styles.enOfertaContainer}>
-            <StyledText>Precio unitario: </StyledText>
-            <StyledText>{oferta.precio}$</StyledText>
+            <StyledText color="purple">Precio unitario: </StyledText>
+            <StyledText color="purple">{oferta.precio}$</StyledText>
           </View>
           <View style={styles.enOfertaContainer}>
-            <StyledText>Precio instantáneo: </StyledText>
-            <StyledText>{oferta.instantaneo}$</StyledText>
+            <StyledText color="purple">Precio instantáneo: </StyledText>
+            <StyledText color="purple">{oferta.instantaneo}$</StyledText>
           </View>
         </View>
       )}

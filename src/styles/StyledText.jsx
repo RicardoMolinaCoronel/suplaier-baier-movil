@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
   colorTertiary: {
     color: theme.colors.textTertiary,
   },
+  colorPurple: {
+    color: theme.colors.textTertiary,
+  },
   bold: {
     fontWeight: theme.fontWeights.bold,
   },
@@ -50,6 +53,7 @@ export default function StyledText({
     color === "primary" && styles.colorPrimary,
     color === "secondary" && styles.colorSecondary,
     color === "tertiary" && styles.colorTertiary,
+    color === "purple" && styles.colorPurple,
     fontSize === "subheading" && styles.subheading,
     fontSize === "title" && styles.title,
     fontSize === "subtitle" && styles.subtitle,
