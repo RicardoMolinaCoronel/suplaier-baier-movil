@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
   subheading: {
     fontSize: theme.fontSizes.subheading,
   },
+  bigtitle: {
+    fontSize: theme.fontSizes.bigTitle,
+  },
   title: {
     fontSize: theme.fontSizes.title,
   },
@@ -57,6 +60,7 @@ export default function StyledText({
     fontSize === "subheading" && styles.subheading,
     fontSize === "title" && styles.title,
     fontSize === "subtitle" && styles.subtitle,
+    fontSize === "bigtitle" && styles.bigtitle,
     fontWeight === "bold" && styles.bold,
     fontWeight === "normal" && styles.normal,
     style,

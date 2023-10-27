@@ -1,59 +1,20 @@
-import { ofertas } from "../../data/ofertas";
 import { View, StyleSheet, FlatList, Image } from "react-native";
+import OfertaItem from "./OfertaItem";
 import StyledText from "../../styles/StyledText";
 import theme from "../../theme";
 import ProgressBar from "react-native-progress/Bar";
+import { useContext, useState, useEffect } from "react";
+import { AuthContext } from "../../auth/context/AuthContext";
+import { apiUrl } from "../../../apiUrl";
+import useOfertas from "../hooks/useOfertas";
 
 const OfertasList = () => {
+  const { ofertasProv } = useOfertas();
   return (
     <FlatList
       style={styles.flatListContainer}
-      data={ofertas}
-      renderItem={({ item: oferta }) => (
-        <View style={styles.ofertaContainer}>
-          <View style={styles.textoImagenContainer}>
-            <StyledText fontWeight="bold" fontSize="subheading" color="purple">
-              {oferta.nombreItem}
-            </StyledText>
-            <Image
-              source={require("../../../public/manzanas.jpg")}
-              style={styles.imageContainer}
-            />
-            <StyledText color="purple">{oferta.empresa}</StyledText>
-          </View>
-          <View style={styles.enOfertaContainer}>
-            <StyledText color="purple">En oferta: </StyledText>
-            <StyledText color="purple">16/</StyledText>
-            <StyledText color="purple">{oferta.cantidad}</StyledText>
-          </View>
-          <View style={styles.progressContainer}>
-            <View style={styles.progressBar}>
-              <ProgressBar
-                progress={4 / 20}
-                width={200}
-                height={25}
-                color={theme.colors.blue}
-                unfilledColor={theme.colors.gray2}
-              />
-            </View>
-            <View style={styles.estadoContainer}>
-              <StyledText color="secondary">En curso</StyledText>
-            </View>
-          </View>
-          <View style={styles.vigenciaContainer}>
-            <StyledText color="purple">Fecha vigencia: </StyledText>
-            <StyledText color="purple">{oferta.vigencia}</StyledText>
-          </View>
-          <View style={styles.enOfertaContainer}>
-            <StyledText color="purple">Precio unitario: </StyledText>
-            <StyledText color="purple">{oferta.precio}$</StyledText>
-          </View>
-          <View style={styles.enOfertaContainer}>
-            <StyledText color="purple">Precio instantáneo: </StyledText>
-            <StyledText color="purple">{oferta.instantaneo}$</StyledText>
-          </View>
-        </View>
-      )}
+      data={ofertasProv}
+      renderItem={({ item: oferta }) => <OfertaItem {...oferta} />}
     />
   );
 };

@@ -12,7 +12,11 @@ const PublicRoutes = ({ children }) => {
     }
   };
 
-  return !authState.logged ? children : <Navigate to={tipoPage("proveedor")} />;
+  return !authState.logged ? (
+    children
+  ) : (
+    <Navigate to={tipoPage(authState?.user?.Rol)} />
+  );
 };
 
 export default PublicRoutes;

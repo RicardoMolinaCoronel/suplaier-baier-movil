@@ -104,7 +104,8 @@ const AppProvBar = ({
           <Image
             style={styles.profileImgSize}
             source={
-              authState.user.UrlLogoEmpresa != null
+              authState.user.UrlLogoEmpresa != null &&
+              authState.user.UrlLogoEmpresa != "no-img.jpeg"
                 ? {
                     uri: authState.user.UrlLogoEmpresa,
                   }

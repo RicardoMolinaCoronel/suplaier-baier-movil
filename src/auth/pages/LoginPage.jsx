@@ -184,7 +184,14 @@ const LoginPage = () => {
                   </StyledText>
                 </TouchableOpacity>
                 <View style={styles.borderLine} />
-                <TouchableOpacity style={styles.registerButton} onPress>
+                <TouchableOpacity
+                  style={styles.registerButton}
+                  onPress={() => {
+                    navigate("/signup_type", {
+                      replace: true,
+                    });
+                  }}
+                >
                   <StyledText
                     fontSize="subheading"
                     color="secondary"
@@ -201,7 +208,14 @@ const LoginPage = () => {
                   >
                     ¿Aún no tienes cuenta?,{" "}
                   </StyledText>
-                  <TouchableOpacity style={styles.extraTextLink}>
+                  <TouchableOpacity
+                    style={styles.extraTextLink}
+                    onPress={() => {
+                      navigate("/signup_type", {
+                        replace: true,
+                      });
+                    }}
+                  >
                     <StyledText fontSize="subheading" style={styles.textLink}>
                       ¡Regístrate!
                     </StyledText>

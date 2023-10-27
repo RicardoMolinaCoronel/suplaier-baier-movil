@@ -6,7 +6,7 @@ const TabProfile = ({ name, pais, profileImage }) => {
     <View style={{ marginTop: "15%", marginLeft: "3%" }}>
       <Image
         source={
-          profileImage != null
+          profileImage != null && profileImage != "no-img.jpeg"
             ? {
                 uri: profileImage,
               }
