@@ -109,7 +109,7 @@ const AppProvBar = ({
                 ? {
                     uri: authState.user.UrlLogoEmpresa,
                   }
-                : require("../../../public/user_icon.png")
+                : require("../../../public/default-logo1.jpg")
             }
           />
         </Pressable>

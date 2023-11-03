@@ -7,24 +7,35 @@ import { useState, useEffect, useContext } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
 
-const OfertaItem = (props) => {
+const OrdenItem = (props) => {
+  const [oferta, setOferta] = useState();
   const [producto, setProducto] = useState();
   const [proveedor, setProveedor] = useState();
+  const [comprador, setComprador] = useState();
   const [estadoOferta, setEstadoOferta] = useState();
   const [nombreProveedor, setNombreProveedor] = useState();
   const [datosProd, setDatosProd] = useState({});
   const [progresoOferta, setProgresoOferta] = useState(0);
-  const fechaLimiteObj = new Date(props.FechaLimite);
+  const fechaLimiteObj = new Date(oferta?.FechaLimite);
 
   const updateProgresoOferta = () => {
-    let maximo = parseInt(props.Maximo);
-    let actualProductos = parseInt(props.ActualProductos);
+    let maximo = parseInt(oferta.Maximo);
+    let actualProductos = parseInt(oferta.ActualProductos);
     setProgresoOferta(actualProductos / maximo);
   };
-
+  const getOferta = async () => {
+    const resp = await globalThis.fetch(
+      `${apiUrl}/ofertas?id=${props.IdOferta}`
+    );
+    const data = await resp.json();
+    const { rows: oferta } = !!data && data;
+    setOferta(oferta[0]);
+    getProductoOferta();
+    updateProgresoOferta();
+  };
   const getProductoOferta = async () => {
     const resp = await globalThis.fetch(
-      `${apiUrl}/productos?id=${props.IdProducto}`
+      `${apiUrl}/productos?id=${oferta.IdProducto}`
     );
     const data = await resp.json();
     const { rows: producto } = !!data && data;
@@ -38,19 +49,27 @@ const OfertaItem = (props) => {
     const { rows: proveedor } = !!data && data;
     setProveedor(proveedor[0]);
   };
+  const getCompradorOferta = async () => {
+    const resp = await globalThis.fetch(
+      `${apiUrl}/usuarios?idUsuario=${props.IdComprador}`
+    );
+    const data = await resp.json();
+    const { rows: comprador } = !!data && data;
+    setComprador(comprador[0]);
+  };
   const getEstadoOferta = async () => {
     const resp = await globalThis.fetch(
-      `${apiUrl}/estados?id=${props.IdEstadosOferta}`
+      `${apiUrl}/estados?id=${props.IdEstado}`
     );
     const data = await resp.json();
     const { rows: estado } = !!data && data;
     setEstadoOferta(estado[0]);
   };
   useEffect(() => {
-    getProductoOferta();
+    getOferta();
     getProveedorOferta();
+    getCompradorOferta();
     getEstadoOferta();
-    updateProgresoOferta();
   }, [props]);
 
   useEffect(() => {
@@ -60,14 +79,14 @@ const OfertaItem = (props) => {
   useEffect(() => {
     setDatosProd({
       nombreProd: producto?.Name,
-      costoU: props.ValorUProducto,
-      costoInst: props.ValorUInstantaneo,
+      costoU: oferta?.ValorUProducto,
+      costoInst: oferta?.ValorUInstantaneo,
       urlImg: producto?.UrlImg,
     });
-  }, [producto, props]);
+  }, [producto, oferta]);
 
   return (
-    <View style={styles.ofertaContainer}>
+    <View style={styles.ordenContainer}>
       <View style={styles.textoImagenContainer}>
         <StyledText fontWeight="bold" fontSize="subheading" color="purple">
           {datosProd?.nombreProd}
@@ -78,17 +97,21 @@ const OfertaItem = (props) => {
           }}
           style={styles.imageContainer}
         />
-        <StyledText color="purple">{nombreProveedor}</StyledText>
       </View>
-
+      <View style={styles.compradorContainer}>
+        <StyledText color="purple" fontWeight="bold">
+          Comprador:{" "}
+        </StyledText>
+        <StyledText color="purple">{comprador?.Nombre}</StyledText>
+      </View>
       <View style={styles.enOfertaContainer}>
         <StyledText color="purple" fontWeight="bold">
           En oferta:{" "}
         </StyledText>
         <StyledText color="purple">
-          {parseInt(props.Maximo) - parseInt(props.ActualProductos)}/
+          {parseInt(oferta?.Maximo) - parseInt(oferta?.ActualProductos)}/
         </StyledText>
-        <StyledText color="purple">{props.Maximo}</StyledText>
+        <StyledText color="purple">{oferta?.Maximo}</StyledText>
       </View>
       <View style={styles.progressContainer}>
         <View style={styles.progressBar}>
@@ -140,7 +163,7 @@ const OfertaItem = (props) => {
   );
 };
 const styles = StyleSheet.create({
-  ofertaContainer: {
+  ordenContainer: {
     borderWidth: 1,
     borderRadius: 4,
     borderColor: theme.colors.lightGray2,
@@ -168,10 +191,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 7,
   },
+  compradorContainer: {
+    alignItems: "flex-start",
+    flexDirection: "row",
+  },
   enOfertaContainer: {
     alignItems: "flex-start",
     flexDirection: "row",
-    marginTop: 5,
+    marginTop: 10,
   },
   precioUContainer: {
     flexDirection: "row",
@@ -200,4 +227,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-export default OfertaItem;
+export default OrdenItem;

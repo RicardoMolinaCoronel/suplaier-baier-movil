@@ -10,7 +10,7 @@ const TabProfile = ({ name, pais, profileImage }) => {
             ? {
                 uri: profileImage,
               }
-            : require("../../../public/user_icon.png")
+            : require("../../../public/default-logo1.jpg")
         }
         style={{
           width: 80,

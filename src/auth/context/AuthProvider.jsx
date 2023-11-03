@@ -4,15 +4,8 @@ import { AuthContext } from "./AuthContext";
 import { authReducer } from "./authReducer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const init = async () => {
-  let user;
-  try {
-    user = await AsyncStorage.getItem("user");
-  } catch (error) {
-    console.log(error.message);
-  }
   return {
     logged: false,
-    user: JSON.parse({}),
   };
 };
 
