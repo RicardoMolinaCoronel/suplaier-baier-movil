@@ -5,18 +5,6 @@ import { StatusBar } from "expo-status-bar";
 import { AuthContext } from "../../auth/context/AuthContext.jsx";
 const MyProfile = () => {
   const { authState } = useContext(AuthContext);
-  const getRolText = (rol) => {
-    switch (rol) {
-      case 1:
-        return 'Comprador';
-      case 2:
-        return 'Proveedor';
-      case 3:
-        return 'Administrador';
-      default:
-        return 'Desconocido';
-    }
-  };
   return (
     <><View>
       <StyledText style={styles.header} > MI PERFIL</StyledText>
@@ -42,7 +30,7 @@ const MyProfile = () => {
         
         <View style={styles.row}>
             <Text style={styles.label}>Rol:</Text>
-            <Text style={styles.content}>{authState.user.IdRol}</Text>
+            <Text style={styles.content}>{authState.user.Rol}</Text>
         </View>
 
         <View style={styles.row}>
