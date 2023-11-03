@@ -27,7 +27,7 @@ const MainProveedor = () => {
           profileImage={authState.user.UrlLogoEmpresa}
         />
         <View style={styles.borderLine} />
-        <View style={{ flexGrow: 1, marginTop: 30 }}>
+        <View style={styles.containerButtons}>
           {tabs.map((item) => {
             return (
               <TabButton
@@ -90,6 +90,10 @@ const styles = StyleSheet.create({
   },
   containerView: {
     padding: 15,
+  },
+  containerButtons: {
+    flexGrow: 1,
+    justifyContent: "space-evenly",
   },
   borderLine: {
     borderBottomColor: theme.colors.gray,

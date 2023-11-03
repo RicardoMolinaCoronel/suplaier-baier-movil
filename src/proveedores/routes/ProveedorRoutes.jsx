@@ -9,6 +9,7 @@ import CrearProductoPage from "../pages/CrearProductoPage";
 import CrearOfertaPage from "../pages/CrearOfertaPage";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
+import OrdenesRoutes from "./OrdenesRoutes";
 const ProveedorRoutes = ({
   closeButtonOffset,
   scaleValue,
@@ -57,6 +58,26 @@ const ProveedorRoutes = ({
             <ProfileRoutes />
             {location.pathname == "/proveedor/profile" && (
               <Navigate to="/proveedor/profile/information" />
+            )}
+          </>
+        }
+      />
+      <Route
+        path="/proveedor/ordenes/*"
+        element={
+          <>
+            <AppProvBar
+              closeButtonOffset={closeButtonOffset}
+              scaleValue={scaleValue}
+              offsetValue={offsetValue}
+              showMenu={showMenu}
+              setShowMenu={setShowMenu}
+            />
+            <StatusBar style="light" />
+
+            <OrdenesRoutes />
+            {location.pathname == "/proveedor/ordenes" && (
+              <Navigate to="/proveedor/ordenes/principal" />
             )}
           </>
         }

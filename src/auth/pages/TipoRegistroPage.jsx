@@ -1,10 +1,30 @@
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  BackHandler,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { useHistory, useNavigate } from "react-router-native";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
-import { useNavigate, Navigate } from "react-router-native";
+
 const TipoRegistroPage = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    const handleBackButton = () => {
+      navigate("/login", {
+        replace: true,
+      });
+    };
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    };
+  }, []);
+
   return (
     <>
       <View style={styles.container}>
@@ -86,6 +106,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     textAlign: "center",
+    marginTop: 15,
   },
   compradorText: {
     marginBottom: 10,

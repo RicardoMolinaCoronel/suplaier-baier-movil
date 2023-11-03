@@ -37,7 +37,9 @@ export const TabButton = ({ currentTab, setCurrentTab, text, icon }) => {
             });
             break;
           case "Órdenes":
-            console.log("Ordenes");
+            navigate("/proveedor/ordenes", {
+              replace: true,
+            });
             break;
           case "Cerrar sesión":
             logout();

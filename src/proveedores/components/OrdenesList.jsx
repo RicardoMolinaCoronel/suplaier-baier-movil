@@ -1,19 +1,18 @@
 import { View, StyleSheet, FlatList, Image } from "react-native";
-import OfertaItem from "./OfertaItem";
-import theme from "../../theme";
-import useOfertas from "../hooks/useOfertas";
+import useOrdenes from "../hooks/useOrdenes";
+import OrdenItem from "./OrdenItem";
 import StyledText from "../../styles/StyledText";
 import { MaterialIcons } from "@expo/vector-icons";
-
-const OfertasList = () => {
-  const { ofertasProv } = useOfertas();
-  const showEmptyArray = !!ofertasProv && ofertasProv?.length === 0;
+import theme from "../../theme";
+const OrdenesList = () => {
+  const { ordenesProv } = useOrdenes();
+  const showEmptyArray = !!ordenesProv && ordenesProv?.length === 0;
   return (
     <>
       {showEmptyArray && (
         <View style={styles.vacioContainer}>
           <StyledText color={"purple"}>
-            No hay ofertas por el momento
+            No hay órdenes de compra por el momento
           </StyledText>
           <MaterialIcons
             name="local-offer"
@@ -26,8 +25,8 @@ const OfertasList = () => {
       {
         <FlatList
           style={styles.flatListContainer}
-          data={ofertasProv}
-          renderItem={({ item: oferta }) => <OfertaItem {...oferta} />}
+          data={ordenesProv}
+          renderItem={({ item: orden }) => <OrdenItem {...orden} />}
         />
       }
     </>
@@ -44,4 +43,4 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
 });
-export default OfertasList;
+export default OrdenesList;
