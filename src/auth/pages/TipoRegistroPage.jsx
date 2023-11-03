@@ -2,7 +2,9 @@ import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
+import { useNavigate, Navigate } from "react-router-native";
 const TipoRegistroPage = () => {
+  const navigate = useNavigate();
   return (
     <>
       <View style={styles.container}>
@@ -26,7 +28,11 @@ const TipoRegistroPage = () => {
           source={require("../../../public/comprador_registro.jpeg")}
           style={styles.imageComprador}
         />
-        <TouchableOpacity style={styles.compradorButton}>
+        <TouchableOpacity style={styles.compradorButton} onPress={() => {
+          navigate("/signup_comprador", {
+            replace: true,
+          });
+        }}>
           <StyledText
             color={"secondary"}
             fontSize="subheading"
@@ -47,11 +53,16 @@ const TipoRegistroPage = () => {
           source={require("../../../public/proveedor_v2.jpeg")}
           style={styles.imageComprador}
         />
-        <TouchableOpacity style={styles.proveedorButton}>
+        <TouchableOpacity style={styles.proveedorButton} onPress={() => {
+          navigate("/signup_proveedor", {
+            replace: true,
+          });
+        }} >
           <StyledText
             color={"secondary"}
             fontSize="subheading"
             style={styles.proveedorButtonText}
+
           >
             Continuar
           </StyledText>

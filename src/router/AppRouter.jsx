@@ -9,6 +9,8 @@ import PublicRoutes from "./PublicRoutes.jsx";
 import MainProveedor from "../proveedores/routes/MainProveedor.jsx";
 import LoginPage from "../auth/pages/LoginPage.jsx";
 import TipoRegistroPage from "../auth/pages/TipoRegistroPage.jsx";
+import RegistroProveedorPage from "../auth/pages/RegistroProveedorPage.jsx";
+import RegistroCompradorPage from "../auth/pages/RegistroCompradorPage.jsx";
 const AppRouter = () => {
   const { authState } = useContext(AuthContext);
 
@@ -50,11 +52,7 @@ const AppRouter = () => {
           path="/signup_comprador"
           element={
             <PublicRoutes>
-              <View>
-                <StyledText fontWeight="bold"> COMPRADOR</StyledText>
-                <StatusBar style="light" />
-                <Navigate to="/proveedor/search" />
-              </View>
+              <RegistroCompradorPage />
             </PublicRoutes>
           }
         />
@@ -62,11 +60,7 @@ const AppRouter = () => {
           path="/signup_proveedor"
           element={
             <PublicRoutes>
-              <View>
-                <StyledText fontWeight="bold"> COMPRADOR</StyledText>
-                <StatusBar style="light" />
-                <Navigate to="/proveedor/search" />
-              </View>
+              <RegistroProveedorPage/>
             </PublicRoutes>
           }
         />

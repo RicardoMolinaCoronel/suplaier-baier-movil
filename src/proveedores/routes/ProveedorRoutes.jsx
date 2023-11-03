@@ -5,6 +5,10 @@ import HomeRoutes from "./HomeRoutes";
 import ProfileRoutes from "./ProfileRoutes";
 import AppProvBar from "../components/AppProvBar";
 import NavigationBar from "../components/NavigationBar";
+import CrearProductoPage from "../pages/CrearProductoPage";
+import CrearOfertaPage from "../pages/CrearOfertaPage";
+import { View } from "react-native";
+import { Text } from "react-native-paper";
 const ProveedorRoutes = ({
   closeButtonOffset,
   scaleValue,
@@ -57,6 +61,42 @@ const ProveedorRoutes = ({
           </>
         }
       />
+      <Route
+        path="/proveedor/crearOferta/*"
+        element={
+          <>
+            <AppProvBar
+              closeButtonOffset={closeButtonOffset}
+              scaleValue={scaleValue}
+              offsetValue={offsetValue}
+              showMenu={showMenu}
+              setShowMenu={setShowMenu}
+            />
+            <StatusBar style="light" />
+            <CrearOfertaPage />
+
+          </>
+        }
+      />
+      <Route
+        path="/proveedor/crearProducto/*"
+        element={
+          <>
+            <AppProvBar
+              closeButtonOffset={closeButtonOffset}
+              scaleValue={scaleValue}
+              offsetValue={offsetValue}
+              showMenu={showMenu}
+              setShowMenu={setShowMenu}
+            />
+            <StatusBar style="light" />
+            <CrearProductoPage />
+
+          </>
+        }
+      />
+      
+
     </Routes>
   );
 };

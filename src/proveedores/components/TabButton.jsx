@@ -20,7 +20,16 @@ export const TabButton = ({ currentTab, setCurrentTab, text, icon }) => {
             navigate("/proveedor/home", {
               replace: true,
             });
-
+            break;
+            case "Crear oferta":
+              navigate("/proveedor/crearOferta", {
+                replace: true,
+              });
+            break;
+            case "Crear producto":
+              navigate("/proveedor/crearProducto", {
+                replace: true,
+              });
             break;
           case "Perfil":
             navigate("/proveedor/profile", {
