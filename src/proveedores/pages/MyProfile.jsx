@@ -34,19 +34,25 @@ const MyProfile = () => {
         </View>
 
         <View style={styles.row}>
+          <Text style={styles.label}>Dirección:</Text>
+          <Text style={styles.content}>{authState.user.Direccion}</Text>
+        </View>
+
+        <View style={styles.row}>
           <Text style={styles.label}>Ciudad:</Text>
           <Text style={styles.content}>{authState.user.Ciudad}</Text>
+        </View>
+
+        <View style={styles.row}>
+          <Text style={styles.label}>Pais:</Text>
+          <Text style={styles.content}>{authState.user.Pais}</Text>
         </View>
 
         <View style={styles.row}>
           <Text style={styles.label}>Celular:</Text>
           <Text style={styles.content}>{authState.user.Numero}</Text>
         </View>
-
-        <View style={styles.row}>
-          <Text style={styles.label}>Dirección:</Text>
-          <Text style={styles.content}>{authState.user.Direccion}</Text>
-        </View>
+        
         <View style={styles.row}>
           <Text style={styles.label}>Correo electrónico:</Text>
           <Text style={styles.content}>{authState.user.Email}</Text>
@@ -84,6 +90,7 @@ const styles = StyleSheet.create({
   content: {
     fontSize: 16,
     width: '60%',
+    marginLeft: 5,
   },
   profileImage: {
     width: 100,
