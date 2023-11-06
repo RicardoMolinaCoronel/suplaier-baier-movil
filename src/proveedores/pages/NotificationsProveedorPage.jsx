@@ -21,6 +21,7 @@ const NotificationsProveedorPage = () => {
       <View style={styles.borderLine} />
     </View>
     <View style={styles.spaceBorder} />
+    <Notificaciones_List/>
     <StatusBar style="light" />
   </View>
   );
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   spaceBorder: {
-    marginTop: 45,
+    marginTop: 15,
   },
 });
 export default NotificationsProveedorPage;
