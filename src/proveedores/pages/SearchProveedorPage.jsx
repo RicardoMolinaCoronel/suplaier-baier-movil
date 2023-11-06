@@ -5,6 +5,7 @@ import Search_Input from '../components/Search_Input';
 import Search_Logic from '../logics/Search_Logic';
 import Icon from "react-native-ico-material-design";
 import theme from "../../theme";
+import Cargar_Categorias from '../components/Cargar_Categorias';
 const SearchProveedorPage = () => {
   const { searchResults, performSearch } = Search_Logic();
   return (
@@ -22,6 +23,7 @@ const SearchProveedorPage = () => {
       </View>
       <View style={styles.borderLine} />
     </View>
+    <Cargar_Categorias></Cargar_Categorias>
     <Search_Input onSearch={performSearch} />
       {/* Muestra los resultados de la búsqueda */}
       {searchResults.map((result) => (
