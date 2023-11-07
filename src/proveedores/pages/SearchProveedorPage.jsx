@@ -1,37 +1,35 @@
-import { View, Text, StyleSheet } from "react-native";
-import StyledText from "../../styles/StyledText";
-import { StatusBar } from "expo-status-bar";
+import React from 'react';
+import { View, StyleSheet, FlatList} from 'react-native';
+import StyledText from '../../styles/StyledText';
+import Icon from 'react-native-ico-material-design';
+import StatusBar from 'expo-status-bar';
 import Search_Input from '../components/Search_Input';
-import Search_Logic from '../logics/Search_Logic';
-import Icon from "react-native-ico-material-design";
+import Search_Logic from '../logics/Search_Logic'; // Asegúrate de importar Search_Logic
 import theme from "../../theme";
+
 import Cargar_Categorias from '../components/Cargar_Categorias';
 const SearchProveedorPage = () => {
-  const { searchResults, performSearch } = Search_Logic();
+  const { searchResults, performSearch } = Search_Logic(); // Utiliza Search_Logic aquí
+
   return (
     <View style={styles.container}>
-    <View style={styles.busquedaContainer}>
-      <View style={styles.topContainer}>
-        <Icon name="keyboard-right-arrow-button" width={20} height={20} />
-        <StyledText
-          fontWeight="bold"
-          fontSize="subtitle"
-          style={styles.textBusqueda}
-        >
-          Búsqueda
-        </StyledText>
+      <View style={styles.busquedaContainer}>
+        <View style={styles.topContainer}>
+          <Icon name="keyboard-right-arrow-button" width={20} height={20} />
+          <StyledText fontWeight="bold" fontSize="subtitle" style={styles.textBusqueda}>
+            Búsqueda
+          </StyledText>
+        </View>
       </View>
-      <View style={styles.borderLine} />
-    </View>
-    <Cargar_Categorias></Cargar_Categorias>
-    <Search_Input onSearch={performSearch} />
+      <Search_Input onSearch={performSearch} />
       {/* Muestra los resultados de la búsqueda */}
-      {searchResults.map((result) => (
-        <Text key={result.id}>{result.title}</Text>
-      ))}
-    <View style={styles.spaceBorder} />
-    <StatusBar style="light" />
-  </View>
+      {searchResults && searchResults.map((result) => (
+          <StyledText key={result.id}>{result.title}</StyledText>
+        ))}
+      <View style={styles.spaceBorder} />
+      <StatusBar style="light" />
+      <Cargar_Categorias/>
+    </View>
   );
 };
 
@@ -56,7 +54,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   spaceBorder: {
-    marginTop: 45,
+    marginTop: 10,
   },
 });
 export default SearchProveedorPage;

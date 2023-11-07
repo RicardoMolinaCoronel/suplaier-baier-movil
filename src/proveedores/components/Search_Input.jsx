@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function Search_Input({ onSearch }) {
+const Search_Input = ({ onSearch }) => {
   const [searchText, setSearchText] = useState('');
 
   const handleSearch = () => {
@@ -22,7 +22,8 @@ function Search_Input({ onSearch }) {
       </TouchableOpacity>
     </View>
   );
-}
+};
+
 
 const styles = {
   container: {
