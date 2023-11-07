@@ -6,8 +6,35 @@ import Search_Logic from '../logics/Search_Logic';
 import Icon from "react-native-ico-material-design";
 import theme from "../../theme";
 import Cargar_Categorias from '../components/Cargar_Categorias';
+import { apiUrl } from '../../../apiUrl';
+import {useEffect, useState} from 'react'
 const SearchProveedorPage = () => {
-  const { searchResults, performSearch } = Search_Logic();
+  const { ofertasBusqueda, getOfertasTodos } = Search_Logic();
+  const [showEmptyArray, setShowEmptyArray] = useState(false);
+
+  const handleSearch = async (searchText) => {
+    const resp = await fetch(`${apiUrl}/ofertaByProducto?q=${searchText}`);
+    const data = await resp.json();
+    const { rows: ofertas } = data || {};
+
+    if (ofertas) {
+      // Filtra las ofertas que cumplan con ciertas condiciones
+      const filteredOfertas = ofertas.filter((oferta) => oferta.IdEstadosOferta === 1);
+
+      // Actualiza los resultados en Search_Logic
+      getOfertasTodos(filteredOfertas);
+    }
+    if (ofertas.length === 0) {
+      setShowEmptyArray(true);
+    } else {
+      setShowEmptyArray(false);
+      // Filtra y actualiza los resultados
+    }
+  };
+  useEffect(() => {
+    // Cuando el componente se monta, carga las ofertas iniciales
+    getOfertasTodos('');
+  }, []);
   return (
     <View style={styles.container}>
     <View style={styles.busquedaContainer}>
@@ -21,16 +48,23 @@ const SearchProveedorPage = () => {
           Búsqueda
         </StyledText>
       </View>
-      <View style={styles.borderLine} />
-    </View>
-    <Cargar_Categorias></Cargar_Categorias>
-    <Search_Input onSearch={performSearch} />
+      <Search_Input onSearch={handleSearch} />
+      <Cargar_Categorias></Cargar_Categorias>
       {/* Muestra los resultados de la búsqueda */}
-      {searchResults.map((result) => (
-        <Text key={result.id}>{result.title}</Text>
-      ))}
-    <View style={styles.spaceBorder} />
+    {ofertasBusqueda.map((result) => (
+        <Text>{result.idOferta}{result.Oferta}</Text>
+      ))} 
+      {showEmptyArray && (
+        
+          <Text style={styles.textNothing} >
+            No hay productos con ese nombre
+          </Text>
+        )}
+    </View>
+      
     <StatusBar style="light" />
+    <View style={styles.spaceBorder} />
+
   </View>
   );
 };
@@ -52,11 +86,17 @@ const styles = StyleSheet.create({
   borderLine: {
     borderBottomColor: theme.colors.lightGray2,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    marginTop: 5,
+    marginTop: 10,
     marginBottom: 10,
   },
   spaceBorder: {
-    marginTop: 45,
+      marginTop: 45,
   },
+  textNothing: {
+    fontSize: 18,
+    marginTop: 45,
+    color: 'purple',
+  }
 });
+
 export default SearchProveedorPage;

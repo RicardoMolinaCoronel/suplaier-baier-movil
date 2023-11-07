@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function Search_Input({ onSearch }) {
+const Search_Input =({ onSearch }) => {
   const [searchText, setSearchText] = useState('');
 
   const handleSearch = () => {
@@ -31,7 +31,7 @@ const styles = {
     borderWidth: 2,
     borderColor: 'lightgray',
     borderRadius: 9,
-    padding: 5,
+    padding: 6,
   },
   input: {
     flex: 1,
