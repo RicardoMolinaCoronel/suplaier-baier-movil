@@ -9,6 +9,9 @@ import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 import StyledTextInput from "../../styles/StyledTextInput";
 import UploadImage from "../../styles/UploadImage";
+import CrearOfertaValidation from "../components/CrearOfertaValidation";
+
+
 
 const initialValues = {
     user: "",
@@ -17,15 +20,10 @@ const initialValues = {
 
 const FormikInputValue = ({
     name,
-    user,
-    password,
-    password2,
-    mail,
-    tipoID,
     icon,
     label,
     isPassword,
-    hidePassword,
+    hidePassword=false,
     setHidePassword,
     isDropDown,
     ...props
@@ -46,18 +44,7 @@ const FormikInputValue = ({
                 onChangeText={(value) => helpers.setValue(value)}
                 {...props}
             />
-            {isPassword && (
-                <TouchableOpacity
-                    style={styles.rightIcon}
-                    onPress={() => setHidePassword(!hidePassword)}
-                >
-                    <Ionicons
-                        name={hidePassword ? "md-eye-off" : "md-eye"}
-                        size={30}
-                        color={theme.colors.gray1}
-                    />
-                </TouchableOpacity>
-            )}
+            
 
             {meta.error && (
                 <StyledText style={styles.errorText} fontSize="body">
@@ -110,6 +97,7 @@ const CrearOfertaPage = () => {
                 </StyledText>
 
                 <Formik
+                    validationSchema={CrearOfertaValidation}
                     initialValues={initialValues}
                 >
                     {({ handleSubmit }) => {
@@ -118,42 +106,44 @@ const CrearOfertaPage = () => {
                                 <FormikInputValue
                                     name="product"
                                     icon="chevron-down"
-                                    placeholder="Seleccionar Producto"
-                                    placeholderTextColor={theme.colors.gray1}
+                                    placeholder="Prueba"
+                                    placeholderTextColor={theme.colors.textPrimary}
                                     label="Producto"
                                     isDropDown
+                                    
                                 />
 
                                 <FormikInputValue
                                     name="pu"
                                     icon="tag"
                                     placeholderTextColor={theme.colors.gray1}
-                                    secureTextEntry={hidePassword}
+                                  
                                     label="Precio Unitario"
+
                                 />
 
                                 <FormikInputValue
                                     name="pi"
                                     icon="zap"
                                     placeholderTextColor={theme.colors.gray1}
-                                    secureTextEntry={hidePassword}
+                                    
                                     label="Precio Instantaneo"
                                     isDropDown
                                 />
                                 <FormikInputValue
                                     name="min"
                                     placeholderTextColor={theme.colors.gray1}
-                                    secureTextEntry={hidePassword}
+                                    
                                     label="Cantidad Minima"
                                 />
                                 <FormikInputValue
                                     name="max"
                                     placeholderTextColor={theme.colors.gray1}
-                                    secureTextEntry={hidePassword}
+                                    
                                     label="Cantidad Maxima"
-                                />
-                                <StyledText style={styles.textInputLabel}>Imagen</StyledText>
-                                <UploadImage />
+                                />  
+                                
+                       
                                 <View style={styles.borderLine} />
                                 <TouchableOpacity
                                     style={styles.registerButton}

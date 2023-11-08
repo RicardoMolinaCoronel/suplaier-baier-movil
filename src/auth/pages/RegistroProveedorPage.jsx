@@ -11,19 +11,19 @@ import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 import StyledTextInput from "../../styles/StyledTextInput";
 import UploadImage from "../../styles/UploadImage";
+import RegisterValidationSchema from "../components/RegisterValidationSchema";
 
 const initialValues = {
-    user: "",
-    password: "",
-};
+    user: '',
+    password: '',
+    password2: '',
+    mail: '',
+    nombre: '',
+    tipoID: '',
+  };
 
 const FormikInputValue = ({
     name,
-    user,
-    password,
-    password2,
-    mail,
-    tipoID,
     icon,
     label,
     isPassword,
@@ -43,7 +43,6 @@ const FormikInputValue = ({
             />
             <StyledText style={styles.textInputLabel}>{label}</StyledText>
             <StyledTextInput
-                error={meta.error}
                 value={field.value}
                 onChangeText={(value) => helpers.setValue(value)}
                 {...props}
@@ -72,11 +71,41 @@ const FormikInputValue = ({
 
 const RegistroProveedorPage = () => {
     const [hidePassword, setHidePassword] = useState(true);
-    const [credentialsIncorrect, setCredentialsIncorrect] = useState(false);
+    //const [credentialsIncorrect, setCredentialsIncorrect] = useState(false);
     const navigate = useNavigate();
-    const { login } = useContext(AuthContext);
 
-    const getAuthResponse = async (username, password) => {
+  const getRegResponse = async (username, password, mail, nombre, tipoID) => {
+    const body = {
+        idRol: 2,
+        nombre: nombre,
+        tipoID: tipoID,
+        usuario: username,
+        pass: password,
+        correo: mail,
+    };
+    const resp = await global.fetch(`${apiUrl}/solicitudRegistro`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await resp.json();
+    console.log("peticion");
+
+    if (data.length === 0) {
+      return null;
+    } else {
+      return data[0];
+    }
+  };
+
+
+    const onSubmitRegister = (values) => {
+    getRegResponse(values.nombre, values.tipoID, values.user, values.password, values.mail)
+  };
+
+   /* const getAuthResponse = async (username, password) => {
         const body = {
             usuario: username,
             pass: password,
@@ -96,7 +125,7 @@ const RegistroProveedorPage = () => {
         } else {
             return data[0];
         }
-    };
+    };*/
 
    
     return (
@@ -120,9 +149,9 @@ const RegistroProveedorPage = () => {
                     Por favor ingresa los siguientes datos
                 </StyledText>
                 <Formik
-                    validationSchema={loginValidationSchema}
+                   validationSchema={RegisterValidationSchema}
                     initialValues={initialValues}
-                    onSubmit={(values) => onSubmitLogin(values)}
+                    onSubmit={(values) => onSubmitRegister(values)}
                 >
                     {({ handleSubmit }) => {
                         return (
@@ -167,7 +196,7 @@ const RegistroProveedorPage = () => {
                                 />
 
                                 <FormikInputValue
-                                    name="name"
+                                    name="nombre"
                                     icon="note"
                                     placeholder="Nombre"
                                     placeholderTextColor={theme.colors.gray1}
@@ -189,11 +218,9 @@ const RegistroProveedorPage = () => {
                                 <View style={styles.borderLine} />
                                 <TouchableOpacity
                                     style={styles.registerButton}
-                                    onPress={() => {
-                                        navigate("/signup_type", {
-                                            replace: true,
-                                        });
-                                    }}
+                                    onPress={
+                                        handleSubmit
+                                    }
                                 >
                                     <StyledText
                                         fontSize="subheading"

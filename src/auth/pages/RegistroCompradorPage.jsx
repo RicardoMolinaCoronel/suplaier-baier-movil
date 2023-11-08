@@ -13,17 +13,16 @@ import StyledTextInput from "../../styles/StyledTextInput";
 import UploadImage from "../../styles/UploadImage";
 
 const initialValues = {
-    user: "",
-    password: "",
+    user: '',
+    password: '',
+    password2: '',
+    mail: '',
+    nombre: '',
+    tipoID: '',
 };
 
 const FormikInputValue = ({
     name,
-    user,
-    password,
-    password2,
-    mail,
-    tipoID,
     icon,
     label,
     isPassword,
@@ -72,31 +71,41 @@ const FormikInputValue = ({
 
 const RegistroCompradorPage = () => {
     const [hidePassword, setHidePassword] = useState(true);
-    const [credentialsIncorrect, setCredentialsIncorrect] = useState(false);
+    //const [credentialsIncorrect, setCredentialsIncorrect] = useState(false);
     const navigate = useNavigate();
-    const { login } = useContext(AuthContext);
 
-    const getAuthResponse = async (username, password) => {
-        const body = {
-            usuario: username,
-            pass: password,
-        };
-        const resp = await global.fetch(`${apiUrl}/auth`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-        });
-        const data = await resp.json();
-        console.log("peticion");
-
-        if (data.length === 0) {
-            return null;
-        } else {
-            return data[0];
-        }
+  const getRegResponse = async (username, password, mail, nombre, tipoID) => {
+    const body = {
+        idRol: 2,
+        nombre: nombre,
+        tipoID: tipoID,
+        usuario: username,
+        pass: password,
+        correo: mail,
     };
+    const resp = await global.fetch(`${apiUrl}/usuarios`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await resp.json();
+    console.log("peticion");
+
+    if (data.length === 0) {
+      return null;
+    } else {
+      return data[0];
+    }
+  };
+
+
+    const onSubmitRegister = (values) => {
+    getRegResponse(values.nombre, values.tipoID, values.user, values.password, values.mail).then( navigate("/login", {
+        replace: true,
+    }))
+  };
 
    
     return (
@@ -122,7 +131,7 @@ const RegistroCompradorPage = () => {
                 <Formik
                     validationSchema={loginValidationSchema}
                     initialValues={initialValues}
-                    onSubmit={(values) => onSubmitLogin(values)}
+                    onSubmit={(values) => onSubmitRegister(values)}
                 >
                     {({ handleSubmit }) => {
                         return (
@@ -179,7 +188,7 @@ const RegistroCompradorPage = () => {
                                     icon="id-badge"
                                     placeholder="000000000"
                                     placeholderTextColor={theme.colors.gray1}
-                                    secureTextEntry={hidePassword}
+                                   
                                     label="ID"
                                     isDropDown
                                 />
@@ -189,11 +198,9 @@ const RegistroCompradorPage = () => {
                                 <View style={styles.borderLine} />
                                 <TouchableOpacity
                                     style={styles.registerButton}
-                                    onPress={() => {
-                                        navigate("/signup_type", {
-                                            replace: true,
-                                        });
-                                    }}
+                                    onPress={
+                                        handleSubmit
+                                    }
                                 >
                                     <StyledText
                                         fontSize="subheading"

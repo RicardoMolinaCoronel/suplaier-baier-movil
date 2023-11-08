@@ -9,19 +9,16 @@ import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 import StyledTextInput from "../../styles/StyledTextInput";
 import UploadImage from "../../styles/UploadImage";
-
+import { AuthContext } from "../../auth/context/AuthContext.jsx";
+import CrearProductoValidation from "../components/CrearProductoValidation";
 const initialValues = {
-    user: "",
-    password: "",
+    name: "",
+    description: "",
+    categoria: "",
 };
 
 const FormikInputValue = ({
     name,
-    user,
-    password,
-    password2,
-    mail,
-    tipoID,
     icon,
     label,
     isPassword,
@@ -69,30 +66,30 @@ const FormikInputValue = ({
 };
 
 const CrearProductoPage = () => {
+    const { authState } = useContext(AuthContext);
     const [hidePassword, setHidePassword] = useState(true);
     const navigate = useNavigate();
 
 
-    const getAuthResponse = async (username, password) => {
+    const createProduct = async (productData) => {
         const body = {
-            usuario: username,
-            pass: password,
-        };
-        const resp = await global.fetch(`${apiUrl}/auth`, {
+            IdProducto:1,
+            IdProveedor: authState.user.IdUsuario,
+            IdCatProducto: 1,
+            Descripcion: productData.description,
+            UrlImg: "no-img.jpeg",
+            name: productData.name,
+          };
+          const resp = await global.fetch(`${apiUrl}/auth`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+              "Content-Type": "application/json",
             },
             body: JSON.stringify(body),
-        });
-        const data = await resp.json();
-        console.log("peticion");
-
-        if (data.length === 0) {
-            return null;
-        } else {
-            return data[0];
-        }
+          });
+          const data = await resp.json();
+          console.log("peticion");
+        
     };
 
 
@@ -118,6 +115,8 @@ const CrearProductoPage = () => {
                 </StyledText>
                 <Formik
                     initialValues={initialValues}
+                    onSubmit={(values) => createProduct(values)}
+                    validationSchema={CrearProductoValidation}
                 >
                     {({ handleSubmit }) => {
                         return (
@@ -137,10 +136,10 @@ const CrearProductoPage = () => {
                                     label="Descripción"
                                 />
                                 <FormikInputValue
-                                    name="Categoria"
+                                    name="categoria"
                                     icon="checklist"
-                                    placeholder="Categoria"
-                                    placeholderTextColor={theme.colors.gray1}
+                                    placeholder="Artesanías"
+                                    placeholderTextColor={theme.colors.textPrimary}
                                     secureTextEntry={hidePassword}
                                     label="Categoria"
                                     isDropDown
@@ -151,11 +150,7 @@ const CrearProductoPage = () => {
                                 <View style={styles.borderLine} />
                                 <TouchableOpacity
                                     style={styles.registerButton}
-                                    onPress={() => {
-                                        navigate("/signup_type", {
-                                            replace: true,
-                                        });
-                                    }}
+                                    onPress={handleSubmit}
                                 >
                                     <StyledText
                                         fontSize="subheading"
