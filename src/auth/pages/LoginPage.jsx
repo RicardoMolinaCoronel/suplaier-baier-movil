@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { Octicons, Ionicons } from "@expo/vector-icons";
 import { useNavigate, Navigate } from "react-router-native";
 import { loginValidationSchema } from "../components/loginValidationSchema";
-//import { apiUrl } from "../../../apiUrl";
+import { apiUrl } from "../../../apiUrl";
 import { AuthContext } from "../context/AuthContext";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
@@ -14,7 +14,7 @@ const initialValues = {
   user: "",
   password: "",
 };
-const apiUrl ='http://192.168.100.44:4000/api/v1';
+
 const FormikInputValue = ({
   name,
   icon,
