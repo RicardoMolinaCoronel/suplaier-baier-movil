@@ -1,25 +1,25 @@
-import  { useState } from 'react';
+import { useState } from "react";
+import { apiUrl } from '../../../apiUrl';
 
-function Search_Logic() {
-  const [searchResults, setSearchResults] = useState([]);
-  const data = [
-    { id: 1, title: 'Resultado 1' },
-    { id: 2, title: 'Resultado 2' },
-    { id: 3, title: 'Resultado 3' },
-    { id: 4, title: 'Resultado 4' },
-  ];
+async function performSearch(q) {
+  const response = await fetch(`${apiUrl}/ofertaByProducto?q=${q}`);
+  const data = await response.json();
+  return data.rows || [];
+}
 
-  const performSearch = (searchText) => {
-    // Esto es para probar la búsqueda
-    const results = data.filter((item) =>
-      item.title.toLowerCase().includes(searchText.toLowerCase())
-    );
-    setSearchResults(results);
-  };
+const Search_Logic= () =>{
+
+  const [ofertasBusqueda, setOfertasBusqueda] = useState([]);
+
+  const getOfertasTodos = async(q) => {
+    const ofertas = await performSearch(q);
+    setOfertasBusqueda(ofertas.filter((oferta) => oferta.IdEstadosOferta === 1));
+  }
+
 
   return {
-    searchResults,
-    performSearch,
+    ofertasBusqueda,
+    getOfertasTodos,
   };
 }
 
