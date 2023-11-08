@@ -345,6 +345,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         height: 60,
     },
+    
 });
 
 export default RegistroCompradorPage;

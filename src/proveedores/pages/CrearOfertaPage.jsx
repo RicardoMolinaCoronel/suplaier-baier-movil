@@ -60,28 +60,26 @@ const CrearOfertaPage = () => {
     const navigate = useNavigate();
 
 
-    const getAuthResponse = async (username, password) => {
+    const createOffer = async (productData) => {
         const body = {
-            usuario: username,
-            pass: password,
-        };
-        const resp = await global.fetch(`${apiUrl}/auth`, {
+            IdProducto:1,
+            IdProveedor: authState.user.IdUsuario,
+            IdCatProducto: 1,
+            Descripcion: productData.description,
+            UrlImg: "no-img.jpeg",
+            name: productData.name,
+          };
+          const resp = await global.fetch(`${apiUrl}/auth`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+              "Content-Type": "application/json",
             },
             body: JSON.stringify(body),
-        });
-        const data = await resp.json();
-        console.log("peticion");
-
-        if (data.length === 0) {
-            return null;
-        } else {
-            return data[0];
-        }
+          });
+          const data = await resp.json();
+          console.log("peticion");
+        
     };
-
 
     return (
         <>
