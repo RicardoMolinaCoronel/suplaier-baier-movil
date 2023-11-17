@@ -66,7 +66,7 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
                 calificacion={calificacion}
               ></StarsQualification>
               <Text style={{ color: "black" }}>
-                {dataproducto?.datosProd?.nombreProd ?? ""}
+                {dataproducto?.producto?.Descripcion ?? ""}
               </Text>
             </View>
           </View>
@@ -106,7 +106,7 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
               }}
             >
               <Text style={{ color: "black" }}>
-                precio de compra instantanea: $
+                Precio de compra instantanea: $
                 {dataproducto?.datosProd?.costoInst ?? 0}
               </Text>
             </View>
@@ -122,8 +122,8 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
             >
               <Text style={{ color: "black" }}>
                 {" "}
-                unidades restantes: {dataproducto?.ActualProductos ?? 0}/
-                {dataproducto?.maximo ?? 0}
+                Unidades restantes: {dataproducto?.ActualProductos ?? 1}/
+                {dataproducto?.maximo ?? 12}
               </Text>
             </View>
             <View
@@ -181,7 +181,8 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
               }}
             >
               <Text style={{ color: "cyan" }}>
-                Unidades Restantes para Completar el Minimo:
+                Unidades Restantes para Completar el Minimo: {dataproducto?.maximo ?? 12}
+
               </Text>
             </View>
           </View>
