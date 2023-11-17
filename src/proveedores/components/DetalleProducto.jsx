@@ -59,7 +59,7 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
               source={{
                 uri: dataproducto?.datosProd?.urlImg ?? "",
               }}
-              style={{ width: 180, height: 180, resizeMode: "center" }}
+              style={{ width: 120, height: 120, resizeMode: "center" }}
             />
             <View style={{ alignItems: "center" }}>
               <StarsQualification
