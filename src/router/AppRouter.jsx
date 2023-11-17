@@ -60,7 +60,7 @@ const AppRouter = () => {
           path="/signup_proveedor"
           element={
             <PublicRoutes>
-              <RegistroProveedorPage/>
+              <RegistroProveedorPage />
             </PublicRoutes>
           }
         />

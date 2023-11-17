@@ -6,8 +6,13 @@ import { apiUrl } from "../../../apiUrl";
 import { useState, useEffect, useContext } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
+import { useNavigate } from "react-router-native";
+import { DetalleProducto } from "./DetalleProducto";
+import React from "react";
 
 const OfertaItem = (props) => {
+  const navigate = useNavigate();
+  const [isvisible, setisvisible] = useState(false);
   const [producto, setProducto] = useState();
   const [proveedor, setProveedor] = useState();
   const [estadoOferta, setEstadoOferta] = useState();
@@ -16,9 +21,12 @@ const OfertaItem = (props) => {
   const [progresoOferta, setProgresoOferta] = useState(0);
   const fechaLimiteObj = new Date(props.FechaLimite);
 
+  let maximo;
+  let actualProductos;
+
   const updateProgresoOferta = () => {
-    let maximo = parseInt(props.Maximo);
-    let actualProductos = parseInt(props.ActualProductos);
+    maximo = parseInt(props.Maximo);
+    actualProductos = parseInt(props.ActualProductos);
     setProgresoOferta(actualProductos / maximo);
   };
 
@@ -124,7 +132,10 @@ const OfertaItem = (props) => {
             {datosProd?.costoInst === 0 ? "--" : datosProd?.costoInst + "$"}
           </StyledText>
         </View>
-        <TouchableOpacity style={styles.detalleContainer}>
+        <TouchableOpacity
+          style={styles.detalleContainer}
+          onPress={() => setisvisible(true)}
+        >
           <StyledText color="secondary">Detalle</StyledText>
         </TouchableOpacity>
       </View>
@@ -136,6 +147,21 @@ const OfertaItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
+      <DetalleProducto
+        isvisible={isvisible}
+        onclose={() => setisvisible(false)}
+        dataproducto={{
+          producto,
+          proveedor,
+          estadoOferta,
+          nombreProveedor,
+          datosProd,
+          progresoOferta,
+          fechaLimiteObj,
+          maximo,
+          actualProductos,
+        }}
+      ></DetalleProducto>
     </View>
   );
 };
