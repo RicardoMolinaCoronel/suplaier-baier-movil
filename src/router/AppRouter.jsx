@@ -7,6 +7,7 @@ import { AuthContext } from "../auth/context/AuthContext.jsx";
 import PrivateRoutes from "./PrivateRoutes.jsx";
 import PublicRoutes from "./PublicRoutes.jsx";
 import MainProveedor from "../proveedores/routes/MainProveedor.jsx";
+import MainComprador from "../compradores/routes/MainComprador.jsx";
 import LoginPage from "../auth/pages/LoginPage.jsx";
 import TipoRegistroPage from "../auth/pages/TipoRegistroPage.jsx";
 import RegistroProveedorPage from "../auth/pages/RegistroProveedorPage.jsx";
@@ -17,12 +18,7 @@ const AppRouter = () => {
   const getRoutesByTypeOfUser = (tipo) => {
     switch (tipo) {
       case "comprador":
-        return (
-          <View>
-            <StyledText fontWeight="bold"> COMPRADOR</StyledText>
-            <StatusBar style="light" />
-          </View>
-        );
+        return <MainComprador />;
       case "proveedor":
         return <MainProveedor />;
     }

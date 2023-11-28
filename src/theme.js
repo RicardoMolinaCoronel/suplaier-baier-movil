@@ -1,12 +1,12 @@
 const theme = {
 bottomBar:{
-    primary:'#404040',
+    primary:'#4A3797',
     secondary: '#404040',
     textPrimary: '#fff',
     iconPrimary: '#fff'
 },
 appBar:{
-    primary:'#404040',
+    primary:'#4A3797',
     secondary: '#404040',
     textPrimary: '#fff',
     iconPrimary: '#fff'
@@ -26,6 +26,7 @@ colors:{
     purple: '#4A3797',
     purple1: '#5359D1',
     purple2:'#733CC6',
+    purple3: '#4A58AC',
     lightGray: '#F5F5F5',
     lightGray2: '#EEEEEE',
     gray: '#EFEFEF',
@@ -35,6 +36,7 @@ colors:{
     red: '#FC327A',
     red1: '#FB6363',
     blue:'#49A3DB',
+    darkblue:'#49859D',
     green: '#00D022'
 },
 
