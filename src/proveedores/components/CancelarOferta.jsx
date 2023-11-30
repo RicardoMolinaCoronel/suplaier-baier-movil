@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import { Modal, View, Text, Alert } from "react-native";
 import { ButtonWithText } from "./ButtonWithText";
 import { apiUrl } from "../../../apiUrl";
+import theme from "../../theme";
+import useOfertas from "../hooks/useOfertas";
 
 export const CancelarOferta = ({
   isvisible,
   onclosecerraroferta,
   oncloseoferta,
-  IdProducto,
+  IdOferta,
 }) => {
   const actualizarOferta = async () => {
     const bodySolicitud = {
-      IdOferta: IdProducto,
+      IdOferta: IdOferta,
       IdEstadosOferta: 7, //Id Estado DB
     };
     const resp = await fetch(`${apiUrl}/ofertas/estadoOferta`, {
@@ -74,12 +76,12 @@ export const CancelarOferta = ({
           <ButtonWithText
             anyfunction={oncloseoferta}
             title={"Retroceder"}
-            color="red"
+            color={theme.colors.red}
           ></ButtonWithText>
           <ButtonWithText
             anyfunction={() => ActualizarOferta()}
             title={"Aceptar"}
-            color="cyan"
+            color={theme.colors.lightblue1}
           ></ButtonWithText>
         </View>
       </View>

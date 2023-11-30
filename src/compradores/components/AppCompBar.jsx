@@ -13,7 +13,7 @@ import theme from "../../theme.js";
 import Icon from "react-native-ico-material-design";
 import { AuthContext } from "../../auth/context/AuthContext.jsx";
 
-const AppProvBar = ({
+const AppCompBar = ({
   closeButtonOffset,
   scaleValue,
   offsetValue,
@@ -146,4 +146,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppProvBar;
+export default AppCompBar;

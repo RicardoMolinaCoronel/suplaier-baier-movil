@@ -13,7 +13,11 @@ import React from "react";
 const OfertaItem = (props) => {
   const navigate = useNavigate();
   const [isvisible, setisvisible] = useState(false);
+  const [IdOferta] = useState(props.IdOferta);
   const [producto, setProducto] = useState();
+  const [maximoOferta, setMaximoOferta] = useState();
+  const [minimoOferta, setMinimoOferta] = useState();
+  const [actualProductosOferta, setActualProductosOferta] = useState();
   const [proveedor, setProveedor] = useState();
   const [estadoOferta, setEstadoOferta] = useState();
   const [nombreProveedor, setNombreProveedor] = useState();
@@ -26,7 +30,11 @@ const OfertaItem = (props) => {
 
   const updateProgresoOferta = () => {
     maximo = parseInt(props.Maximo);
+    minimo = parseInt(props.Minimo);
     actualProductos = parseInt(props.ActualProductos);
+    setMaximoOferta(maximo);
+    setActualProductosOferta(actualProductos);
+    setMinimoOferta(minimo);
     setProgresoOferta(actualProductos / maximo);
   };
 
@@ -115,7 +123,7 @@ const OfertaItem = (props) => {
           <StyledText color="purple" fontWeight="bold">
             Precio unitario:{" "}
           </StyledText>
-          <StyledText color="purple">{datosProd?.costoU}$</StyledText>
+          <StyledText color="purple">${datosProd?.costoU}</StyledText>
         </View>
         {estadoOferta?.Descripcion === "Cerrado" ? (
           <EtiquetaEstadoOferta estado={"Verificando pagos"} />
@@ -129,7 +137,7 @@ const OfertaItem = (props) => {
             Precio instantáneo:{" "}
           </StyledText>
           <StyledText color="purple">
-            {datosProd?.costoInst === 0 ? "--" : datosProd?.costoInst + "$"}
+            {datosProd?.costoInst === 0 ? "--" : "$" + datosProd?.costoInst}
           </StyledText>
         </View>
         <TouchableOpacity
@@ -151,6 +159,7 @@ const OfertaItem = (props) => {
         isvisible={isvisible}
         onclose={() => setisvisible(false)}
         dataproducto={{
+          IdOferta,
           producto,
           proveedor,
           estadoOferta,
@@ -158,8 +167,9 @@ const OfertaItem = (props) => {
           datosProd,
           progresoOferta,
           fechaLimiteObj,
-          maximo,
-          actualProductos,
+          maximoOferta,
+          minimoOferta,
+          actualProductosOferta,
         }}
       ></DetalleProducto>
     </View>

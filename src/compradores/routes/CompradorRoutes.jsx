@@ -3,7 +3,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-native";
 import { StatusBar } from "expo-status-bar";
 import HomeRoutes from "./HomeRoutes";
 import ProfileRoutes from "./ProfileRoutes";
-import AppProvBar from "../components/AppProvBar";
+import AppCompBar from "../components/AppCompBar";
 import NavigationBar from "../components/NavigationBar";
 import OrdenesRoutes from "./OrdenesRoutes";
 const CompradorRoutes = ({
@@ -21,7 +21,7 @@ const CompradorRoutes = ({
         path="/comprador/home/*"
         element={
           <>
-            <AppProvBar
+            <AppCompBar
               closeButtonOffset={closeButtonOffset}
               scaleValue={scaleValue}
               offsetValue={offsetValue}
@@ -42,7 +42,7 @@ const CompradorRoutes = ({
         path="/comprador/profile/*"
         element={
           <>
-            <AppProvBar
+            <AppCompBar
               closeButtonOffset={closeButtonOffset}
               scaleValue={scaleValue}
               offsetValue={offsetValue}
@@ -62,7 +62,7 @@ const CompradorRoutes = ({
         path="/comprador/ordenes/*"
         element={
           <>
-            <AppProvBar
+            <AppCompBar
               closeButtonOffset={closeButtonOffset}
               scaleValue={scaleValue}
               offsetValue={offsetValue}

@@ -27,23 +27,26 @@ export const ButtonWithText = ({
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
-        borderRadius: 10,
+        borderRadius: title.length > 0 ? 10 : 2,
         alignSelf: "center",
         flexDirection: "row",
+        padding: 5,
       }}
     >
-      {icon.length > 0 && <Icon name={icon} size={25} color={"#FFFFFF"}></Icon>}
-      <Text
-        style={{
-          fontSize: 15,
-          marginHorizontal: 10,
-          marginVertical: 10,
-          textAlign: "center",
-          color: colorTexto,
-        }}
-      >
-        {title}
-      </Text>
+      {icon.length > 0 && <Icon name={icon} size={26} color={"#FFFFFF"}></Icon>}
+      {title.length > 0 && (
+        <Text
+          style={{
+            fontSize: 15,
+            marginHorizontal: 10,
+            marginVertical: 10,
+            textAlign: "center",
+            color: colorTexto,
+          }}
+        >
+          {title}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };

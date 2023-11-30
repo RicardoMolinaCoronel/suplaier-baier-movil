@@ -4,7 +4,7 @@ import { View, Text, useWindowDimensions } from "react-native";
 export const ProgressBar = ({ porcentaje }) => {
   const { width } = useWindowDimensions();
 
-  const calcularPorcentaje = (porcentaje: number = 0) => {
+  const calcularPorcentaje = (porcentaje = 0) => {
     return (width * 0.5 * porcentaje) / 100;
   };
 
@@ -46,7 +46,7 @@ export const ProgressBar = ({ porcentaje }) => {
             textAlign: "center",
           }}
         >
-          {porcentaje}%
+          {Math.round(porcentaje)}%
         </Text>
       </View>
     </View>
