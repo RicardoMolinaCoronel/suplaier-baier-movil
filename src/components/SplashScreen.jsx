@@ -27,11 +27,11 @@ const SplashScreen = () => {
   useEffect(() => {
     //offset.value = withTiming(0, { duration: 2500 });
     offsetLogo.value = withSequence(
-      withTiming(-offsetLogo.value, { duration: 1300 }),
-      withTiming(0, { duration: 650 })
+      withTiming(-offsetLogo.value, { duration: 1400 }),
+      withTiming(0, { duration: 700 })
     );
     offsetSuplaier.value = withTiming(0, {
-      duration: 1100,
+      duration: 1200,
       easing: Easing.bounce,
     });
   }, []);
@@ -57,7 +57,7 @@ const SplashScreen = () => {
     <View style={styles.container}>
       <LottieView
         style={styles.lottieContainer}
-        source={require("../../public/Animation - 1701458691969.json")}
+        source={require("../../public/AnimationSplashBackground.json")}
         autoPlay
         loop={false}
         duration={5000}
