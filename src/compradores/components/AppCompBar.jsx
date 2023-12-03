@@ -109,7 +109,7 @@ const AppCompBar = ({
                 ? {
                     uri: authState.user.UrlLogoEmpresa,
                   }
-                : require("../../../public/default-logo1.jpg")
+                : require("../../../public/default-logo-comprador.png")
             }
           />
         </Pressable>

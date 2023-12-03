@@ -24,7 +24,7 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
   let porcentaje =
     ((dataproducto?.actualProductos ?? 0) / (dataproducto?.maximo ?? 1)) * 100;
   useEffect(() => {
-    console.log("Detalle Producto", dataproducto?.estadoOferta);
+    //console.log("Detalle Producto", dataproducto?.estadoOferta);
   }, []);
 
   return (

@@ -20,7 +20,7 @@ const MyProfile = () => {
                 ? {
                     uri: authState.user.UrlLogoEmpresa,
                   }
-                : require("../../../public/default-logo1.jpg")
+                : require("../../../public/default-logo-proveedor.png")
             }
             style={styles.profileImage}
           />
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     resizeMode: "center",
     borderWidth: 1,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
@@ -119,14 +119,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     justifyContent: "center",
-    
   },
   card: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 8,
     padding: 16,
     marginBottom: 16,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3,

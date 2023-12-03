@@ -12,6 +12,7 @@ import LoginPage from "../auth/pages/LoginPage.jsx";
 import TipoRegistroPage from "../auth/pages/TipoRegistroPage.jsx";
 import RegistroProveedorPage from "../auth/pages/RegistroProveedorPage.jsx";
 import RegistroCompradorPage from "../auth/pages/RegistroCompradorPage.jsx";
+import SplashScreen from "../components/SplashScreen.jsx";
 const AppRouter = () => {
   const { authState } = useContext(AuthContext);
 
@@ -82,6 +83,14 @@ const AppRouter = () => {
                 <Navigate to="/proveedor/search" />
               </View>
             </PublicRoutes>
+          }
+        />
+        <Route
+          path="/splash"
+          element={
+            <PrivateRoutes>
+              <SplashScreen />
+            </PrivateRoutes>
           }
         />
         <Route

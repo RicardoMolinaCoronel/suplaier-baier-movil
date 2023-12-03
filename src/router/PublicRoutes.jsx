@@ -1,7 +1,9 @@
 import { Navigate } from "react-router-native";
 import { useContext } from "react";
 import { AuthContext } from "../auth/context/AuthContext";
+import { useNavigate } from "react-router-native";
 const PublicRoutes = ({ children }) => {
+  const navigate = useNavigate();
   const { authState } = useContext(AuthContext);
   const tipoPage = (tipo) => {
     switch (tipo) {
@@ -12,11 +14,7 @@ const PublicRoutes = ({ children }) => {
     }
   };
 
-  return !authState.logged ? (
-    children
-  ) : (
-    <Navigate to={tipoPage(authState?.user?.Rol)} />
-  );
+  return !authState.logged ? children : <Navigate to={"/splash"} />;
 };
 
 export default PublicRoutes;

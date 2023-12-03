@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import theme from "../../theme.js";
 import Icon from "react-native-ico-material-design";
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Link, useLocation } from "react-router-native";
 
 const NavBarTab = ({ active, children, to }) => {
@@ -26,6 +26,17 @@ const NavigationBar = () => {
             width={iconWidth}
             color={
               location.pathname == "/comprador/home/ofertas"
+                ? theme.colors.lightblue
+                : theme.bottomBar.iconPrimary
+            }
+          />
+        </NavBarTab>
+        <NavBarTab active to="/comprador/home/demandas">
+          <MaterialCommunityIcons
+            name="basket-fill"
+            size={iconHeight}
+            color={
+              location.pathname == "/comprador/home/demandas"
                 ? theme.colors.lightblue
                 : theme.bottomBar.iconPrimary
             }

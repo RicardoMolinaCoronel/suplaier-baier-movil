@@ -8,6 +8,14 @@ const HomeRoutes = () => {
     <Routes>
       <Route path="ofertas" element={<HomeCompradorPage />} />
       <Route
+        path="demandas"
+        element={
+          <View>
+            <StyledText>DEMANDAS</StyledText>
+          </View>
+        }
+      />
+      <Route
         path="search"
         element={
           <View>

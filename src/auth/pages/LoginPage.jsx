@@ -10,6 +10,8 @@ import { AuthContext } from "../context/AuthContext";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 import StyledTextInput from "../../styles/StyledTextInput";
+import { FadeIn, FadeInDown } from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 const initialValues = {
   user: "",
   password: "",
@@ -80,7 +82,7 @@ const LoginPage = () => {
       body: JSON.stringify(body),
     });
     const data = await resp.json();
-    console.log("peticion");
+    // console.log("peticion");
 
     if (data.length === 0) {
       return null;
@@ -90,24 +92,27 @@ const LoginPage = () => {
   };
 
   const onSubmitLogin = (values) => {
-    getAuthResponse(values.user, values.password).then((user) => {
+    getAuthResponse(values.user.trim(), values.password.trim()).then((user) => {
       if (!!user) {
         login(user);
         setCredentialsIncorrect(false);
-        switch (user.Rol) {
-          // comprador
-          case "comprador":
-            navigate("/comprador/home", {
-              replace: true,
-            });
-            break;
-          // proveedor
-          case "proveedor":
-            navigate("/proveedor/home", {
-              replace: true,
-            });
-            break;
-        }
+        // switch (user.Rol) {
+        //   // comprador
+        //   case "comprador":
+        //     navigate("/comprador/home", {
+        //       replace: true,
+        //     });
+        //     break;
+        //   // proveedor
+        //   case "proveedor":
+        //     navigate("/proveedor/home", {
+        //       replace: true,
+        //     });
+        //     break;
+        // }
+        navigate("/splash", {
+          replace: true,
+        });
       } else {
         setCredentialsIncorrect(true);
       }
@@ -115,7 +120,10 @@ const LoginPage = () => {
   };
   return (
     <>
-      <View style={styles.container}>
+      <Animated.View
+        style={styles.container}
+        entering={FadeInDown.duration(1000)}
+      >
         <Image
           resizeMode="cover"
           source={require("../../../public/suplaier_horizontal_degradado_recortado.png")}
@@ -227,7 +235,7 @@ const LoginPage = () => {
             );
           }}
         </Formik>
-      </View>
+      </Animated.View>
       <StatusBar style="light" />
     </>
   );
