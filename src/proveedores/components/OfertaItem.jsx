@@ -23,6 +23,7 @@ const OfertaItem = (props) => {
   const [nombreProveedor, setNombreProveedor] = useState();
   const [datosProd, setDatosProd] = useState({});
   const [progresoOferta, setProgresoOferta] = useState(0);
+  const [descripcionOferta, setDescripcionOferta] = useState(props.Descripcion);
   const fechaLimiteObj = new Date(props.FechaLimite);
 
   let maximo;
@@ -170,6 +171,7 @@ const OfertaItem = (props) => {
           maximoOferta,
           minimoOferta,
           actualProductosOferta,
+          descripcionOferta,
         }}
       ></DetalleProducto>
     </View>

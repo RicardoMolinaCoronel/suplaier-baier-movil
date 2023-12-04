@@ -19,8 +19,8 @@ const OrdenItem = (props) => {
   const fechaLimiteObj = new Date(oferta?.FechaLimite);
 
   const updateProgresoOferta = () => {
-    let maximo = parseInt(oferta.Maximo);
-    let actualProductos = parseInt(oferta.ActualProductos);
+    let maximo = parseInt(oferta?.Maximo ?? 1);
+    let actualProductos = parseInt(oferta?.ActualProductos ?? 0);
     setProgresoOferta(actualProductos / maximo);
   };
   const getOferta = async () => {
@@ -35,7 +35,7 @@ const OrdenItem = (props) => {
   };
   const getProductoOferta = async () => {
     const resp = await globalThis.fetch(
-      `${apiUrl}/productos?id=${oferta.IdProducto}`
+      `${apiUrl}/productos?id=${oferta?.IdProducto}`
     );
     const data = await resp.json();
     const { rows: producto } = !!data && data;

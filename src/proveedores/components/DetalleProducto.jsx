@@ -115,9 +115,11 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
               </StyledText>
             </View>
           </View>
-          <View style={styles.ofertaEspecialContainer}>
-            <View style={styles.ofertaEspecialSubContainer}>
-              <StyledText color={"primary"}>Oferta Especial</StyledText>
+          <View style={styles.descripcionContainer}>
+            <View style={styles.descripcionSubContainer}>
+              <StyledText color={"primary"}>
+                {dataproducto?.descripcionOferta}
+              </StyledText>
             </View>
           </View>
           <View style={styles.progesoContainer}>
@@ -270,8 +272,12 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8,
   },
-  ofertaEspecialContainer: { marginVertical: 10, flexDirection: "row" },
-  ofertaEspecialSubContainer: {
+  descripcionContainer: {
+    marginVertical: 10,
+    flexDirection: "row",
+    width: "100%",
+  },
+  descripcionSubContainer: {
     width: "100%",
     padding: 5,
     borderWidth: 1,

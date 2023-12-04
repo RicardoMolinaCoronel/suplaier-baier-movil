@@ -36,7 +36,7 @@ export const EtiquetaEstadoOferta = ({ estado, esOfertaDetalle = false }) => {
         setEstiloSegunEstado("containerGray");
         break;
       case "Unido":
-        setEstiloSegunEstado("containerBlue");
+        setEstiloSegunEstado("containerGreen1");
         break;
       default:
         setEstiloSegunEstado("containerGray");
@@ -58,6 +58,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
     backgroundColor: theme.colors.green,
+  },
+  containerGreen1: {
+    padding: 5,
+    paddingHorizontal: 15,
+    borderRadius: 8,
+    alignItems: "center",
+    backgroundColor: theme.colors.green1,
   },
   containerRed: {
     padding: 5,

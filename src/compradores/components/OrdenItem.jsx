@@ -18,9 +18,11 @@ const OrdenItem = (props) => {
   const [progresoOferta, setProgresoOferta] = useState(0);
   const fechaLimiteObj = new Date(oferta?.FechaLimite);
 
+  let maximo;
+  let actualProductos;
   const updateProgresoOferta = () => {
-    let maximo = parseInt(oferta.Maximo);
-    let actualProductos = parseInt(oferta.ActualProductos);
+    maximo = parseInt(oferta.Maximo);
+    actualProductos = parseInt(oferta.ActualProductos);
     setProgresoOferta(actualProductos / maximo);
   };
   const getOferta = async () => {

@@ -39,7 +39,8 @@ colors:{
     red2:'#FC4D4D',
     blue:'#49A3DB',
     darkblue:'#49859D',
-    green: '#00D022'
+    green: '#00D022',
+    green1:'#2EBF8C'
 },
 
 fontSizes:{

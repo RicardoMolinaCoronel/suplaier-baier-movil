@@ -1,4 +1,5 @@
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { AuthContext } from "../../auth/context/AuthContext";
 import theme from "../../theme";
 import ProgressBar from "react-native-progress/Bar";
 import StyledText from "../../styles/StyledText";
@@ -19,8 +20,9 @@ const OfertaItem = (props) => {
   const [nombreProveedor, setNombreProveedor] = useState();
   const [datosProd, setDatosProd] = useState({});
   const [progresoOferta, setProgresoOferta] = useState(0);
+  const [estaUnido, setEstaUnido] = useState(false);
   const fechaLimiteObj = new Date(props.FechaLimite);
-
+  const { authState } = useContext(AuthContext);
   let maximo;
   let actualProductos;
 
@@ -28,6 +30,17 @@ const OfertaItem = (props) => {
     maximo = parseInt(props.Maximo);
     actualProductos = parseInt(props.ActualProductos);
     setProgresoOferta(actualProductos / maximo);
+  };
+
+  const checkEstaUnidoOferta = async () => {
+    const resp = await globalThis.fetch(
+      `${apiUrl}/compras/estaUnido?idOferta=${props.IdOferta}&idComprador=${authState.user.IdUsuario}`
+    );
+    const data = await resp.json();
+    const { rows: filas } = !!data && data;
+    if (filas[0]["COUNT (*)"] === 1) {
+      setEstaUnido(true);
+    }
   };
 
   const getProductoOferta = async () => {
@@ -59,6 +72,7 @@ const OfertaItem = (props) => {
     getProveedorOferta();
     getEstadoOferta();
     updateProgresoOferta();
+    checkEstaUnidoOferta();
   }, [props]);
 
   useEffect(() => {
@@ -90,13 +104,16 @@ const OfertaItem = (props) => {
       </View>
 
       <View style={styles.enOfertaContainer}>
-        <StyledText color="purple" fontWeight="bold">
-          En oferta:{" "}
-        </StyledText>
-        <StyledText color="purple">
-          {parseInt(props.Maximo) - parseInt(props.ActualProductos)}/
-        </StyledText>
-        <StyledText color="purple">{props.Maximo}</StyledText>
+        <View style={styles.textoEnOfertaContainer}>
+          <StyledText color="purple" fontWeight="bold">
+            En oferta:{" "}
+          </StyledText>
+          <StyledText color="purple">
+            {parseInt(props.Maximo) - parseInt(props.ActualProductos)}/
+          </StyledText>
+          <StyledText color="purple">{props.Maximo}</StyledText>
+        </View>
+        {estaUnido && <EtiquetaEstadoOferta estado={"Unido"} />}
       </View>
       <View style={styles.progressContainer}>
         <View style={styles.progressBar}>
@@ -197,7 +214,12 @@ const styles = StyleSheet.create({
   enOfertaContainer: {
     alignItems: "flex-start",
     flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 5,
+  },
+  textoEnOfertaContainer: {
+    alignItems: "flex-start",
+    flexDirection: "row",
   },
   precioUContainer: {
     flexDirection: "row",
