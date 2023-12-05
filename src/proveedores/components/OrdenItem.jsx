@@ -6,7 +6,7 @@ import { apiUrl } from "../../../apiUrl";
 import { useState, useEffect, useContext } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
-
+import { DetalleOrden } from "../../components/DetalleOrden";
 const OrdenItem = (props) => {
   const [oferta, setOferta] = useState();
   const [producto, setProducto] = useState();
@@ -16,6 +16,7 @@ const OrdenItem = (props) => {
   const [nombreProveedor, setNombreProveedor] = useState();
   const [datosProd, setDatosProd] = useState({});
   const [progresoOferta, setProgresoOferta] = useState(0);
+  const [isvisible, setisvisible] = useState(false);
   const fechaLimiteObj = new Date(oferta?.FechaLimite);
 
   const updateProgresoOferta = () => {
@@ -59,7 +60,7 @@ const OrdenItem = (props) => {
   };
   const getEstadoOferta = async () => {
     const resp = await globalThis.fetch(
-      `${apiUrl}/estados?id=${props.IdEstado}`
+      `${apiUrl}/estados?id=${oferta?.IdEstadosOferta ?? 1}`
     );
     const data = await resp.json();
     const { rows: estado } = !!data && data;
@@ -147,7 +148,10 @@ const OrdenItem = (props) => {
             {datosProd?.costoInst === 0 ? "--" : datosProd?.costoInst + "$"}
           </StyledText>
         </View>
-        <TouchableOpacity style={styles.detalleContainer}>
+        <TouchableOpacity
+          style={styles.detalleContainer}
+          onPress={() => setisvisible(true)}
+        >
           <StyledText color="secondary">Detalle</StyledText>
         </TouchableOpacity>
       </View>
@@ -159,6 +163,20 @@ const OrdenItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
+      <DetalleOrden
+        isvisible={isvisible}
+        onclose={() => setisvisible(false)}
+        dataorden={{
+          oferta,
+          producto,
+          comprador,
+          estadoOferta,
+          datosProd,
+          progresoOferta,
+          proveedor,
+          props,
+        }}
+      ></DetalleOrden>
     </View>
   );
 };

@@ -59,6 +59,36 @@ const CompradorRoutes = ({
         }
       />
       <Route
+        path="/comprador/crearDemanda/*"
+        element={
+          <>
+            <AppCompBar
+              closeButtonOffset={closeButtonOffset}
+              scaleValue={scaleValue}
+              offsetValue={offsetValue}
+              showMenu={showMenu}
+              setShowMenu={setShowMenu}
+            />
+            <StatusBar style="light" />
+          </>
+        }
+      />
+      <Route
+        path="/comprador/crearProducto/*"
+        element={
+          <>
+            <AppCompBar
+              closeButtonOffset={closeButtonOffset}
+              scaleValue={scaleValue}
+              offsetValue={offsetValue}
+              showMenu={showMenu}
+              setShowMenu={setShowMenu}
+            />
+            <StatusBar style="light" />
+          </>
+        }
+      />
+      <Route
         path="/comprador/ordenes/*"
         element={
           <>

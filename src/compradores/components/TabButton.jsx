@@ -26,6 +26,16 @@ export const TabButton = ({ currentTab, setCurrentTab, text, icon }) => {
               replace: true,
             });
             break;
+          case "Crear demanda":
+            navigate("/comprador/crearDemanda", {
+              replace: true,
+            });
+            break;
+          case "Crear producto":
+            navigate("/comprador/crearProducto", {
+              replace: true,
+            });
+            break;
           case "Órdenes":
             navigate("/comprador/ordenes", {
               replace: true,

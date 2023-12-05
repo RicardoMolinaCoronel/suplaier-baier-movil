@@ -7,7 +7,7 @@ const MyProfile = () => {
   const { authState } = useContext(AuthContext);
   return (
     <ScrollView>
-      <View>
+      <View style={styles.topContainer}>
         <StyledText style={styles.header}> MI PERFIL</StyledText>
         <StatusBar style="light" />
       </View>
@@ -75,6 +75,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: "#fff",
+  },
+  topContainer: {
+    paddingTop: 10,
   },
   header: {
     fontSize: 24,

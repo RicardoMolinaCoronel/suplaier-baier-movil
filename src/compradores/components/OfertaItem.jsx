@@ -164,21 +164,6 @@ const OfertaItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
-      {/* <DetalleProducto
-        isvisible={isvisible}
-        onclose={() => setisvisible(false)}
-        dataproducto={{
-          producto,
-          proveedor,
-          estadoOferta,
-          nombreProveedor,
-          datosProd,
-          progresoOferta,
-          fechaLimiteObj,
-          maximo,
-          actualProductos,
-        }}
-      ></DetalleProducto> */}
     </View>
   );
 };
