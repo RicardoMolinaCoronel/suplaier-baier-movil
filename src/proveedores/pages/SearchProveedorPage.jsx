@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import StyledText from "../../styles/StyledText";
 import { StatusBar } from "expo-status-bar";
 import Search_Input from '../components/Search_Input';
@@ -25,41 +25,33 @@ const SearchProveedorPage = () => {
     getOfertasTodos('');
   }, []);
   return (
-    <ScrollView style={styles.container}>
-    <View style={styles.busquedaContainer}>
-      <View style={styles.topContainer}>
-        <Icon name="keyboard-right-arrow-button" width={20} height={20} />
-        <StyledText
-          fontWeight="bold"
-          fontSize="subtitle"
-          style={styles.textBusqueda}
-        >
-          Búsqueda
-        </StyledText>
-      </View>
-      <Search_Input onSearch={(text) => handleSearch(text)} />
-      <Cargar_Categorias></Cargar_Categorias>
-      {/* Muestra los resultados de la búsqueda */}
-      {showEmptyArray && (
-        
-          <Text style={styles.textNothing} >
+<FlatList
+  style={styles.container}
+  ListHeaderComponent={
+    <>
+      <View style={styles.busquedaContainer}>
+        <View style={styles.topContainer}>
+          <Icon name="keyboard-right-arrow-button" width={20} height={20} />
+          <StyledText fontWeight="bold" fontSize="subtitle" style={styles.textBusqueda}>
+            Búsqueda
+          </StyledText>
+        </View>
+        <Search_Input onSearch={(text) => handleSearch(text)} />
+        <Cargar_Categorias />
+        {showEmptyArray && (
+          <Text style={styles.textNothing}>
             No hay productos con ese nombre
           </Text>
         )}
-           {
-         <FlatList
-         style={styles.flatListContainer}
-         data={ofertasBusqueda}
-         renderItem={({ item: oferta }) => <OfertaItem {...oferta} />}
-       />
-      } 
-       
-    </View>
-      
-    <StatusBar style="light" />
-    <View style={styles.spaceBorder} />
+      </View>
+      <StatusBar style="light" />
+      <View style={styles.spaceBorder} />
+    </>
+  }
+  data={ofertasBusqueda}
+  renderItem={({ item: oferta }) => <OfertaItem {...oferta} />}
+/>
 
-  </ScrollView>
   );
 };
 
