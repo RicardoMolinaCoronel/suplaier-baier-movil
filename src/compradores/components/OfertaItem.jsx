@@ -8,7 +8,7 @@ import { useState, useEffect, useContext } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
 import { useNavigate } from "react-router-native";
-//import { DetalleProducto } from "./DetalleProducto";
+import { DetalleProductoC } from "./DetalleProductoC";
 import React from "react";
 
 const OfertaItem = (props) => {
@@ -23,6 +23,7 @@ const OfertaItem = (props) => {
   const [estaUnido, setEstaUnido] = useState(false);
   const fechaLimiteObj = new Date(props.FechaLimite);
   const { authState } = useContext(AuthContext);
+
   let maximo;
   let actualProductos;
 
@@ -164,6 +165,24 @@ const OfertaItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
+      <DetalleProductoC
+        isvisible={isvisible}
+        onclose={() => setisvisible(false)}
+        dataproducto={{
+          producto,
+          proveedor,
+          estadoOferta,
+          nombreProveedor,
+          datosProd,
+          progresoOferta,
+          fechaLimiteObj,
+          Maximo: props.Maximo,
+          actualProductos: props.ActualProductos,
+          IdOferta: props.IdOferta,
+          IdUsuario: authState.user.IdUsuario,
+          estaUnido,
+        }}
+      ></DetalleProductoC>
     </View>
   );
 };
