@@ -6,10 +6,9 @@ import Search_Logic from '../logics/Search_Logic';
 import Icon from "react-native-ico-material-design";
 import theme from "../../theme";
 import Cargar_Categorias from '../../components/Cargar_Categorias';
-import { apiUrl } from '../../../apiUrl';
 import {useEffect, useState} from 'react'
 import OfertaItem from "../components/OfertaItem";
-const SearchProveedorPage = () => {
+const Busqueda_Comprador = () => {
   const { ofertasBusqueda, getOfertasTodos } = Search_Logic();
   const [showEmptyArray, setShowEmptyArray] = useState(false);
 
@@ -45,7 +44,7 @@ const SearchProveedorPage = () => {
         <Cargar_Categorias />
         {showEmptyArray && (
           <Text style={styles.textNothing}>
-            No hay productos con ese nombre
+            No hay demandas disponibles con ese nombre
           </Text>
         )}
       </View>
@@ -99,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchProveedorPage;
+export default Busqueda_Comprador;
