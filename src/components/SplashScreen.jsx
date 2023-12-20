@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.purple2,
   },
   imageLogo: {
-    width: "45%",
-    height: "45%",
+    width: "49%",
+    height: "49%",
     position: "absolute",
-    bottom: "32%",
+    bottom: "30.5%",
     resizeMode: "contain",
     zIndex: 1,
   },
