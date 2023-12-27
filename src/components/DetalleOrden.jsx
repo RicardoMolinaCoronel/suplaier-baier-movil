@@ -33,7 +33,7 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
           <View style={styles.tituloContainer}>
             <StyledText
               fontWeight={"bold"}
-              color={"primary"}
+              color={"purple"}
               style={styles.textName}
               fontSize={"subtitle"}
             >
@@ -67,7 +67,7 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
           <View style={styles.secondContainer}>
             {authState?.user?.Rol === "proveedor" ? (
               <View style={styles.secondFirstContainer}>
-                <StyledText color={"primary"} fontWeight={"bold"}>
+                <StyledText color={"purple"} fontWeight={"bold"}>
                   Comprador:
                 </StyledText>
                 <StyledText color={"primary"}>
@@ -76,7 +76,7 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
               </View>
             ) : (
               <View style={styles.secondFirstContainer}>
-                <StyledText color={"primary"} fontWeight={"bold"}>
+                <StyledText color={"purple"} fontWeight={"bold"}>
                   Proveedor:
                 </StyledText>
                 <StyledText color={"primary"}>
@@ -86,7 +86,7 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
             )}
 
             <View style={styles.secondsecondContainer}>
-              <StyledText color={"primary"} fontWeight={"bold"}>
+              <StyledText color={"purple"} fontWeight={"bold"}>
                 Precio Unitario:
               </StyledText>
               <StyledText color={"primary"}>
@@ -97,7 +97,7 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
           </View>
 
           <View style={styles.precioInstContainerSub}>
-            <StyledText color={"primary"} fontWeight={"bold"}>
+            <StyledText color={"purple"} fontWeight={"bold"}>
               Precio de compra instantanea:{" "}
             </StyledText>
             <StyledText color={"primary"}>
@@ -108,7 +108,7 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
           </View>
           <View style={styles.restantesContainer}>
             <View style={styles.restantesSubContainer}>
-              <StyledText color={"primary"} fontWeight={"bold"}>
+              <StyledText color={"purple"} fontWeight={"bold"}>
                 Tipo de compra:{" "}
               </StyledText>
               {dataorden?.props.TipoCompra === "instantanea" && (
@@ -121,7 +121,7 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
           </View>
           <View style={styles.secondContainer}>
             <View style={styles.secondFirstContainer}>
-              <StyledText color={"primary"} fontWeight={"bold"}>
+              <StyledText color={"purple"} fontWeight={"bold"}>
                 Unidades adquiridas:
               </StyledText>
               <StyledText color={"primary"}>
@@ -129,7 +129,7 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
               </StyledText>
             </View>
             <View style={styles.secondsecondContainer}>
-              <StyledText color={"primary"} fontWeight={"bold"}>
+              <StyledText color={"purple"} fontWeight={"bold"}>
                 Total:
               </StyledText>
               <StyledText color={"primary"}>
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  textName: { margin: 5 },
+  textName: { margin: 5, width: "70%" },
   iconBehave: {
     padding: 14,
   },

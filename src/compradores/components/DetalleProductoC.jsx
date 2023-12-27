@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, Modal } from "react-native";
-import { StarsQualification } from "./StarsQualification";
-import { ProgressBar } from "./ProgressBar";
-import { ButtonWithText } from "./ButtonWithText";
-import { HistorialModal } from "./HistorialModal";
-import { CancelarOferta } from "./CancelarOferta";
+import { View, Image, Modal, Text } from "react-native";
+import { StarsQualification } from "../../proveedores/components/StarsQualification";
+import { ProgressBar } from "../../proveedores/components/ProgressBar";
+import { ButtonWithText } from "../../proveedores/components/ButtonWithText";
 import { StyleSheet, ScrollView } from "react-native";
 import StyledText from "../../styles/StyledText";
 import theme from "../../theme";
 import { dateOptions } from "../../components/dateOptions";
+import { UnirseOfertaModal } from "./UnirseOfertaModal";
+import { UnirseOfertaAhoraModal } from "./UnirseOfertaAhoraModal";
 
-export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
-  const [isvisiblemodal, setisvisiblemodal] = useState(false);
-  const [isvisiblecerraroferta, setisvisiblecerraroferta] = useState(false);
+export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
+  const [isvisibleUnirseOfertaAhoraModal, setisvisibleUnirseOfertaAhoraModal] =
+    useState(false);
+  const [isvisibleUnirseoferta, setisvisibleUnirseoferta] = useState(false);
   const fechaLimiteObj = new Date(dataproducto?.fechaLimiteObj ?? "");
 
   const validarValoracion = (valor) => {
@@ -21,11 +22,6 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
   };
 
   let calificacion = validarValoracion(dataproducto?.producto?.Valoracion ?? 1);
-  let porcentaje =
-    ((dataproducto?.actualProductos ?? 0) / (dataproducto?.maximo ?? 1)) * 100;
-  useEffect(() => {
-    //console.log("Detalle Producto", dataproducto?.estadoOferta);
-  }, []);
 
   return (
     <Modal visible={isvisible} transparent={true} animationType="slide">
@@ -79,21 +75,9 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
                 Precio Unitario:
               </StyledText>
               <StyledText color={"primary"}>
-                {" "}
                 ${dataproducto?.datosProd?.costoU ?? 0}
               </StyledText>
             </View>
-          </View>
-
-          <View style={styles.precioInstContainerSub}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
-              Precio de compra instantanea:{" "}
-            </StyledText>
-            <StyledText color={"primary"}>
-              {dataproducto?.datosProd?.costoInst === 0
-                ? "--"
-                : "$" + dataproducto?.datosProd?.costoInst}
-            </StyledText>
           </View>
 
           <View style={styles.unidadesFechaContainer}>
@@ -102,8 +86,9 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
                 Unidades restantes:{" "}
               </StyledText>
               <StyledText color={"primary"}>
-                {dataproducto?.actualProductosOferta}/
-                {dataproducto?.maximoOferta}
+                {parseInt(dataproducto?.Maximo) -
+                  parseInt(dataproducto?.actualProductos)}
+                /{dataproducto?.Maximo}
               </StyledText>
             </View>
             <View style={styles.fechaCierreContainer}>
@@ -118,7 +103,15 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
           <View style={styles.descripcionContainer}>
             <View style={styles.descripcionSubContainer}>
               <StyledText color={"primary"}>
-                {dataproducto?.descripcionOferta}
+                {dataproducto?.props.Descripcion}
+              </StyledText>
+            </View>
+          </View>
+          <View style={styles.restantesContainer}>
+            <View style={styles.restantesSubContainer}>
+              <StyledText color={"lightblue"} fontWeight={"bold"}>
+                Unidades Restantes para Completar el Minimo:{" "}
+                {dataproducto?.Minimo - dataproducto?.actualProductos}
               </StyledText>
             </View>
           </View>
@@ -132,54 +125,104 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
               ></ProgressBar>
             </View>
           </View>
-          <View style={styles.restantesContainer}>
-            <View style={styles.restantesSubContainer}>
-              <StyledText color={"lightblue"} fontWeight={"bold"}>
-                Unidades Restantes para Completar el Minimo:{" "}
-                {dataproducto?.minimoOferta -
-                  dataproducto?.actualProductosOferta}
-              </StyledText>
-            </View>
-          </View>
-          {dataproducto?.estadoOferta?.Descripcion === "En curso" && (
+
+          {!dataproducto?.estaUnido && (
             <>
               <View style={styles.botonesContainer}>
                 <ButtonWithText
-                  anyfunction={undefined}
-                  title={"Cerrar oferta"}
-                  color="grey"
+                  anyfunction={() => setisvisibleUnirseoferta(true)}
+                  title={"Unirse"}
+                  color="#3498DB"
                 />
-                {/* <ButtonWithText
-              anyfunction={() => setisvisiblemodal(true)}
-              //anyfunction={undefined}
-              title={"Ver historial"}
-              color="grey"
-            ></ButtonWithText> */}
                 <ButtonWithText
-                  anyfunction={() => setisvisiblecerraroferta(true)}
-                  //anyfunction={undefined}
-                  title={"Cancelar oferta"}
+                  anyfunction={() => setisvisibleUnirseOfertaAhoraModal(true)}
+                  //anyfunction={() => undefined}
+                  title={"Pagar Ahora"}
                   color={theme.colors.red}
                 />
               </View>
               {/* modales */}
-              {/* <HistorialModal
-            isvisiblemodal={isvisiblemodal}
-            oncloseHistorial={() => setisvisiblemodal(false)}
-          ></HistorialModal> */}
-              <CancelarOferta
-                isvisible={isvisiblecerraroferta}
-                onclosecerraroferta={() => {
-                  setisvisiblecerraroferta(false);
+              <UnirseOfertaModal
+                dataproducto={dataproducto}
+                isvisibleUnirseOfertaModal={isvisibleUnirseoferta}
+                oncloseUnirseOferta={() => setisvisibleUnirseoferta(false)}
+                onclopagado={() => {
+                  setisvisibleUnirseoferta(false), onclose();
+                }}
+              ></UnirseOfertaModal>
+              <UnirseOfertaAhoraModal
+                dataproducto={dataproducto}
+                isvisibleUnirseOfertaAhoraModal={
+                  isvisibleUnirseOfertaAhoraModal
+                }
+                oncloseUnirseOfertaAhora={() =>
+                  setisvisibleUnirseOfertaAhoraModal(false)
+                }
+                oncloseexito={() => {
+                  setisvisibleUnirseOfertaAhoraModal(false);
                   onclose();
                 }}
-                oncloseoferta={() => setisvisiblecerraroferta(false)}
-                IdOferta={dataproducto?.IdOferta} //oferta={dataproducto.producto}
-              ></CancelarOferta>
+              ></UnirseOfertaAhoraModal>
             </>
           )}
-          {dataproducto?.estadoOferta?.Descripcion !== "En curso" && (
-            <View style={styles.borderLine} />
+          {dataproducto?.estaUnido && (
+            <View>
+              <View style={styles.borderLine}></View>
+              <Text style={{ color: theme.colors.purple, fontWeight: "bold" }}>
+                Tu orden de compra
+              </Text>
+
+              <View
+                style={{
+                  borderColor: theme.colors.lightGray3,
+                  borderWidth: 1,
+                  width: "100%",
+                  padding: 10,
+                  borderRadius: 8,
+                }}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={{ color: theme.colors.purple, fontWeight: "bold" }}
+                  >
+                    Fecha:
+                    <Text style={{ color: theme.colors.purple }}>
+                      {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
+                    </Text>
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={{ color: theme.colors.purple, fontWeight: "bold" }}
+                  >
+                    Unidades adquiridas:
+                    <Text style={{ color: theme.colors.purple }}> 2</Text>
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={{ color: theme.colors.purple, fontWeight: "bold" }}
+                  >
+                    Total pagado:
+                    <Text style={{ color: theme.colors.purple }}>
+                      {" "}
+                      $ {dataproducto?.datosProd?.costoU * 2}
+                    </Text>
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <Text
+                    style={{ color: theme.colors.purple, fontWeight: "bold" }}
+                  >
+                    Estado:
+                    <Text style={{ color: "green" }}>
+                      {" "}
+                      {dataproducto?.estadoOferta?.Descripcion ?? ""}{" "}
+                    </Text>
+                  </Text>
+                </View>
+              </View>
+            </View>
           )}
         </ScrollView>
       </View>

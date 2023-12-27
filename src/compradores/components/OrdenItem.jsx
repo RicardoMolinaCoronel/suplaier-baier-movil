@@ -17,14 +17,15 @@ const OrdenItem = (props) => {
   const [nombreProveedor, setNombreProveedor] = useState();
   const [datosProd, setDatosProd] = useState({});
   const [progresoOferta, setProgresoOferta] = useState(0);
+  // const [fechaLimiteObj, setFechaLimiteObj] = useState("0");
   const [isvisible, setisvisible] = useState(false);
-  const fechaLimiteObj = new Date(oferta?.FechaLimite);
 
+  const fechaLimiteObj = new Date(oferta?.FechaLimite ?? "0");
   let maximo;
   let actualProductos;
   const updateProgresoOferta = () => {
-    maximo = parseInt(oferta.Maximo);
-    actualProductos = parseInt(oferta.ActualProductos);
+    maximo = parseInt(oferta?.Maximo ?? 1);
+    actualProductos = parseInt(oferta?.ActualProductos ?? 1);
     setProgresoOferta(actualProductos / maximo);
   };
   const getOferta = async () => {
@@ -83,7 +84,12 @@ const OrdenItem = (props) => {
   return (
     <View style={styles.ordenContainer}>
       <View style={styles.textoImagenContainer}>
-        <StyledText fontWeight="bold" fontSize="subheading" color="purple">
+        <StyledText
+          style={styles.textTitulo}
+          fontWeight="bold"
+          fontSize="subtitle"
+          color="purple"
+        >
           {datosProd?.nombreProd}
         </StyledText>
         <Image
@@ -181,6 +187,9 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.lightGray2,
     marginBottom: 10,
     padding: 10,
+  },
+  textTitulo: {
+    textAlign: "center",
   },
   textoImagenContainer: {
     alignItems: "center",

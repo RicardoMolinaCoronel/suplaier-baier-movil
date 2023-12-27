@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import List_Categoria from './List_Categoria';
-import { apiUrl } from '../../../apiUrl';
+import { apiUrl } from '../../apiUrl';
 
 export const Cargar_Categorias = () => {
   const [isLoading, setIsLoading] = useState(true);

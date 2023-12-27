@@ -89,7 +89,12 @@ const OrdenItem = (props) => {
   return (
     <View style={styles.ordenContainer}>
       <View style={styles.textoImagenContainer}>
-        <StyledText fontWeight="bold" fontSize="subheading" color="purple">
+        <StyledText
+          style={styles.textTitulo}
+          fontWeight="bold"
+          fontSize="subtitle"
+          color="purple"
+        >
           {datosProd?.nombreProd}
         </StyledText>
         <Image
@@ -187,6 +192,9 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.lightGray2,
     marginBottom: 10,
     padding: 10,
+  },
+  textTitulo: {
+    textAlign: "center",
   },
   textoImagenContainer: {
     alignItems: "center",

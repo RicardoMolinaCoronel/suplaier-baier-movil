@@ -8,7 +8,7 @@ import { useState, useEffect, useContext } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
 import { useNavigate } from "react-router-native";
-//import { DetalleProducto } from "./DetalleProducto";
+import { DetalleProductoC } from "./DetalleProductoC";
 import React from "react";
 
 const OfertaItem = (props) => {
@@ -23,6 +23,7 @@ const OfertaItem = (props) => {
   const [estaUnido, setEstaUnido] = useState(false);
   const fechaLimiteObj = new Date(props.FechaLimite);
   const { authState } = useContext(AuthContext);
+
   let maximo;
   let actualProductos;
 
@@ -91,7 +92,12 @@ const OfertaItem = (props) => {
   return (
     <View style={styles.ofertaContainer}>
       <View style={styles.textoImagenContainer}>
-        <StyledText fontWeight="bold" fontSize="subheading" color="purple">
+        <StyledText
+          style={styles.textTitulo}
+          fontWeight="bold"
+          fontSize="subtitle"
+          color="purple"
+        >
           {datosProd?.nombreProd}
         </StyledText>
         <Image
@@ -164,6 +170,26 @@ const OfertaItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
+      <DetalleProductoC
+        isvisible={isvisible}
+        onclose={() => setisvisible(false)}
+        dataproducto={{
+          props,
+          producto,
+          proveedor,
+          estadoOferta,
+          nombreProveedor,
+          datosProd,
+          progresoOferta,
+          fechaLimiteObj,
+          Maximo: parseInt(props.Maximo),
+          Minimo: parseInt(props.Minimo),
+          actualProductos: parseInt(props.ActualProductos),
+          IdOferta: props.IdOferta,
+          IdUsuario: authState.user.IdUsuario,
+          estaUnido,
+        }}
+      ></DetalleProductoC>
     </View>
   );
 };
@@ -175,9 +201,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
   },
+  textTitulo: {
+    textAlign: "center",
+  },
   textoImagenContainer: {
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
   },
   imageContainer: {
     width: 210,

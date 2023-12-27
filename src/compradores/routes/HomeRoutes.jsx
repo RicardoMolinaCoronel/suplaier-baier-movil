@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-native";
 import { View } from "react-native";
 import HomeCompradorPage from "../pages/HomeCompradorPage";
 import StyledText from "../../styles/StyledText";
+import Notificaciones_Comprador from "../pages/Notificaciones_Comprador";
+import Busqueda_Comprador from "../pages/Busqueda_Comprador";
 const HomeRoutes = () => {
   return (
     <Routes>
@@ -18,17 +20,13 @@ const HomeRoutes = () => {
       <Route
         path="search"
         element={
-          <View>
-            <StyledText>BUSCAR</StyledText>
-          </View>
+          <Busqueda_Comprador/>
         }
       />
       <Route
         path="notifications"
         element={
-          <View>
-            <StyledText>NOTIFICACIONES</StyledText>
-          </View>
+          <Notificaciones_Comprador/>
         }
       />
     </Routes>

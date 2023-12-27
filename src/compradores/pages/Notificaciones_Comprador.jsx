@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import Notificaciones_List from '../../components/Notificaciones_List';
 import Icon from "react-native-ico-material-design";
 import theme from "../../theme";
-const NotificationsProveedorPage = () => {
+const Notificaciones_Comprador = () => {
   return (
     <View style={styles.container}>
     <View style={styles.notificacionesContainer}>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
 });
-export default NotificationsProveedorPage;
+export default Notificaciones_Comprador;
