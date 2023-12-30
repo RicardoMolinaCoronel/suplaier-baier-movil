@@ -4,10 +4,17 @@ import theme from "../../theme";
 import useOfertasTodos from "../hooks/useOfertasTodos";
 import StyledText from "../../styles/StyledText";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useState, useEffect } from "react";
+import { useData } from "../../hooks/OfertasDataProvider";
 
 const OfertasList = () => {
-  const { ofertasTodos } = useOfertasTodos();
+  const { ofertasTodos, getOfertasTodos } = useData();
+  // const { ofertasTodos } = useOfertasTodos();
   const showEmptyArray = !!ofertasTodos && ofertasTodos?.length === 0;
+
+  useEffect(() => {
+    getOfertasTodos();
+  }, []);
   return (
     <>
       {showEmptyArray && (

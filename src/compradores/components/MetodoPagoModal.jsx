@@ -12,7 +12,7 @@ import { ButtonWithText } from "../../proveedores/components/ButtonWithText";
 import theme from "../../theme";
 import { RadioButton } from "react-native-paper";
 import { apiUrl } from "../../../apiUrl";
-
+import { useData } from "../../hooks/OfertasDataProvider";
 export const MetodoPagoModal = ({
   isvisibleMetodoPagoModal,
   valortotal,
@@ -22,7 +22,7 @@ export const MetodoPagoModal = ({
   contador,
 }) => {
   const [checked, setChecked] = React.useState("");
-
+  const { getOfertasTodos } = useData();
   const actualizarOferta = async () => {
     const body = {
       IdOferta: dataproducto.IdOferta,
@@ -35,21 +35,34 @@ export const MetodoPagoModal = ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    }).then((response) => {
-      console.log(response, "reservado");
-      Alert.alert(
-        "El pago de tipo Reserva se ha realizado con éxito!",
-        "Se ha unido correctamente a la oferta",
-        [
-          {
-            text: "Aceptar",
-            onPress: () => oncloseReservado(),
-          },
-        ],
-        { cancelable: false }
-      );
-    });
-    console.log("exito actualizar");
+    })
+      .catch(() => {
+        Alert.alert(
+          "Error en la oferta",
+          "Ha habido un error al intentar actualizar la oferta",
+          [
+            {
+              text: "Aceptar",
+              onPress: () => actualizarOferta(),
+            },
+          ],
+          { cancelable: false }
+        );
+      })
+      .then((response) => {
+        getOfertasTodos();
+        Alert.alert(
+          "El pago de tipo Reserva se ha realizado con éxito!",
+          "Se ha unido correctamente a la oferta",
+          [
+            {
+              text: "Aceptar",
+              onPress: () => oncloseReservado(),
+            },
+          ],
+          { cancelable: false }
+        );
+      });
   };
 
   const crearCompraIndividual = async () => {
@@ -64,9 +77,9 @@ export const MetodoPagoModal = ({
       IdEstado: dataproducto.estadoOferta.IdEstadosOferta,
       MetodoPago: "reserva",
       PagadoAProveedor: false,
+      TipoCompra: "normal",
     };
 
-    console.log("crear com", body);
     const resp = await fetch(`${apiUrl}/compras`, {
       method: "POST",
       headers: {
@@ -74,7 +87,6 @@ export const MetodoPagoModal = ({
       },
       body: JSON.stringify(body),
     });
-    console.log("exito compra");
   };
 
   const postpago = () => {
@@ -86,9 +98,23 @@ export const MetodoPagoModal = ({
           {
             text: "Aceptar",
             onPress: () => {
-              crearCompraIndividual().then(() => {
-                actualizarOferta();
-              });
+              crearCompraIndividual()
+                .catch(() => {
+                  Alert.alert(
+                    "Error en la orden de compra",
+                    "Ha habido un error al intentar crear la orden de compra",
+                    [
+                      {
+                        text: "Aceptar",
+                        onPress: () => oncloseReservado(),
+                      },
+                    ],
+                    { cancelable: false }
+                  );
+                })
+                .then(() => {
+                  actualizarOferta();
+                });
             },
           },
         ],
@@ -140,14 +166,14 @@ export const MetodoPagoModal = ({
           />
         </View>
         <View style={{ alignContent: "flex-start" }}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          {/* <View style={{ flexDirection: "row", alignItems: "center" }}>
             <RadioButton
               value="Pago anticipado"
               status={checked === "Pago anticipado" ? "checked" : "unchecked"}
               onPress={() => setChecked("Pago anticipado")}
             />
             <Text>Pago anticipado</Text>
-          </View>
+          </View> */}
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <RadioButton
               value="Reserva"

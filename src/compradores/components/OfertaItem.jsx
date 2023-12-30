@@ -83,8 +83,8 @@ const OfertaItem = (props) => {
   useEffect(() => {
     setDatosProd({
       nombreProd: producto?.Name,
-      costoU: props.ValorUProducto,
-      costoInst: props.ValorUInstantaneo,
+      costoU: parseFloat(props.ValorUProducto),
+      costoInst: parseFloat(props.ValorUInstantaneo),
       urlImg: producto?.UrlImg,
     });
   }, [producto, props]);
@@ -101,9 +101,13 @@ const OfertaItem = (props) => {
           {datosProd?.nombreProd}
         </StyledText>
         <Image
-          source={{
-            uri: datosProd?.urlImg,
-          }}
+          source={
+            datosProd?.urlImg != null && datosProd?.urlImg != "no-img.jpeg"
+              ? {
+                  uri: datosProd?.urlImg,
+                }
+              : require("../../../public/no-img.jpeg")
+          }
           style={styles.imageContainer}
         />
         <StyledText color="purple">{nombreProveedor}</StyledText>

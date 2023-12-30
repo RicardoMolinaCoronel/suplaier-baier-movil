@@ -49,9 +49,14 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
 
           <View style={styles.firstContainer}>
             <Image
-              source={{
-                uri: dataorden?.datosProd?.urlImg ?? "",
-              }}
+              source={
+                dataorden?.datosProd?.urlImg != null &&
+                dataorden?.datosProd?.urlImg != "no-img.jpeg"
+                  ? {
+                      uri: dataorden?.datosProd?.urlImg ?? "",
+                    }
+                  : require("../../public/no-img.jpeg")
+              }
               style={styles.imageContainer}
             />
             <View style={styles.starsContainer}>

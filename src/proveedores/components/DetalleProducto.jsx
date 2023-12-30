@@ -50,9 +50,14 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
 
           <View style={styles.firstContainer}>
             <Image
-              source={{
-                uri: dataproducto?.datosProd?.urlImg ?? "",
-              }}
+              source={
+                dataproducto?.datosProd?.urlImg != null &&
+                dataproducto?.datosProd?.urlImg != "no-img.jpeg"
+                  ? {
+                      uri: dataproducto?.datosProd?.urlImg ?? "",
+                    }
+                  : require("../../../public/no-img.jpeg")
+              }
               style={styles.imageContainer}
             />
             <View style={styles.starsContainer}>

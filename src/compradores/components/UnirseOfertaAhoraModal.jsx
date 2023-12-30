@@ -13,7 +13,7 @@ import StyledText from "../../styles/StyledText";
 import theme from "../../theme";
 import { dateOptions } from "../../components/dateOptions";
 import { apiUrl } from "../../../apiUrl";
-
+import { useData } from "../../hooks/OfertasDataProvider";
 export const UnirseOfertaAhoraModal = ({
   dataproducto,
   isvisibleUnirseOfertaAhoraModal,
@@ -23,28 +23,50 @@ export const UnirseOfertaAhoraModal = ({
   const fechaLimiteObj = new Date(dataproducto?.fechaLimiteObj ?? "");
   const [contador, setContador] = useState(0);
   const [valortotal, setvalortotal] = useState(0);
+  const { getOfertasTodos } = useData();
 
   let unidadesdisponibles =
     parseInt(dataproducto?.Maximo) - parseInt(dataproducto?.actualProductos);
 
   const incrementarContador = () => {
     if (contador < unidadesdisponibles) {
+      setvalortotal((contador + 1) * dataproducto.datosProd.costoInst);
       setContador(contador + 1);
-      setvalortotal(contador * dataproducto?.datosProd?.costoU);
-      console.log("setContador", contador);
     }
   };
 
   const decrementarContador = () => {
     if (contador > 0) {
+      setvalortotal((contador - 1) * dataproducto.datosProd.costoInst);
       setContador(contador - 1);
-      setvalortotal(contador * dataproducto?.datosProd?.costoU);
-      console.log("setContador", contador);
     }
   };
+  const crearCompraIndividual = async () => {
+    const body = {
+      IdComprador: dataproducto.IdUsuario,
+      IdProveedor: dataproducto.proveedor.IdUsuario,
+      IdOferta: dataproducto.IdOferta,
+      Cantidad: contador,
+      Total: valortotal,
+      TipoCompra: "instantanea",
+      Descripcion: "",
+      Observacion: "",
+      IdEstado: dataproducto.estadoOferta.IdEstadosOferta,
+      MetodoPago: "reserva",
+      PagadoAProveedor: false,
+    };
 
+    const resp = await fetch(`${apiUrl}/compras`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+  };
   const pagarahora = async () => {
     {
+      setvalortotal(contador * dataproducto.datosProd.costoInst);
       const body = {
         IdOferta: dataproducto.IdOferta,
         NuevoActualProductos:
@@ -58,16 +80,32 @@ export const UnirseOfertaAhoraModal = ({
         body: JSON.stringify(body),
       })
         .then((response) => {
-          console.log("exito", response);
+          crearCompraIndividual()
+            .catch(() => {
+              Alert.alert(
+                "Aviso",
+                "Ha habido un error al intentar crear la orden de compra",
+                [{ text: "Aceptar", onPress: () => oncloseexito() }],
+                { cancelable: false }
+              );
+            })
+            .then(() => {
+              getOfertasTodos();
+              Alert.alert(
+                "Aviso",
+                "La compra instantánea se ha realizado con éxito",
+                [{ text: "Aceptar", onPress: () => oncloseexito() }],
+                { cancelable: false }
+              );
+            });
+        })
+        .catch(() => {
           Alert.alert(
             "Aviso",
-            "La Compra Instantanea Se ha Realizado con exito",
+            "Ha habido un error al intentar actualizar la oferta",
             [{ text: "Aceptar", onPress: () => oncloseexito() }],
             { cancelable: false }
           );
-        })
-        .catch(() => {
-          console.log("error en el post");
         });
     }
   };
@@ -111,10 +149,10 @@ export const UnirseOfertaAhoraModal = ({
               {dataproducto?.datosProd?.nombreProd ?? ""}
             </StyledText>
             <StyledText color={"primary"}>
-              Precio Unitario: ${dataproducto?.datosProd?.costoU ?? 0}
+              P. Instantáneo: ${dataproducto?.datosProd?.costoInst ?? 0}
             </StyledText>
             <StyledText color={"primary"}>
-              Unidades Disponibles: {unidadesdisponibles}
+              U. Disponibles: {unidadesdisponibles}
             </StyledText>
           </View>
         </View>
@@ -155,7 +193,7 @@ export const UnirseOfertaAhoraModal = ({
               <Text style={{ textAlign: "center", fontWeight: "bold" }}>
                 Total: $ {""}
               </Text>
-              {contador * dataproducto?.datosProd?.costoU}
+              {valortotal}
             </Text>
           </View>
         </View>

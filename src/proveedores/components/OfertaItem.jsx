@@ -95,9 +95,13 @@ const OfertaItem = (props) => {
           {datosProd?.nombreProd}
         </StyledText>
         <Image
-          source={{
-            uri: datosProd?.urlImg,
-          }}
+          source={
+            datosProd?.urlImg != null && datosProd?.urlImg != "no-img.jpeg"
+              ? {
+                  uri: datosProd?.urlImg,
+                }
+              : require("../../../public/no-img.jpeg")
+          }
           style={styles.imageContainer}
         />
         <StyledText color="purple">{nombreProveedor}</StyledText>

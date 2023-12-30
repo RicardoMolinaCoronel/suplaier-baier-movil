@@ -46,9 +46,14 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
 
           <View style={styles.firstContainer}>
             <Image
-              source={{
-                uri: dataproducto?.datosProd?.urlImg ?? "",
-              }}
+              source={
+                dataproducto?.datosProd?.urlImg != null &&
+                dataproducto?.datosProd?.urlImg != "no-img.jpeg"
+                  ? {
+                      uri: dataproducto?.datosProd?.urlImg ?? "",
+                    }
+                  : require("../../../public/no-img.jpeg")
+              }
               style={styles.imageContainer}
             />
             <View style={styles.starsContainer}>
@@ -78,6 +83,16 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
                 ${dataproducto?.datosProd?.costoU ?? 0}
               </StyledText>
             </View>
+          </View>
+          <View style={styles.precioInstContainerSub}>
+            <StyledText color={"purple"} fontWeight={"bold"}>
+              Precio de compra instantanea:{" "}
+            </StyledText>
+            <StyledText color={"primary"}>
+              {dataproducto?.datosProd?.costoInst === 0
+                ? "--"
+                : "$" + dataproducto?.datosProd?.costoInst}
+            </StyledText>
           </View>
 
           <View style={styles.unidadesFechaContainer}>
@@ -134,12 +149,14 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
                   title={"Unirse"}
                   color="#3498DB"
                 />
-                <ButtonWithText
-                  anyfunction={() => setisvisibleUnirseOfertaAhoraModal(true)}
-                  //anyfunction={() => undefined}
-                  title={"Pagar Ahora"}
-                  color={theme.colors.red}
-                />
+                {dataproducto?.datosProd?.costoInst != 0 && (
+                  <ButtonWithText
+                    anyfunction={() => setisvisibleUnirseOfertaAhoraModal(true)}
+                    //anyfunction={() => undefined}
+                    title={"Pagar Ahora"}
+                    color={theme.colors.red}
+                  />
+                )}
               </View>
               {/* modales */}
               <UnirseOfertaModal

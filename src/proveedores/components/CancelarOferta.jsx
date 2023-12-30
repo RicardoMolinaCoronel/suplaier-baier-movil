@@ -3,7 +3,7 @@ import { Modal, View, Text, Alert } from "react-native";
 import { ButtonWithText } from "./ButtonWithText";
 import { apiUrl } from "../../../apiUrl";
 import theme from "../../theme";
-import useOfertas from "../hooks/useOfertas";
+import { useData } from "../../hooks/OfertasDataProvider";
 
 export const CancelarOferta = ({
   isvisible,
@@ -11,6 +11,8 @@ export const CancelarOferta = ({
   oncloseoferta,
   IdOferta,
 }) => {
+  const { getOfertasProv } = useData();
+
   const actualizarOferta = async () => {
     const bodySolicitud = {
       IdOferta: IdOferta,
@@ -25,16 +27,27 @@ export const CancelarOferta = ({
     });
     const dataSolicitud = await resp.json();
     console.log(!!dataSolicitud && "Cancelando Oferta");
-    Alert.alert(
-      "¡Aviso!",
-      "¡Oferta cancelada con éxito!", // Puedes poner un mensaje aquí si lo necesitas
-      [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
-      { cancelable: false }
-    );
   };
 
   const ActualizarOferta = () => {
-    actualizarOferta();
+    actualizarOferta()
+      .catch(() => {
+        Alert.alert(
+          "¡Aviso!",
+          "¡Hubo un error al intentar cancelar la oferta!", // Puedes poner un mensaje aquí si lo necesitas
+          [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+          { cancelable: false }
+        );
+      })
+      .then(() => {
+        getOfertasProv();
+        Alert.alert(
+          "¡Aviso!",
+          "¡Oferta cancelada con éxito!", // Puedes poner un mensaje aquí si lo necesitas
+          [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+          { cancelable: false }
+        );
+      });
   };
 
   return (

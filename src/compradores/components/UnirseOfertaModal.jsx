@@ -23,17 +23,15 @@ export const UnirseOfertaModal = ({
 
   const incrementarContador = () => {
     if (contador < unidadesdisponibles) {
+      setvalortotal((contador + 1) * dataproducto?.datosProd?.costoU);
       setContador(contador + 1);
-      setvalortotal(contador * dataproducto?.datosProd?.costoU);
-      console.log("setContador", contador);
     }
   };
 
   const decrementarContador = () => {
     if (contador > 0) {
+      setvalortotal((contador - 1) * dataproducto?.datosProd?.costoU);
       setContador(contador - 1);
-      setvalortotal(contador * dataproducto?.datosProd?.costoU);
-      console.log("setContador", contador);
     }
   };
 

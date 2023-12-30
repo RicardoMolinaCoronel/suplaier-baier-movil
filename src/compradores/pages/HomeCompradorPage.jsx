@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import Icon from "react-native-ico-material-design";
 import theme from "../../theme";
 import OfertasList from "../components/OfertasList";
+import OfertasDataProvider from "../../hooks/OfertasDataProvider";
 const HomeCompradorPage = () => {
   return (
     <View style={styles.container}>
@@ -20,7 +21,10 @@ const HomeCompradorPage = () => {
         </View>
         <View style={styles.borderLine} />
       </View>
-      <OfertasList />
+      <OfertasDataProvider>
+        <OfertasList />
+      </OfertasDataProvider>
+
       <View style={styles.spaceBorder} />
       <StatusBar style="light" />
     </View>
