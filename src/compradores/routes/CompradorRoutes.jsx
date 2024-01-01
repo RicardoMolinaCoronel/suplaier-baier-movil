@@ -6,6 +6,8 @@ import ProfileRoutes from "./ProfileRoutes";
 import AppCompBar from "../components/AppCompBar";
 import NavigationBar from "../components/NavigationBar";
 import OrdenesRoutes from "./OrdenesRoutes";
+import CrearProductoPage from "../pages/CrearProductoPage";
+import CrearDemandaPage from "../pages/CrearDemandaPage";
 const CompradorRoutes = ({
   closeButtonOffset,
   scaleValue,
@@ -70,6 +72,7 @@ const CompradorRoutes = ({
               setShowMenu={setShowMenu}
             />
             <StatusBar style="light" />
+            <CrearDemandaPage />
           </>
         }
       />
@@ -85,6 +88,7 @@ const CompradorRoutes = ({
               setShowMenu={setShowMenu}
             />
             <StatusBar style="light" />
+            <CrearProductoPage />
           </>
         }
       />

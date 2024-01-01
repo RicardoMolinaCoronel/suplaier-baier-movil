@@ -21,10 +21,19 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.red,
     borderWidth: 1,
   },
+  areaSize: {
+    height: 180,
+    textAlignVertical: "top",
+  },
 });
 
-const StyledTextInput = ({ style, error, ...props }) => {
-  const inputStyle = [styles.textInput, style, error && styles.error];
+const StyledTextInput = ({ style, error, textAreaSize, ...props }) => {
+  const inputStyle = [
+    styles.textInput,
+    style,
+    error && styles.error,
+    textAreaSize === "descripcion" && styles.areaSize,
+  ];
   return <TextInput style={inputStyle} {...props} />;
 };
 

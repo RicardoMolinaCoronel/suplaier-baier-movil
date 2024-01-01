@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, Text, Image, Modal } from "react-native";
+import { View, Image, Modal } from "react-native";
 import { StarsQualification } from "../proveedores/components/StarsQualification";
 import { ButtonWithText } from "../proveedores/components/ButtonWithText";
 import { AuthContext } from "../auth/context/AuthContext";
