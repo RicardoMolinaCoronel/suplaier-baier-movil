@@ -6,18 +6,12 @@ import StyledText from "../../styles/StyledText";
 import HomeProveedorPage from "../pages/HomeProveedorPage";
 import SearchProveedorPage from "../pages/SearchProveedorPage";
 import NotificationsProveedorPage from "../pages/NotificationsProveedorPage";
+import DemandasProveedorPage from "../pages/DemandasProveedorPage";
 const HomeRoutes = () => {
   return (
     <Routes>
       <Route path="ofertas" element={<HomeProveedorPage />} />
-      <Route
-        path="demandas"
-        element={
-          <View>
-            <StyledText>DEMANDAS</StyledText>
-          </View>
-        }
-      />
+      <Route path="demandas" element={<DemandasProveedorPage />} />
       <Route path="search" element={<SearchProveedorPage />} />
       <Route path="notifications" element={<NotificationsProveedorPage />} />
     </Routes>
