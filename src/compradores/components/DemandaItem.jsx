@@ -1,4 +1,5 @@
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { AuthContext } from "../../auth/context/AuthContext";
 import theme from "../../theme";
 import ProgressBar from "react-native-progress/Bar";
 import StyledText from "../../styles/StyledText";
@@ -6,83 +7,83 @@ import { apiUrl } from "../../../apiUrl";
 import { useState, useEffect, useContext } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
-import { DetalleOrden } from "../../components/DetalleOrden";
+import { useNavigate } from "react-router-native";
+import { SimpleLineIcons } from "@expo/vector-icons";
 
-const OrdenItem = (props) => {
-  const [oferta, setOferta] = useState();
-  const [producto, setProducto] = useState();
-  const [proveedor, setProveedor] = useState();
-  const [comprador, setComprador] = useState();
-  const [estadoOferta, setEstadoOferta] = useState();
-  const [nombreProveedor, setNombreProveedor] = useState();
-  const [datosProd, setDatosProd] = useState({});
-  const [progresoOferta, setProgresoOferta] = useState(0);
-  // const [fechaLimiteObj, setFechaLimiteObj] = useState("0");
+import React from "react";
+
+const DemandaItem = (props) => {
+  const navigate = useNavigate();
   const [isvisible, setisvisible] = useState(false);
+  const [producto, setProducto] = useState();
+  const [comprador, setComprador] = useState();
+  const [estadoDemanda, setEstadoDemanda] = useState();
+  const [nombreComprador, setNombreComprador] = useState();
+  const [datosProd, setDatosProd] = useState({});
+  const [progresoDemanda, setProgresoDemanda] = useState(0);
+  const [estaUnido, setEstaUnido] = useState(false);
+  const fechaLimiteObj = new Date(props.FechaLimite);
+  const { authState } = useContext(AuthContext);
 
-  const fechaLimiteObj = new Date(oferta?.FechaLimite ?? "0");
   let maximo;
   let actualProductos;
-  const updateProgresoOferta = () => {
-    maximo = parseInt(oferta.Maximo);
-    actualProductos = parseInt(oferta.ActualProductos);
-    setProgresoOferta(actualProductos / maximo);
+
+  const updateProgresoDemanda = () => {
+    maximo = parseInt(props.Maximo);
+    actualProductos = parseInt(props.ActualProductos);
+    setProgresoDemanda(actualProductos / maximo);
   };
-  const getOferta = async () => {
+
+  const getProductoDemanda = async () => {
     const resp = await globalThis.fetch(
-      `${apiUrl}/ofertas?id=${props.IdOferta}`
-    );
-    const data = await resp.json();
-    const { rows: oferta } = !!data && data;
-    setOferta(oferta[0]);
-    getProductoOferta();
-    updateProgresoOferta();
-  };
-  const getProductoOferta = async () => {
-    const resp = await globalThis.fetch(
-      `${apiUrl}/productos?id=${oferta?.IdProducto}`
+      `${apiUrl}/productos?id=${props.IdProducto}`
     );
     const data = await resp.json();
     const { rows: producto } = !!data && data;
     setProducto(producto[0]);
   };
-  const getProveedorOferta = async () => {
+  const getCompradorDemanda = async () => {
     const resp = await globalThis.fetch(
-      `${apiUrl}/usuarios?idUsuario=${props.IdProveedor}`
+      `${apiUrl}/usuarios?idUsuario=${props.IdComprador}`
     );
     const data = await resp.json();
-    const { rows: proveedor } = !!data && data;
-    setProveedor(proveedor[0]);
+    const { rows: comprador } = !!data && data;
+    setComprador(comprador[0]);
   };
-  const getEstadoOferta = async () => {
+  const getEstadoDemanda = async () => {
     const resp = await globalThis.fetch(
-      `${apiUrl}/estados?id=${oferta?.IdEstadosOferta ?? 1}`
+      `${apiUrl}/estados?id=${props.IdEstadosOferta}`
     );
     const data = await resp.json();
     const { rows: estado } = !!data && data;
-    setEstadoOferta(estado[0]);
+    setEstadoDemanda(estado[0]);
   };
   useEffect(() => {
-    getOferta();
-    getProveedorOferta();
-    getEstadoOferta();
+    getProductoDemanda();
+    getCompradorDemanda();
+    getEstadoDemanda();
+    updateProgresoDemanda();
+    //checkEstaUnidoDemanda();
   }, [props]);
 
   useEffect(() => {
-    setNombreProveedor(proveedor?.Nombre);
-  }, [proveedor]);
+    setNombreComprador(comprador?.Nombre);
+  }, [comprador]);
 
   useEffect(() => {
     setDatosProd({
       nombreProd: producto?.Name,
-      costoU: oferta?.ValorUProducto,
-      costoInst: oferta?.ValorUInstantaneo,
+      precioMin: parseFloat(props.PrecioMinimo),
+      precioMax: parseFloat(props.PrecioMaximo),
       urlImg: producto?.UrlImg,
     });
-  }, [producto, oferta]);
+  }, [producto, props]);
 
   return (
-    <View style={styles.ordenContainer}>
+    <View style={styles.ofertaContainer}>
+      <View style={styles.demandaIcon}>
+        <SimpleLineIcons name="basket" size={24} color={theme.colors.blue} />
+      </View>
       <View style={styles.textoImagenContainer}>
         <StyledText
           style={styles.textTitulo}
@@ -102,26 +103,24 @@ const OrdenItem = (props) => {
           }
           style={styles.imageContainer}
         />
+        <StyledText color="purple">{nombreComprador}</StyledText>
       </View>
-      <View style={styles.proveedorContainer}>
-        <StyledText color="purple" fontWeight="bold">
-          Proveedor:{" "}
-        </StyledText>
-        <StyledText color="purple">{proveedor?.Nombre}</StyledText>
-      </View>
+
       <View style={styles.enOfertaContainer}>
-        <StyledText color="purple" fontWeight="bold">
-          En oferta:{" "}
-        </StyledText>
-        <StyledText color="purple">
-          {parseInt(oferta?.Maximo) - parseInt(oferta?.ActualProductos)}/
-        </StyledText>
-        <StyledText color="purple">{oferta?.Maximo}</StyledText>
+        <View style={styles.textoEnOfertaContainer}>
+          <StyledText color="purple" fontWeight="bold">
+            En demanda:{" "}
+          </StyledText>
+          <StyledText color="purple">
+            {parseInt(props.Maximo) - parseInt(props.ActualProductos)}/
+          </StyledText>
+          <StyledText color="purple">{props.Maximo}</StyledText>
+        </View>
       </View>
       <View style={styles.progressContainer}>
         <View style={styles.progressBar}>
           <ProgressBar
-            progress={progresoOferta}
+            progress={progresoDemanda}
             width={200}
             height={25}
             color={theme.colors.blue}
@@ -133,24 +132,22 @@ const OrdenItem = (props) => {
       <View style={styles.provEstadoContainer}>
         <View style={styles.precioUContainer}>
           <StyledText color="purple" fontWeight="bold">
-            Precio unitario:{" "}
+            Precio mínimo:{" "}
           </StyledText>
-          <StyledText color="purple">{datosProd?.costoU}$</StyledText>
+          <StyledText color="purple">{datosProd?.precioMin}$</StyledText>
         </View>
-        {estadoOferta?.Descripcion === "Cerrado" ? (
+        {estadoDemanda?.Descripcion === "Cerrado" ? (
           <EtiquetaEstadoOferta estado={"Verificando pagos"} />
         ) : (
-          <EtiquetaEstadoOferta estado={estadoOferta?.Descripcion} />
+          <EtiquetaEstadoOferta estado={estadoDemanda?.Descripcion} />
         )}
       </View>
       <View style={styles.provDetalleContainer}>
         <View style={styles.precioInstContainer}>
           <StyledText color="purple" fontWeight="bold">
-            Precio instantáneo:{" "}
+            Precio máximo:{" "}
           </StyledText>
-          <StyledText color="purple">
-            {datosProd?.costoInst === 0 ? "--" : datosProd?.costoInst + "$"}
-          </StyledText>
+          <StyledText color="purple">{datosProd?.precioMax}$</StyledText>
         </View>
         <TouchableOpacity
           style={styles.detalleContainer}
@@ -167,37 +164,44 @@ const OrdenItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
-      <DetalleOrden
+      {/* <DetalleProductoC
         isvisible={isvisible}
         onclose={() => setisvisible(false)}
-        dataorden={{
-          oferta,
+        dataproducto={{
+          props,
           producto,
           comprador,
-          estadoOferta,
+          estadoDemanda,
+          nombreComprador,
           datosProd,
-          progresoOferta,
-          proveedor,
-          props,
+          progresoDemanda,
+          fechaLimiteObj,
+          Maximo: parseInt(props.Maximo),
+          Minimo: parseInt(props.Minimo),
+          actualProductos: parseInt(props.ActualProductos),
+          IdDemanda: props.IdDemanda,
+          IdUsuario: authState.user.IdUsuario
         }}
-      ></DetalleOrden>
+      ></DetalleProductoC> */}
     </View>
   );
 };
 const styles = StyleSheet.create({
-  ordenContainer: {
+  ofertaContainer: {
     borderWidth: 1,
     borderRadius: 4,
     borderColor: theme.colors.lightGray2,
     marginBottom: 10,
     padding: 10,
   },
+  demandaIcon: { width: "100%", alignItems: "flex-start" },
   textTitulo: {
     textAlign: "center",
   },
   textoImagenContainer: {
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
   },
   imageContainer: {
     width: 210,
@@ -216,14 +220,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 7,
   },
-  proveedorContainer: {
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
   enOfertaContainer: {
     alignItems: "flex-start",
     flexDirection: "row",
-    marginTop: 10,
+    justifyContent: "space-between",
+    marginTop: 5,
+  },
+  textoEnOfertaContainer: {
+    alignItems: "flex-start",
+    flexDirection: "row",
   },
   precioUContainer: {
     flexDirection: "row",
@@ -252,4 +257,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-export default OrdenItem;
+export default DemandaItem;

@@ -3,29 +3,27 @@ import { apiUrl } from "../../apiUrl";
 import { AuthContext } from "../auth/context/AuthContext";
 const DataContext = createContext();
 
-const OfertasDataProvider = ({ children }) => {
+const DemandasDataProvider = ({ children }) => {
   const { authState } = useContext(AuthContext);
   const { user } = authState;
-  const [ofertasTodos, setOfertasTodos] = useState([]);
-  const [ofertasProv, setOfertasProv] = useState([]);
+  const [demandasTodos, setDemandasTodos] = useState([]);
+  const [demandasComp, setDemandasComp] = useState([]);
 
-  const getOfertasProv = async () => {
+  const getDemandasComp = async () => {
     const resp = await globalThis.fetch(
-      `${apiUrl}/ofertas?idProveedor=${user.IdUsuario}`
+      `${apiUrl}/demandas?IdComprador=${user.IdUsuario}`
     );
     const data = await resp.json();
-    const { rows: ofertas } = !!data && data;
-    setOfertasProv(ofertas);
+    const { rows: demandas } = !!data && data;
+    setDemandasComp(demandas);
   };
 
-  const getOfertasTodos = async () => {
+  const getDemandasTodos = async () => {
     //ofertas por devolver pago
-    const resp = await fetch(`${apiUrl}/ofertas?idEstadosOferta=${1}`);
+    const resp = await fetch(`${apiUrl}/demandas?idEstadosOferta=${1}`);
     const data = await resp.json();
-    console.log(data);
-
-    const { rows: ofertas } = !!data && data;
-    setOfertasTodos(ofertas);
+    const { rows: demandas } = !!data && data;
+    setDemandasTodos(demandas);
   };
 
   //   useEffect(() => {
@@ -34,7 +32,7 @@ const OfertasDataProvider = ({ children }) => {
   //   }, []);
   return (
     <DataContext.Provider
-      value={{ ofertasTodos, getOfertasTodos, ofertasProv, getOfertasProv }}
+      value={{ demandasTodos, getDemandasTodos, demandasComp, getDemandasComp }}
     >
       {children}
     </DataContext.Provider>
@@ -44,4 +42,4 @@ const OfertasDataProvider = ({ children }) => {
 export const useData = () => {
   return useContext(DataContext);
 };
-export default OfertasDataProvider;
+export default DemandasDataProvider;
