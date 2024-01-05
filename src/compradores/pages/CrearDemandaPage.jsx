@@ -153,7 +153,7 @@ const CrearDemandaPage = () => {
   const getProductos = async () => {
     try {
       const resp = await fetch(
-        `${apiUrl}/productos/?idProveedor=${user.IdUsuario}`
+        `${apiUrl}/productos/onlyNames?idProveedor=${user.IdUsuario}`
       );
       const data = await resp.json();
       const { rows: productos } = !!data && data;
