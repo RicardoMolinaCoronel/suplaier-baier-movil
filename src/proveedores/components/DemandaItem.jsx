@@ -9,6 +9,7 @@ import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
 import { useNavigate } from "react-router-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { DetalleProductoC } from "./DetalleProductoC";
 
 import React from "react";
 
@@ -164,7 +165,7 @@ const DemandaItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
-      {/* <DetalleProductoC
+      {isvisible && ( <DetalleProductoC
         isvisible={isvisible}
         onclose={() => setisvisible(false)}
         dataproducto={{
@@ -182,7 +183,7 @@ const DemandaItem = (props) => {
           IdDemanda: props.IdDemanda,
           IdUsuario: authState.user.IdUsuario
         }}
-      ></DetalleProductoC> */}
+      ></DetalleProductoC>)}
     </View>
   );
 };
