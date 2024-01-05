@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Search_Input =({ onSearch }) => {
+const Search_Input = ({ onSearch }) => {
   const [searchText, setSearchText] = useState('');
 
   const handleSearch = () => {
@@ -15,14 +15,16 @@ const Search_Input =({ onSearch }) => {
         style={styles.input}
         placeholder="Buscar..."
         value={searchText}
-        onChangeText={(text) => setSearchText(text)}
+        onChangeText={setSearchText}
+        onSubmitEditing={handleSearch}  // Permite buscar al presionar Enter
+        returnKeyType="search"
       />
       <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
         <Icon name="search" size={20} color="white" />
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = {
   container: {

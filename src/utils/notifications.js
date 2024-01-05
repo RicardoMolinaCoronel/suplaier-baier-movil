@@ -1,4 +1,5 @@
 import * as Notifications from 'expo-notifications';
+import { apiUrl } from "../../apiUrl";
 
 async function registerForPushNotificationsAsync() {
   // Primero, solicita el permiso para las notificaciones
@@ -16,12 +17,12 @@ async function registerForPushNotificationsAsync() {
   }
 
   // Obtiene el token de notificación
-  const tokenResponse = await Notifications.getExpoPushTokenAsync({
+  /*const tokenResponse = await Notifications.getExpoPushTokenAsync({
     experienceId: `@SuplaierMovil/SuplaierMovil`,
     projectId: 'baiernotificaciones',
   });
   console.log(tokenResponse); // enviar este token a backend
-  return tokenResponse.data;
+  return tokenResponse.data;*/
 }
 
 async function sendTokenToServer(token) {

@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import StyledText from "../../styles/StyledText";
 import { StatusBar } from "expo-status-bar";
-import Search_Input from '../../components/Search_Input';
+import Search_Input from '../../components/SearchInput';
 import Search_Logic from '../logics/Search_Logic';
 import Icon from "react-native-ico-material-design";
 import theme from "../../theme";
-import Cargar_Categorias from '../../components/Cargar_Categorias';
+import Cargar_Categorias from '../../components/CargarCategorias';
 import {useEffect, useState} from 'react'
 import OfertaItem from "../components/OfertaItem";
 const Busqueda_Comprador = () => {
