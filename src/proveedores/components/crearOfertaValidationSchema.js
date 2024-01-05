@@ -7,21 +7,21 @@ const crearOfertaValidationSchema = Yup.object().shape({
     description: Yup.string().required('La descripción es requerida').min(20,"La descripción no puede ser menor a 20 caracteres").max(480,"La descripción no puede ser superior a los 480 caracteres"),
     pmin: Yup.number().required('El precio mínimo es requerido')
     .positive('El precio debe ser un número positivo')    
-    .max(10000,'El precio mínimo no puede ser mayor a 10000')
-    .test('twodecimals-price', 'El precio mínimo debe tener dos decimales', function (value) {
+    .max(10000,'El precio unitario no puede ser mayor a 10000')
+    .test('twodecimals-price', 'El precio unitario debe tener dos decimales', function (value) {
         const regex = /^\d+(\.\d{2})?$/;
         return regex.test(value.toString());
    })
     ,
     pmax: Yup.number()
-         .required('El precio máximo es requerido')
+         .required('El precio instantáneo es requerido')
          .positive('El precio debe ser un número positivo')
-         .max(10000,'El precio máximo no puede ser mayor a 10000')
-         .test('higher-price', 'El precio máximo debe ser mayor o igual al precio mínimo', function (value) {
+         .max(10000,'El precio instantáneo no puede ser mayor a 10000')
+         .test('higher-price', 'El precio instantáneo debe ser mayor o igual al precio mínimo', function (value) {
              const pmin = this.parent.pmin;
              return value >= pmin;
         })
-        .test('twodecimals-price', 'El precio máximo debe tener dos decimales', function (value) {
+        .test('twodecimals-price', 'El precio instantáneo debe tener dos decimales', function (value) {
             const regex = /^\d+(\.[0-9]{2})?$/;
             return regex.test(value.toString());
        }),

@@ -50,7 +50,7 @@ export const ResumenOferta = ({
       .catch(() => {
         Alert.alert(
           "Error",
-          "Ha habido un error al intentar crear la demanda",
+          "Ha habido un error al intentar crear la oferta",
           [{ text: "Aceptar", onPress: () => onclose() }],
           { cancelable: false }
         );
@@ -58,7 +58,7 @@ export const ResumenOferta = ({
       .then(() => {
         Alert.alert(
           "¡Éxito!",
-          "Se ha creado la demanda con éxito",
+          "Se ha creado la oferta con éxito",
           [{ text: "Aceptar", onPress: () => onclose() }],
           { cancelable: false }
         );
@@ -75,7 +75,7 @@ export const ResumenOferta = ({
               style={styles.textName}
               fontSize={"subtitle"}
             >
-              Resumen de la demanda
+              Resumen de la oferta
             </StyledText>
             <ButtonWithText
               anyfunction={onclose}
@@ -111,13 +111,13 @@ export const ResumenOferta = ({
           </View>
           <View style={styles.soloContainerRow}>
             <StyledText color={"purple"} fontWeight={"bold"}>
-              Precio mínimo:{" "}
+              Precio unitario:{" "}
             </StyledText>
             <StyledText color={"primary"}>{values.pmin}$</StyledText>
           </View>
           <View style={styles.soloContainerRow}>
             <StyledText color={"purple"} fontWeight={"bold"}>
-              Precio máximo:{" "}
+              Precio instantáneo:{" "}
             </StyledText>
             <StyledText color={"primary"}>{values.pmax}$</StyledText>
           </View>
@@ -149,7 +149,7 @@ export const ResumenOferta = ({
           </View>
           <ButtonWithText
             anyfunction={() => uploadDemanda()}
-            title={"Crear demanda"}
+            title={"Crear oferta"}
             color="#3498DB"
           />
         </ScrollView>

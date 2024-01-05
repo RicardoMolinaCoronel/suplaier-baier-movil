@@ -26,7 +26,7 @@ export const ResumenProducto = ({
       Activo: 1,
       Valoracion: 5,
       Descripcion: values.description,
-      UrlImg: "no-img.jpeg",
+      UrlImg: productoImg,
       Name: values.name,
     };
     const resp = await global
@@ -86,7 +86,7 @@ export const ResumenProducto = ({
               source={
                 productoImg != null && productoImg != "no-img.jpeg"
                   ? {
-                      uri: "",
+                      uri: productoImg,
                     }
                   : require("../../../public/no-img.jpeg")
               }
