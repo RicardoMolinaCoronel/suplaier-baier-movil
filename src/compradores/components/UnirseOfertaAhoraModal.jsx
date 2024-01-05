@@ -149,7 +149,7 @@ export const UnirseOfertaAhoraModal = ({
         }}
       >
         <Text style={{ color: "black", margin: 10, fontWeight: "bold" }}>
-          Unirse a la oferta
+          Pagar ahora
         </Text>
         <View style={styles.firstContainer}>
           <Image

@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: 210,
     height: 210,
-    resizeMode: "center",
+    resizeMode: "contain",
   },
   provEstadoContainer: {
     alignItems: "center",

@@ -37,8 +37,7 @@ export const UnirseOfertaModal = ({
 
   return (
     <Modal
-      //transparent={true}
-      style={{ backgroundColor: "rgba(255,255,255,0.6)", flex: 1 }}
+      // transparent={true}
       visible={isvisibleUnirseOfertaModal}
       animationType="slide"
     >

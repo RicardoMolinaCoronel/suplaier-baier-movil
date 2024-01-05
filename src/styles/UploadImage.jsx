@@ -6,6 +6,7 @@ import * as ImagePicker from "expo-image-picker";
 
 export default function UploadImage({ setImageUri }) {
   const [image, setImage] = useState(null);
+  const [base64Image, setBase64Image] = useState(null);
 
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
@@ -13,13 +14,25 @@ export default function UploadImage({ setImageUri }) {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      base64: true,
     });
 
-    console.log(JSON.stringify(_image));
-
     if (!_image.canceled) {
-      setImage(_image.uri);
-      setImageUri(_image.uri);
+      try {
+        const response = await fetch(_image.uri);
+        const blob = await response.blob();
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64Data = reader.result;
+          setBase64Image(base64Data);
+          setImage(base64Data);
+          setImageUri(base64Data);
+        };
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        console.error("Error al convertir la imagen a base64:", error);
+      }
     }
   };
 

@@ -51,7 +51,7 @@ export const ResumenProducto = ({
       .catch(() => {
         Alert.alert(
           "Error",
-          "Ha habido un error al intentar crear el producto",
+          "Ha habido un error al intentar crear el producto, verifique que el tamaño de la imagen no supere los 52kb",
           [{ text: "Aceptar", onPress: () => onclose() }],
           { cancelable: false }
         );
