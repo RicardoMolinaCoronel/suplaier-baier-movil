@@ -101,7 +101,8 @@ const CrearProductoPage = () => {
   const [productoImg, setProductoImg] = useState("no-img.jpeg");
   const [values, setValues] = useState();
   const [categoriaNombreSelected, setCategoriaNombreSelected] = useState("");
-
+  const [imageUri, setImageUri] = useState(null);
+  
   const getCategorias = async () => {
     try {
       const response = await fetch(`${apiUrl}/catProductos`);
@@ -127,6 +128,11 @@ const CrearProductoPage = () => {
     setCategoriaNombreSelected(nombre[0]["value"]);
     setValues(values);
     setisvisibleresumen(true);
+  };
+
+  const onImageChange = (uri) => {
+    setProductoImg(uri);
+    setImageUri(uri);
   };
   return (
     <>
@@ -185,7 +191,7 @@ const CrearProductoPage = () => {
                 />
 
                 <StyledText style={styles.textInputLabel}>Imagen</StyledText>
-                <UploadImage />
+                <UploadImage setImageUri={onImageChange} />
                 <View style={styles.borderLine} />
                 <TouchableOpacity
                   style={styles.registerButton}

@@ -4,60 +4,65 @@ import { AuthContext } from "../../auth/context/AuthContext";
 import { StyleSheet, ScrollView } from "react-native";
 import StyledText from "../../styles/StyledText";
 import theme from "../../theme";
-import { ButtonWithText } from "../../proveedores/components/ButtonWithText";
+import { ButtonWithText } from "./ButtonWithText";
 import { dateOptions } from "../../components/dateOptions";
 import { apiUrl } from "../../../apiUrl";
 import { Alert } from "react-native";
-
-export const ResumenProducto = ({
+export const ResumenOferta = ({
   isvisible,
   onclose,
-  productoImg,
+  datosProducto,
   values,
-  categoriaNombreSelected,
 }) => {
   const {
     authState: { user },
   } = useContext(AuthContext);
-  const createProduct = async () => {
+  const uploadDemanda = async () => {
+    let fechaEnvio = values.date;
+    let año = fechaEnvio.getFullYear();
+    let mes = fechaEnvio.getMonth() + 1;
+    let dia = fechaEnvio.getDate();
+    let fechaFormateada = `${año}-${mes < 10 ? "0" + mes : mes}-${
+      dia < 10 ? "0" + dia : dia
+    }`;
+    //IdProducto, IdProveedor, IdEstadosOferta, Minimo, Maximo, Descripcion, ActualProductos, FechaLimite, Estado, ValorUProducto
     const body = {
+      IdProducto: parseInt(values.product),
       IdProveedor: user.IdUsuario,
-      IdCatProducto: values.categoria,
-      Activo: 1,
-      Valoracion: 5,
+      IdEstadosOferta: 1,
+      Minimo: parseInt(values.umin),
+      Maximo: parseInt(values.umax),
       Descripcion: values.description,
-      UrlImg: productoImg,
-      Name: values.name,
+      ActualProductos: 0,
+      FechaLimite: fechaFormateada,
+      Estado: 1,
+      ValorUProducto: values.pmin,
+      ValorUInstantaneo: values.pmax,
     };
-    const resp = await global
-      .fetch(`${apiUrl}/productos`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("La solicitud no fue exitosa");
-        }
+
+    const resp = await fetch(`${apiUrl}/ofertas`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .catch(() => {
         Alert.alert(
-          "¡Éxito!",
-          "Se ha creado el producto con éxito",
+          "Error",
+          "Ha habido un error al intentar crear la oferta",
           [{ text: "Aceptar", onPress: () => onclose() }],
           { cancelable: false }
         );
       })
-      .catch(() => {
+      .then(() => {
         Alert.alert(
-          "Error",
-          "Ha habido un error al intentar crear el producto",
+          "¡Éxito!",
+          "Se ha creado la oferta con éxito",
           [{ text: "Aceptar", onPress: () => onclose() }],
           { cancelable: false }
         );
       });
-
-    console.log("peticion");
   };
   return (
     <Modal visible={isvisible} transparent={true} animationType="slide">
@@ -70,7 +75,7 @@ export const ResumenProducto = ({
               style={styles.textName}
               fontSize={"subtitle"}
             >
-              Resumen del producto
+              Resumen de la oferta
             </StyledText>
             <ButtonWithText
               anyfunction={onclose}
@@ -81,16 +86,17 @@ export const ResumenProducto = ({
           </View>
           <View style={styles.soloContainer}>
             <StyledText color={"purple"} fontWeight={"bold"}>
-              Nombre producto:{" "}
+              Producto:{" "}
             </StyledText>
-            <StyledText color={"primary"}>{values.name}</StyledText>
+            <StyledText color={"primary"}>{datosProducto?.Name}</StyledText>
           </View>
           <View style={styles.productoContainer}>
             <Image
               source={
-                productoImg != null && productoImg != "no-img.jpeg"
+                datosProducto?.UrlImg != null &&
+                datosProducto?.UrlImg != "no-img.jpeg"
                   ? {
-                      uri: productoImg,
+                      uri: datosProducto?.UrlImg,
                     }
                   : require("../../../public/no-img.jpeg")
               }
@@ -100,18 +106,50 @@ export const ResumenProducto = ({
               color={"primary"}
               style={styles.textProductoDescripcion}
             >
-              {values.description}
+              {datosProducto?.Descripcion}
             </StyledText>
           </View>
           <View style={styles.soloContainerRow}>
             <StyledText color={"purple"} fontWeight={"bold"}>
-              Categoría:{" "}
+              Precio unitario:{" "}
             </StyledText>
-            <StyledText color={"primary"}>{categoriaNombreSelected}</StyledText>
+            <StyledText color={"primary"}>{values.pmin}$</StyledText>
+          </View>
+          <View style={styles.soloContainerRow}>
+            <StyledText color={"purple"} fontWeight={"bold"}>
+              Precio instantáneo:{" "}
+            </StyledText>
+            <StyledText color={"primary"}>{values.pmax}$</StyledText>
+          </View>
+          <View style={styles.soloContainer}>
+            <StyledText color={"purple"} fontWeight={"bold"}>
+              Descripción:{" "}
+            </StyledText>
+            <StyledText color={"primary"}>{values.description}</StyledText>
+          </View>
+          <View style={styles.soloContainerRow}>
+            <StyledText color={"purple"} fontWeight={"bold"}>
+              Cantidad mínima de productos:{" "}
+            </StyledText>
+            <StyledText color={"primary"}>{values.umin}</StyledText>
+          </View>
+          <View style={styles.soloContainerRow}>
+            <StyledText color={"purple"} fontWeight={"bold"}>
+              Cantidad total de productos:{" "}
+            </StyledText>
+            <StyledText color={"primary"}>{values.umax}</StyledText>
+          </View>
+          <View style={styles.soloContainer}>
+            <StyledText color={"purple"} fontWeight={"bold"}>
+              Fecha límite:{" "}
+            </StyledText>
+            <StyledText color={"primary"}>
+              {values.date.toLocaleString(undefined, dateOptions)}
+            </StyledText>
           </View>
           <ButtonWithText
-            anyfunction={() => createProduct()}
-            title={"Crear producto"}
+            anyfunction={() => uploadDemanda()}
+            title={"Crear oferta"}
             color="#3498DB"
           />
         </ScrollView>
@@ -181,7 +219,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: "100%",
-    height: 400,
+    height: 200,
     resizeMode: "contain",
   },
   textProductoDescripcion: {

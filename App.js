@@ -5,6 +5,9 @@ import { registerForPushNotificationsAsync, sendTokenToServer } from './src/util
 import { useEffect } from 'react';
 import firebase from './firebase.js';
 
+import { LogBox } from "react-native"
+
+LogBox.ignoreAllLogs(true)
 export default function App() {
   useEffect(() => {
     registerForPushNotificationsAsync()
