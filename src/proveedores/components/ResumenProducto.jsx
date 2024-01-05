@@ -37,6 +37,17 @@ export const ResumenProducto = ({
         },
         body: JSON.stringify(body),
       })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("La solicitud no fue exitosa");
+        }
+        Alert.alert(
+          "¡Éxito!",
+          "Se ha creado el producto con éxito",
+          [{ text: "Aceptar", onPress: () => onclose() }],
+          { cancelable: false }
+        );
+      })
       .catch(() => {
         Alert.alert(
           "Error",
@@ -44,15 +55,8 @@ export const ResumenProducto = ({
           [{ text: "Aceptar", onPress: () => onclose() }],
           { cancelable: false }
         );
-      })
-      .then(() => {
-        Alert.alert(
-          "¡Éxito!",
-          "Se ha creado el producto con éxito",
-          [{ text: "Aceptar", onPress: () => onclose() }],
-          { cancelable: false }
-        );
       });
+
     console.log("peticion");
   };
   return (

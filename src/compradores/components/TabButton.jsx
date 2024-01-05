@@ -72,7 +72,7 @@ export const TabButton = ({ currentTab, setCurrentTab, text, icon }) => {
           width={iconWidth}
           color={
             currentTab == text
-              ? theme.colors.purple3
+              ? theme.colors.purple
               : theme.bottomBar.iconPrimary
           }
         />
@@ -81,7 +81,7 @@ export const TabButton = ({ currentTab, setCurrentTab, text, icon }) => {
             fontSize: 15,
             fontWeight: "bold",
             paddingLeft: 15,
-            color: currentTab == text ? theme.colors.purple3 : "white",
+            color: currentTab == text ? theme.colors.purple : "white",
           }}
         >
           {text}

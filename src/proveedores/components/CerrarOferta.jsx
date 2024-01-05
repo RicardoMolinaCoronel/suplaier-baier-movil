@@ -3,6 +3,8 @@ import { View, StyleSheet, Text, Button, Modal, Alert } from "react-native";
 import { apiUrl } from "../../../apiUrl";
 import { ButtonWithText } from "./ButtonWithText";
 import theme from "../../theme";
+import { useData } from "../../hooks/OfertasDataProvider";
+import StyledText from "../../styles/StyledText";
 export const CerrarOferta = ({
   IdOferta,
   isvisible,
@@ -11,6 +13,7 @@ export const CerrarOferta = ({
 }) => {
   const [comprasInd, setComprasInd] = useState([]);
   const [seHaTerminado, setSeHaTerminado] = useState(false);
+  const { getOfertasProv } = useData();
 
   const cerrarOferta = async () => {
     const body = {
@@ -87,6 +90,7 @@ export const CerrarOferta = ({
         if (resp.ok) {
           const data = await resp.json();
           console.log(!!data && "cambiando estado compra a verificando pagos");
+          getOfertasProv();
           Alert.alert(
             "¡Éxito!",
             "¡Se ha cerrado la oferta con éxito!", // Puedes poner un mensaje aquí si lo necesitas
@@ -172,13 +176,35 @@ export const CerrarOferta = ({
           borderRadius: 15,
         }}
       >
-        <Text style={{ fontWeight: "bold", color: "black", margin: 5 }}>
+        <Text
+          style={{
+            fontWeight: "bold",
+            color: "black",
+            margin: 5,
+            fontSize: 20,
+          }}
+        >
           Cerrar oferta
         </Text>
-        <Text style={{ color: "black", margin: 5 }}>
-          Su oferta ha alcanzado la mínima cantidad de productos a vender, sin
-          embargo, la oferta todavía no ha llegado a su fecha de vigencia. Si
-          está seguro de cerrar su oferta, de click en "Aceptar".
+        <Text style={{ margin: 5 }}>
+          <StyledText color="primary">Su oferta ha alcanzado la </StyledText>
+          <StyledText color="primary" fontWeight={"bold"}>
+            mínima cantidad
+          </StyledText>
+          <StyledText color="primary">
+            {" "}
+            de productos a vender, sin embargo, la oferta todavía no ha llegado
+            a su{" "}
+            <StyledText color="primary" fontWeight={"bold"}>
+              fecha de vigencia.{" "}
+            </StyledText>
+            Si está seguro de cerrar su oferta, pulse
+            <StyledText color="primary" fontWeight={"bold"}>
+              {" "}
+              Aceptar
+            </StyledText>
+            .
+          </StyledText>
         </Text>
 
         <View

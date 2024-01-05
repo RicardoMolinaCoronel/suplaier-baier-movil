@@ -22,7 +22,6 @@ const OfertasDataProvider = ({ children }) => {
     //ofertas por devolver pago
     const resp = await fetch(`${apiUrl}/ofertas?idEstadosOferta=${1}`);
     const data = await resp.json();
-    console.log(data);
 
     const { rows: ofertas } = !!data && data;
     setOfertasTodos(ofertas);

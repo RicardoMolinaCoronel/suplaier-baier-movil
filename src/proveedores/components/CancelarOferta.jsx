@@ -4,7 +4,7 @@ import { ButtonWithText } from "./ButtonWithText";
 import { apiUrl } from "../../../apiUrl";
 import theme from "../../theme";
 import { useData } from "../../hooks/OfertasDataProvider";
-
+import StyledText from "../../styles/StyledText";
 export const CancelarOferta = ({
   isvisible,
   onclosecerraroferta,
@@ -59,7 +59,7 @@ export const CancelarOferta = ({
         style={{
           alignItems: "center",
           backgroundColor: "#ffffff",
-          height: 500,
+          height: "auto",
           padding: "5%",
           margin: "10%",
           shadowColor: "#000",
@@ -77,8 +77,15 @@ export const CancelarOferta = ({
           Cancelar Oferta
         </Text>
         <Text style={{ color: "black", margin: 5 }}>
-          ¿Está seguro de cancelar oferta?, los pagos serán devueltos a los
-          compradores y pdoría existir una tarifa de cobro adicional
+          ¿Está seguro de{" "}
+          <StyledText color="primary" fontWeight={"bold"}>
+            cancelar su oferta
+          </StyledText>
+          ?, los pagos serán devueltos a los compradores y podría existir una
+          tarifa de cobro adicional. Si esta seguro de cancelar la oferta pulse{" "}
+          <StyledText color="primary" fontWeight={"bold"}>
+            Aceptar
+          </StyledText>
         </Text>
 
         <View
@@ -86,7 +93,6 @@ export const CancelarOferta = ({
             flexDirection: "row",
             width: "80%",
             marginHorizontal: 10,
-            height: "100%",
             justifyContent: "space-between",
           }}
         >

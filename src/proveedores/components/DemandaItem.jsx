@@ -73,8 +73,8 @@ const DemandaItem = (props) => {
   useEffect(() => {
     setDatosProd({
       nombreProd: producto?.Name,
-      precioMin: parseFloat(props.PrecioMinimo),
-      precioMax: parseFloat(props.PrecioMaximo),
+      precioMin: props.PrecioMinimo,
+      precioMax: props.PrecioMaximo,
       urlImg: producto?.UrlImg,
     });
   }, [producto, props]);

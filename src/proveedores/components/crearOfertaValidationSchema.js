@@ -5,24 +5,31 @@ const crearOfertaValidationSchema = Yup.object().shape({
     //title: Yup.string().required('Title is required'),
     product: Yup.number().required('El producto es requerido'),
     description: Yup.string().required('La descripción es requerida').min(20,"La descripción no puede ser menor a 20 caracteres").max(480,"La descripción no puede ser superior a los 480 caracteres"),
-    pmin: Yup.number().required('El precio mínimo es requerido')
-    .positive('El precio debe ser un número positivo')    
-    .max(10000,'El precio unitario no puede ser mayor a 10000')
+    pmin: Yup.string().required('El precio mínimo es requerido')
+    .test('positive', 'El precio mínimo debe ser un número positivo', function (value) {           
+        return parseFloat(value) > 0;
+   }).test('limit', 'El precio mínimo no puede ser mayor a 10000', function (value) {           
+    return parseFloat(value) <= 10000;
+})
     .test('twodecimals-price', 'El precio unitario debe tener dos decimales', function (value) {
         const regex = /^\d+(\.\d{2})?$/;
         return regex.test(value.toString());
    })
     ,
-    pmax: Yup.number()
+    pmax: Yup.string()
          .required('El precio instantáneo es requerido')
-         .positive('El precio debe ser un número positivo')
-         .max(10000,'El precio instantáneo no puede ser mayor a 10000')
-         .test('higher-price', 'El precio instantáneo debe ser mayor o igual al precio mínimo', function (value) {
-             const pmin = this.parent.pmin;
-             return value >= pmin;
-        })
+         .test('positive', 'El precio máximo debe ser un número positivo', function (value) {           
+            return parseFloat(value) > 0;
+       }).test('limit', 'El precio máximo no puede ser mayor a 10000', function (value) {           
+        return parseFloat(value) <= 10000;
+   })
+   .test('higher-price', 'El precio máximo debe ser mayor o igual al precio mínimo', function (value) {
+    const pmin = parseFloat(this.parent.pmin);
+    return value >= pmin;
+})
         .test('twodecimals-price', 'El precio instantáneo debe tener dos decimales', function (value) {
             const regex = /^\d+(\.[0-9]{2})?$/;
+            console.log(value.toString())
             return regex.test(value.toString());
        }),
     umin: Yup.number()

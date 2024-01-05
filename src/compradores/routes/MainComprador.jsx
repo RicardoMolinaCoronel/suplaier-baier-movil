@@ -80,7 +80,7 @@ const MainComprador = () => {
 const styles = StyleSheet.create({
   containerSafe: {
     flex: 1,
-    backgroundColor: theme.colors.purple3,
+    backgroundColor: theme.colors.purple,
     alignItems: "flex-start",
     justifyContent: "flex-start",
   },

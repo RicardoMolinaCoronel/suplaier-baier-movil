@@ -47,18 +47,21 @@ export const ResumenOferta = ({
       },
       body: JSON.stringify(body),
     })
-      .catch(() => {
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("La solicitud no fue exitosa");
+        }
         Alert.alert(
-          "Error",
-          "Ha habido un error al intentar crear la oferta",
+          "¡Éxito!",
+          "Se ha creado la oferta con éxito",
           [{ text: "Aceptar", onPress: () => onclose() }],
           { cancelable: false }
         );
       })
-      .then(() => {
+      .catch(() => {
         Alert.alert(
-          "¡Éxito!",
-          "Se ha creado la oferta con éxito",
+          "Error",
+          "Ha habido un error al intentar crear la oferta",
           [{ text: "Aceptar", onPress: () => onclose() }],
           { cancelable: false }
         );

@@ -26,7 +26,7 @@ colors:{
     purple: '#4A3797',
     purple1: '#5359D1',
     purple2:'#733CC6',
-    purple3: '#4A58AC',
+    purple3: '#4A31A8',
     lightGray: '#F5F5F5',
     lightGray2: '#EEEEEE',
     lightGray3: "#DCDCDC",
