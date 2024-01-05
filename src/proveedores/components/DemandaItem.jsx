@@ -82,7 +82,7 @@ const DemandaItem = (props) => {
   return (
     <View style={styles.ofertaContainer}>
       <View style={styles.demandaIcon}>
-        <SimpleLineIcons name="basket" size={24} color={theme.colors.blue} />
+        <SimpleLineIcons name="basket" size={24} color={theme.colors.purple} />
       </View>
       <View style={styles.textoImagenContainer}>
         <StyledText

@@ -47,18 +47,21 @@ export const ResumenDemanda = ({
       },
       body: JSON.stringify(body),
     })
-      .catch(() => {
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("La solicitud no fue exitosa");
+        }
         Alert.alert(
-          "Error",
-          "Ha habido un error al intentar crear la demanda",
+          "¡Éxito!",
+          "Se ha creado la demanda con éxito",
           [{ text: "Aceptar", onPress: () => onclose() }],
           { cancelable: false }
         );
       })
-      .then(() => {
+      .catch(() => {
         Alert.alert(
-          "¡Éxito!",
-          "Se ha creado la demanda con éxito",
+          "Error",
+          "Ha habido un error al intentar crear la demanda",
           [{ text: "Aceptar", onPress: () => onclose() }],
           { cancelable: false }
         );

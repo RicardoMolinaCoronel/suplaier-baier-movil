@@ -9,22 +9,31 @@ import { StyleSheet, ScrollView } from "react-native";
 import StyledText from "../../styles/StyledText";
 import theme from "../../theme";
 import { dateOptions } from "../../components/dateOptions";
-
+import { CerrarOferta } from "./CerrarOferta";
 export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
   const [isvisiblemodal, setisvisiblemodal] = useState(false);
+  const [isvisiblecancelaroferta, setisvisiblecancelaroferta] = useState(false);
   const [isvisiblecerraroferta, setisvisiblecerraroferta] = useState(false);
+  const [llegaMinimo, setLlegaMinimo] = useState(false);
   const fechaLimiteObj = new Date(dataproducto?.fechaLimiteObj ?? "");
 
   const validarValoracion = (valor) => {
     const valorEntero = Math.floor(valor);
     return Math.min(Math.max(valorEntero, 1), 5);
   };
+  const calcularLlegaMinimo = () => {
+    console.log("hola");
+    setLlegaMinimo(
+      parseInt(dataproducto?.actualProductosOferta) >=
+        parseInt(dataproducto?.minimoOferta)
+    );
+  };
 
   let calificacion = validarValoracion(dataproducto?.producto?.Valoracion ?? 1);
   let porcentaje =
     ((dataproducto?.actualProductos ?? 0) / (dataproducto?.maximo ?? 1)) * 100;
   useEffect(() => {
-    //console.log("Detalle Producto", dataproducto?.estadoOferta);
+    calcularLlegaMinimo();
   }, []);
 
   return (
@@ -107,8 +116,9 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
                 Unidades restantes:{" "}
               </StyledText>
               <StyledText color={"primary"}>
-                {dataproducto?.actualProductosOferta}/
-                {dataproducto?.maximoOferta}
+                {parseInt(dataproducto?.maximoOferta) -
+                  parseInt(dataproducto?.actualProductosOferta)}
+                /{dataproducto?.maximoOferta}
               </StyledText>
             </View>
             <View style={styles.fechaCierreContainer}>
@@ -150,9 +160,10 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
             <>
               <View style={styles.botonesContainer}>
                 <ButtonWithText
-                  anyfunction={undefined}
+                  anyfunction={() => setisvisiblecerraroferta(true)}
                   title={"Cerrar oferta"}
-                  color="grey"
+                  color={llegaMinimo ? theme.colors.blue : "grey"}
+                  disabled={!llegaMinimo}
                 />
                 {/* <ButtonWithText
               anyfunction={() => setisvisiblemodal(true)}
@@ -161,7 +172,7 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
               color="grey"
             ></ButtonWithText> */}
                 <ButtonWithText
-                  anyfunction={() => setisvisiblecerraroferta(true)}
+                  anyfunction={() => setisvisiblecancelaroferta(true)}
                   //anyfunction={undefined}
                   title={"Cancelar oferta"}
                   color={theme.colors.red}
@@ -172,13 +183,22 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
             isvisiblemodal={isvisiblemodal}
             oncloseHistorial={() => setisvisiblemodal(false)}
           ></HistorialModal> */}
-              <CancelarOferta
+              <CerrarOferta
                 isvisible={isvisiblecerraroferta}
                 onclosecerraroferta={() => {
                   setisvisiblecerraroferta(false);
                   onclose();
                 }}
-                oncloseoferta={() => setisvisiblecerraroferta(false)}
+                oncloseretroceder={() => setisvisiblecerraroferta(false)}
+                IdOferta={dataproducto?.IdOferta} //oferta={dataproducto.producto}
+              ></CerrarOferta>
+              <CancelarOferta
+                isvisible={isvisiblecancelaroferta}
+                onclosecerraroferta={() => {
+                  setisvisiblecancelaroferta(false);
+                  onclose();
+                }}
+                oncloseoferta={() => setisvisiblecancelaroferta(false)}
                 IdOferta={dataproducto?.IdOferta} //oferta={dataproducto.producto}
               ></CancelarOferta>
             </>

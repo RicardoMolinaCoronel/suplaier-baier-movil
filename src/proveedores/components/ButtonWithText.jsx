@@ -8,6 +8,7 @@ export const ButtonWithText = ({
   color = "red",
   colorTexto = "#FFFFFF",
   icon = "",
+  disabled,
   //width = 150,
 }) => {
   return (
@@ -32,6 +33,7 @@ export const ButtonWithText = ({
         flexDirection: "row",
         padding: 5,
       }}
+      disabled={disabled}
     >
       {icon.length > 0 && <Icon name={icon} size={26} color={"#FFFFFF"}></Icon>}
       {title.length > 0 && (

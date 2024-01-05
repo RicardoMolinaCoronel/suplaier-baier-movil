@@ -165,24 +165,26 @@ const OfertaItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
-      <DetalleProducto
-        isvisible={isvisible}
-        onclose={() => setisvisible(false)}
-        dataproducto={{
-          IdOferta,
-          producto,
-          proveedor,
-          estadoOferta,
-          nombreProveedor,
-          datosProd,
-          progresoOferta,
-          fechaLimiteObj,
-          maximoOferta,
-          minimoOferta,
-          actualProductosOferta,
-          descripcionOferta,
-        }}
-      ></DetalleProducto>
+      {isvisible && (
+        <DetalleProducto
+          isvisible={isvisible}
+          onclose={() => setisvisible(false)}
+          dataproducto={{
+            IdOferta,
+            producto,
+            proveedor,
+            estadoOferta,
+            nombreProveedor,
+            datosProd,
+            progresoOferta,
+            fechaLimiteObj,
+            maximoOferta,
+            minimoOferta,
+            actualProductosOferta,
+            descripcionOferta,
+          }}
+        ></DetalleProducto>
+      )}
     </View>
   );
 };

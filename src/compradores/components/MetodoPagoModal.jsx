@@ -36,24 +36,28 @@ export const MetodoPagoModal = ({
       },
       body: JSON.stringify(body),
     })
-      .catch(() => {
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("La solicitud no fue exitosa");
+        }
+        getOfertasTodos();
+
         Alert.alert(
-          "Error en la oferta",
-          "Ha habido un error al intentar actualizar la oferta",
+          "El pago de tipo Reserva se ha realizado con éxito!",
+          "Se ha unido correctamente a la oferta",
           [
             {
               text: "Aceptar",
-              onPress: () => actualizarOferta(),
+              onPress: () => oncloseReservado(),
             },
           ],
           { cancelable: false }
         );
       })
-      .then((response) => {
-        getOfertasTodos();
+      .catch(() => {
         Alert.alert(
-          "El pago de tipo Reserva se ha realizado con éxito!",
-          "Se ha unido correctamente a la oferta",
+          "Error en la oferta",
+          "Ha habido un error al intentar realizar el pago",
           [
             {
               text: "Aceptar",
@@ -86,7 +90,26 @@ export const MetodoPagoModal = ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    });
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("La solicitud no fue exitosa");
+        }
+        actualizarOferta();
+      })
+      .catch(() => {
+        Alert.alert(
+          "Error en la orden de compra",
+          "Ha habido un error al intentar crear la orden de compra",
+          [
+            {
+              text: "Aceptar",
+              onPress: () => oncloseReservado(),
+            },
+          ],
+          { cancelable: false }
+        );
+      });
   };
 
   const postpago = () => {
@@ -98,23 +121,7 @@ export const MetodoPagoModal = ({
           {
             text: "Aceptar",
             onPress: () => {
-              crearCompraIndividual()
-                .catch(() => {
-                  Alert.alert(
-                    "Error en la orden de compra",
-                    "Ha habido un error al intentar crear la orden de compra",
-                    [
-                      {
-                        text: "Aceptar",
-                        onPress: () => oncloseReservado(),
-                      },
-                    ],
-                    { cancelable: false }
-                  );
-                })
-                .then(() => {
-                  actualizarOferta();
-                });
+              crearCompraIndividual();
             },
           },
         ],

@@ -14,6 +14,7 @@ const OrdenItem = (props) => {
   const [proveedor, setProveedor] = useState();
   const [comprador, setComprador] = useState();
   const [estadoOferta, setEstadoOferta] = useState();
+  const [estadoCompra, setEstadoCompra] = useState();
   const [nombreProveedor, setNombreProveedor] = useState();
   const [datosProd, setDatosProd] = useState({});
   const [progresoOferta, setProgresoOferta] = useState(0);
@@ -62,9 +63,18 @@ const OrdenItem = (props) => {
     const { rows: estado } = !!data && data;
     setEstadoOferta(estado[0]);
   };
+  const getEstadoCompra = async () => {
+    const resp = await globalThis.fetch(
+      `${apiUrl}/estados?id=${props.IdEstado ?? 1}`
+    );
+    const data = await resp.json();
+    const { rows: estado } = !!data && data;
+    setEstadoCompra(estado[0]);
+  };
   useEffect(() => {
     getOferta();
     getProveedorOferta();
+    //getEstadoCompra();
     getEstadoOferta();
   }, [props]);
 
@@ -167,20 +177,22 @@ const OrdenItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
-      <DetalleOrden
-        isvisible={isvisible}
-        onclose={() => setisvisible(false)}
-        dataorden={{
-          oferta,
-          producto,
-          comprador,
-          estadoOferta,
-          datosProd,
-          progresoOferta,
-          proveedor,
-          props,
-        }}
-      ></DetalleOrden>
+      {isvisible && (
+        <DetalleOrden
+          isvisible={isvisible}
+          onclose={() => setisvisible(false)}
+          dataorden={{
+            oferta,
+            producto,
+            comprador,
+            estadoOferta,
+            datosProd,
+            progresoOferta,
+            proveedor,
+            props,
+          }}
+        ></DetalleOrden>
+      )}
     </View>
   );
 };

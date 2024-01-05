@@ -62,7 +62,38 @@ export const UnirseOfertaAhoraModal = ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    });
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("La solicitud no fue exitosa");
+        }
+        getOfertasTodos();
+
+        Alert.alert(
+          "¡Éxito!",
+          "La compra instantánea se ha realizado con éxito",
+          [
+            {
+              text: "Aceptar",
+              onPress: () => oncloseReservado(),
+            },
+          ],
+          { cancelable: false }
+        );
+      })
+      .catch(() => {
+        Alert.alert(
+          "Error en la oferta",
+          "Ha habido un error al intentar crear la orden de compra",
+          [
+            {
+              text: "Aceptar",
+              onPress: () => oncloseReservado(),
+            },
+          ],
+          { cancelable: false }
+        );
+      });
   };
   const pagarahora = async () => {
     {
@@ -80,29 +111,12 @@ export const UnirseOfertaAhoraModal = ({
         body: JSON.stringify(body),
       })
         .then((response) => {
-          crearCompraIndividual()
-            .catch(() => {
-              Alert.alert(
-                "Aviso",
-                "Ha habido un error al intentar crear la orden de compra",
-                [{ text: "Aceptar", onPress: () => oncloseexito() }],
-                { cancelable: false }
-              );
-            })
-            .then(() => {
-              getOfertasTodos();
-              Alert.alert(
-                "Aviso",
-                "La compra instantánea se ha realizado con éxito",
-                [{ text: "Aceptar", onPress: () => oncloseexito() }],
-                { cancelable: false }
-              );
-            });
+          crearCompraIndividual();
         })
         .catch(() => {
           Alert.alert(
             "Aviso",
-            "Ha habido un error al intentar actualizar la oferta",
+            "Ha habido un error al intentar realizar el pago",
             [{ text: "Aceptar", onPress: () => oncloseexito() }],
             { cancelable: false }
           );

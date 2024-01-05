@@ -172,20 +172,22 @@ const OrdenItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
-      <DetalleOrden
-        isvisible={isvisible}
-        onclose={() => setisvisible(false)}
-        dataorden={{
-          oferta,
-          producto,
-          comprador,
-          estadoOferta,
-          datosProd,
-          progresoOferta,
-          proveedor,
-          props,
-        }}
-      ></DetalleOrden>
+      {isvisible && (
+        <DetalleOrden
+          isvisible={isvisible}
+          onclose={() => setisvisible(false)}
+          dataorden={{
+            oferta,
+            producto,
+            comprador,
+            estadoOferta,
+            datosProd,
+            progresoOferta,
+            proveedor,
+            props,
+          }}
+        ></DetalleOrden>
+      )}
     </View>
   );
 };

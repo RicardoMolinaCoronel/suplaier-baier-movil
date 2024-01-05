@@ -24,30 +24,33 @@ export const CancelarOferta = ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify(bodySolicitud),
-    });
-    const dataSolicitud = await resp.json();
-    console.log(!!dataSolicitud && "Cancelando Oferta");
-  };
-
-  const ActualizarOferta = () => {
-    actualizarOferta()
-      .catch(() => {
-        Alert.alert(
-          "¡Aviso!",
-          "¡Hubo un error al intentar cancelar la oferta!", // Puedes poner un mensaje aquí si lo necesitas
-          [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
-          { cancelable: false }
-        );
-      })
-      .then(() => {
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("La solicitud no fue exitosa");
+        }
         getOfertasProv();
         Alert.alert(
-          "¡Aviso!",
+          "¡Éxito!",
           "¡Oferta cancelada con éxito!", // Puedes poner un mensaje aquí si lo necesitas
           [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
           { cancelable: false }
         );
+      })
+      .catch(() => {
+        Alert.alert(
+          "¡Error!",
+          "¡Hubo un error al intentar cancelar la oferta!", // Puedes poner un mensaje aquí si lo necesitas
+          [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+          { cancelable: false }
+        );
       });
+    // const dataSolicitud = await resp.json();
+    // console.log(!!dataSolicitud && "Cancelando Oferta");
+  };
+
+  const ActualizarOferta = () => {
+    actualizarOferta();
   };
 
   return (
@@ -56,7 +59,7 @@ export const CancelarOferta = ({
         style={{
           alignItems: "center",
           backgroundColor: "#ffffff",
-          height: 210,
+          height: 500,
           padding: "5%",
           margin: "10%",
           shadowColor: "#000",
@@ -83,6 +86,7 @@ export const CancelarOferta = ({
             flexDirection: "row",
             width: "80%",
             marginHorizontal: 10,
+            height: "100%",
             justifyContent: "space-between",
           }}
         >
