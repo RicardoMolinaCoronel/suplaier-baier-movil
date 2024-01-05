@@ -1,62 +1,70 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import StyledText from "../../styles/StyledText";
-import { StatusBar } from "expo-status-bar";
-import Search_Input from '../../components/Search_Input';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import StyledText from '../../styles/StyledText';
+import { StatusBar } from 'expo-status-bar';
+import Search_Input from '../../components/SearchInput';
 import Search_Logic from '../logics/Search_Logic';
-import Icon from "react-native-ico-material-design";
+import Icon from 'react-native-ico-material-design';
+import Cargar_Categorias from '../../components/CargarCategorias';
+import OfertaItem from '../components/OfertaItem';
 import theme from "../../theme";
-import Cargar_Categorias from '../../components/Cargar_Categorias';
-import { apiUrl } from '../../../apiUrl';
-import {useEffect, useState} from 'react'
-import OfertaItem from "../components/OfertaItem";
+
 const SearchProveedorPage = () => {
-  const { ofertasBusqueda, getOfertasTodos } = Search_Logic();
+  const { ofertasBusqueda, getOfertasTodos, getOfertasPorCategoria } = Search_Logic();
   const [showEmptyArray, setShowEmptyArray] = useState(false);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState();
 
   const handleSearch = async (searchText) => {
-    // Actualiza los resultados en Search_Logic usando la función getOfertasTodos
-    await getOfertasTodos(searchText);
+    if (categoriaSeleccionada && categoriaSeleccionada.IdCatProducto) {
+      await getOfertasPorCategoria(searchText, categoriaSeleccionada.IdCatProducto);
+    } else {
+      await getOfertasTodos(searchText);
+    }
   };
 
   useEffect(() => {
-    // Actualiza showEmptyArray cuando ofertasBusqueda cambia
     setShowEmptyArray(ofertasBusqueda.length === 0);
   }, [ofertasBusqueda]);
 
   useEffect(() => {
-    // Cuando el componente se monta, carga las ofertas iniciales
     getOfertasTodos('');
   }, []);
 
-  return (
-    
-<FlatList
-  style={styles.container}
-  ListHeaderComponent={
-    <>
-      <View style={styles.busquedaContainer}>
-        <View style={styles.topContainer}>
-          <Icon name="keyboard-right-arrow-button" width={20} height={20} />
-          <StyledText fontWeight="bold" fontSize="subtitle" style={styles.textBusqueda}>
-            Búsqueda
-          </StyledText>
-        </View>
-        <Search_Input onSearch={(text) => handleSearch(text)} />
-        <Cargar_Categorias />
-        {showEmptyArray && (
-          <Text style={styles.textNothing}>
-            No hay productos con ese nombre
-          </Text>
-        )}
-      </View>
-      <StatusBar style="light" />
-      <View style={styles.spaceBorder} />
-    </>
-  }
-  data={ofertasBusqueda}
-  renderItem={({ item: oferta }) => <OfertaItem {...oferta} />}
-/>
+    const onCategoriaSelect = (categoria) => {
+      setCategoriaSeleccionada(categoria);
+      handleSearch('');
+    };
+  
+  
+  
 
+  return (
+    <FlatList
+      style={styles.container}
+      ListHeaderComponent={
+        <>
+          <View style={styles.busquedaContainer}>
+            <View style={styles.topContainer}>
+              <Icon name="keyboard-right-arrow-button" width={20} height={20} />
+              <StyledText fontWeight="bold" fontSize="subtitle" style={styles.textBusqueda}>
+                Búsqueda
+              </StyledText>
+            </View>
+            <Search_Input onSearch={handleSearch} />
+            <Cargar_Categorias onSelectCategoria={onCategoriaSelect} />
+            {showEmptyArray && (
+              <Text style={styles.textNothing}>
+                No hay productos con ese nombre
+              </Text>
+            )}
+          </View>
+          <StatusBar style="light" />
+          <View style={styles.spaceBorder} />
+        </>
+      }
+      data={ofertasBusqueda}
+      renderItem={({ item: oferta }) => <OfertaItem {...oferta} />}
+    />
   );
 };
 
