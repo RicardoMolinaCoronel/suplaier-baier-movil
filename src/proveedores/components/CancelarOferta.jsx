@@ -12,6 +12,7 @@ export const CancelarOferta = ({
   IdOferta,
 }) => {
   const { getOfertasProv } = useData();
+  const [disabled, setDisabled] = useState(false);
 
   const actualizarOferta = async () => {
     const bodySolicitud = {
@@ -33,7 +34,15 @@ export const CancelarOferta = ({
         Alert.alert(
           "¡Éxito!",
           "¡Oferta cancelada con éxito!", // Puedes poner un mensaje aquí si lo necesitas
-          [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+          [
+            {
+              text: "Aceptar",
+              onPress: () => {
+                setDisabled(false);
+                onclosecerraroferta();
+              },
+            },
+          ],
           { cancelable: false }
         );
       })
@@ -41,7 +50,15 @@ export const CancelarOferta = ({
         Alert.alert(
           "¡Error!",
           "¡Hubo un error al intentar cancelar la oferta!", // Puedes poner un mensaje aquí si lo necesitas
-          [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+          [
+            {
+              text: "Aceptar",
+              onPress: () => {
+                setDisabled(false);
+                onclosecerraroferta();
+              },
+            },
+          ],
           { cancelable: false }
         );
       });
@@ -102,9 +119,13 @@ export const CancelarOferta = ({
             color={theme.colors.red}
           ></ButtonWithText>
           <ButtonWithText
-            anyfunction={() => ActualizarOferta()}
+            anyfunction={() => {
+              setDisabled(true);
+              ActualizarOferta();
+            }}
             title={"Aceptar"}
-            color={theme.colors.lightblue1}
+            color={disabled ? "gray" : theme.colors.lightblue1}
+            disabled={disabled}
           ></ButtonWithText>
         </View>
       </View>

@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     width: "49%",
     height: "49%",
     position: "absolute",
-    bottom: "30.5%",
+    bottom: "30.4%",
     resizeMode: "contain",
     zIndex: 1,
   },

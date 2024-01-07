@@ -14,6 +14,7 @@ export const CerrarOferta = ({
   const [comprasInd, setComprasInd] = useState([]);
   const [seHaTerminado, setSeHaTerminado] = useState(false);
   const { getOfertasProv } = useData();
+  const [disabled, setDisabled] = useState(false);
 
   const cerrarOferta = async () => {
     const body = {
@@ -38,7 +39,15 @@ export const CerrarOferta = ({
         Alert.alert(
           "¡Error!",
           "¡Hubo un error al intentar cerrar la oferta!", // Puedes poner un mensaje aquí si lo necesitas
-          [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+          [
+            {
+              text: "Aceptar",
+              onPress: () => {
+                setDisabled(false);
+                onclosecerraroferta();
+              },
+            },
+          ],
           { cancelable: false }
         );
         console.error("Error al cerrar la oferta");
@@ -47,7 +56,15 @@ export const CerrarOferta = ({
       Alert.alert(
         "¡Error!",
         "¡Hubo un error al intentar cerrar la oferta!", // Puedes poner un mensaje aquí si lo necesitas
-        [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+        [
+          {
+            text: "Aceptar",
+            onPress: () => {
+              setDisabled(false);
+              onclosecerraroferta();
+            },
+          },
+        ],
         { cancelable: false }
       );
       console.error("Error en la solicitud de cierre", error);
@@ -64,7 +81,15 @@ export const CerrarOferta = ({
       Alert.alert(
         "¡Error!",
         "¡Hubo un error al intentar cerrar la oferta!", // Puedes poner un mensaje aquí si lo necesitas
-        [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+        [
+          {
+            text: "Aceptar",
+            onPress: () => {
+              setDisabled(false);
+              onclosecerraroferta();
+            },
+          },
+        ],
         { cancelable: false }
       );
     }
@@ -94,14 +119,30 @@ export const CerrarOferta = ({
           Alert.alert(
             "¡Éxito!",
             "¡Se ha cerrado la oferta con éxito!", // Puedes poner un mensaje aquí si lo necesitas
-            [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+            [
+              {
+                text: "Aceptar",
+                onPress: () => {
+                  setDisabled(false);
+                  onclosecerraroferta();
+                },
+              },
+            ],
             { cancelable: false }
           );
         } else {
           Alert.alert(
             "¡Error!",
             "¡Hubo un error al intentar cerrar la oferta!", // Puedes poner un mensaje aquí si lo necesitas
-            [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+            [
+              {
+                text: "Aceptar",
+                onPress: () => {
+                  setDisabled(false);
+                  onclosecerraroferta();
+                },
+              },
+            ],
             { cancelable: false }
           );
           console.error(
@@ -112,7 +153,15 @@ export const CerrarOferta = ({
         Alert.alert(
           "¡Error!",
           "¡Hubo un error al intentar cerrar la oferta!", // Puedes poner un mensaje aquí si lo necesitas
-          [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+          [
+            {
+              text: "Aceptar",
+              onPress: () => {
+                setDisabled(false);
+                onclosecerraroferta();
+              },
+            },
+          ],
           { cancelable: false }
         );
         console.error("Error en la solicitud de cambio de estado", error);
@@ -149,7 +198,15 @@ export const CerrarOferta = ({
         Alert.alert(
           "¡Error!",
           "¡Hubo un error al intentar cerrar la oferta!", // Puedes poner un mensaje aquí si lo necesitas
-          [{ text: "Aceptar", onPress: () => onclosecerraroferta() }],
+          [
+            {
+              text: "Aceptar",
+              onPress: () => {
+                setDisabled(false);
+                onclosecerraroferta();
+              },
+            },
+          ],
           { cancelable: false }
         );
       });
@@ -221,9 +278,13 @@ export const CerrarOferta = ({
             color={theme.colors.red}
           ></ButtonWithText>
           <ButtonWithText
-            anyfunction={onClickConfirmarCierre}
+            anyfunction={() => {
+              setDisabled(true);
+              onClickConfirmarCierre();
+            }}
             title={"Aceptar"}
-            color={theme.colors.lightblue1}
+            color={disabled ? "gray" : theme.colors.lightblue1}
+            disabled={disabled}
           ></ButtonWithText>
         </View>
       </View>

@@ -68,6 +68,7 @@ const LoginPage = () => {
   const [credentialsIncorrect, setCredentialsIncorrect] = useState(false);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+  const [disabled, setDisabled] = useState(false);
 
   const getAuthResponse = async (username, password) => {
     const body = {
@@ -92,7 +93,9 @@ const LoginPage = () => {
   };
 
   const onSubmitLogin = (values) => {
+    setDisabled(true);
     getAuthResponse(values.user.trim(), values.password.trim()).then((user) => {
+      setDisabled(false);
       if (!!user) {
         login(user);
         setCredentialsIncorrect(false);
@@ -180,8 +183,19 @@ const LoginPage = () => {
                 />
 
                 <TouchableOpacity
-                  style={styles.submitButton}
+                  style={{
+                    padding: 15,
+                    backgroundColor: disabled
+                      ? "gray"
+                      : theme.colors.lightblue1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 5,
+                    marginVertical: 5,
+                    height: 60,
+                  }}
                   onPress={handleSubmit}
+                  disabled={disabled}
                 >
                   <StyledText
                     fontSize="subheading"

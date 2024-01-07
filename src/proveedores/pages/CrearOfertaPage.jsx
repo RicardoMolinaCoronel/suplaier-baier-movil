@@ -38,6 +38,7 @@ const FormikInputValue = ({
   setSelected,
   selected,
   getSelectProduct,
+  isWithPeticion,
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);
@@ -55,13 +56,14 @@ const FormikInputValue = ({
           setSelected={(val) => setSelected(val)}
           onSelect={() => {
             helpers.setValue(selected);
-            getSelectProduct();
+            if (isWithPeticion) {
+              getSelectProduct();
+            }
           }}
           data={productosSelectList}
-          placeholder="Selecciona uno de tus productos"
-          searchPlaceholder="Buscar"
           save="key"
           error={meta.error}
+          {...props}
         />
       ) : (
         <>
@@ -149,6 +151,11 @@ const CrearOfertaPage = () => {
   const [productoSelected, setProductoSelected] = useState("");
   const [isvisibleresumen, setisvisibleresumen] = useState(false);
   const [values, setValues] = useState();
+  const [esInstSelected, setEsInstSelected] = useState(0);
+  const esInstLista = [
+    { key: 0, value: "Sin precio instantáneo" },
+    { key: 1, value: "Con precio instantáneo" },
+  ];
 
   const getProductos = async () => {
     try {
@@ -181,6 +188,7 @@ const CrearOfertaPage = () => {
     getProductos();
   }, []);
   const onMostrarResumen = (values) => {
+    console.log("ENTRE");
     setValues(values);
     setisvisibleresumen(true);
   };
@@ -216,12 +224,14 @@ const CrearOfertaPage = () => {
                   name="product"
                   setSelected={setSelected}
                   selected={selected}
-                  placeholder="Producto"
+                  placeholder="Selecciona uno de tus productos"
                   placeholderTextColor={theme.colors.textPrimary}
                   label="Producto"
+                  searchPlaceholder="Buscar"
                   isDropDown
                   productosSelectList={productosSelectList}
                   getSelectProduct={getSelectProduct}
+                  isWithPeticion={true}
                 />
                 {selected && (
                   <View style={styles.productoContainer}>

@@ -24,6 +24,7 @@ export const UnirseOfertaAhoraModal = ({
   const [contador, setContador] = useState(0);
   const [valortotal, setvalortotal] = useState(0);
   const { getOfertasTodos } = useData();
+  const [disabled, setDisabled] = useState(false);
 
   let unidadesdisponibles =
     parseInt(dataproducto?.Maximo) - parseInt(dataproducto?.actualProductos);
@@ -75,7 +76,10 @@ export const UnirseOfertaAhoraModal = ({
           [
             {
               text: "Aceptar",
-              onPress: () => oncloseReservado(),
+              onPress: () => {
+                setDisabled(false);
+                oncloseexito();
+              },
             },
           ],
           { cancelable: false }
@@ -88,7 +92,10 @@ export const UnirseOfertaAhoraModal = ({
           [
             {
               text: "Aceptar",
-              onPress: () => oncloseReservado(),
+              onPress: () => {
+                setDisabled(false);
+                oncloseexito();
+              },
             },
           ],
           { cancelable: false }
@@ -96,6 +103,7 @@ export const UnirseOfertaAhoraModal = ({
       });
   };
   const pagarahora = async () => {
+    setDisabled(true);
     {
       setvalortotal(contador * dataproducto.datosProd.costoInst);
       const body = {
@@ -117,7 +125,15 @@ export const UnirseOfertaAhoraModal = ({
           Alert.alert(
             "Aviso",
             "Ha habido un error al intentar realizar el pago",
-            [{ text: "Aceptar", onPress: () => oncloseexito() }],
+            [
+              {
+                text: "Aceptar",
+                onPress: () => {
+                  setDisabled(false);
+                  oncloseexito();
+                },
+              },
+            ],
             { cancelable: false }
           );
         });
@@ -231,7 +247,8 @@ export const UnirseOfertaAhoraModal = ({
           <ButtonWithText
             anyfunction={() => (contador != 0 ? pagarahora() : undefined)}
             title={"Continuar"}
-            color={theme.colors.lightblue1}
+            color={disabled ? "gray" : theme.colors.lightblue1}
+            disabled={disabled}
           ></ButtonWithText>
         </View>
       </View>

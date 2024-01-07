@@ -4,14 +4,22 @@ import * as Yup from 'yup';
 const crearDemandaValidationSchema = Yup.object().shape({
     //title: Yup.string().required('Title is required'),
     product: Yup.number().required('El producto es requerido'),
-    description: Yup.string().required('La descripción es requerida').min(20,"La descripción no puede ser menor a 20 caracteres").max(480,"La descripción no puede ser superior a los 480 caracteres"),
+    description: Yup.string()
+    .required('La descripción es requerida')
+    .min(20,"La descripción no puede ser menor a 20 caracteres")
+    .max(480,"La descripción no puede ser superior a los 480 caracteres")
+    .test('valid-structure', '\" - \' son caracteres especiales inválidos',
+    function (value) {
+       const regex=/^[^-"']*$/;
+       return regex.test(value) 
+   }),
     pmin: Yup.string().required('El precio mínimo es requerido')
     .test('positive', 'El precio mínimo debe ser un número positivo', function (value) {           
         return parseFloat(value) > 0;
    }).test('limit', 'El precio mínimo no puede ser mayor a 10000', function (value) {           
     return parseFloat(value) <= 10000;
 })
-    .test('twodecimals-price', 'El precio mínimo debe tener dos decimales', function (value) {
+    .test('twodecimals-price', 'El precio mínimo debe ser con punto y tener dos decimales', function (value) {
         const regex = /^\d+(\.\d{2})?$/;
         return regex.test(value.toString());
    })
@@ -26,7 +34,7 @@ const crearDemandaValidationSchema = Yup.object().shape({
              const pmin = parseFloat(this.parent.pmin);
              return value >= pmin;
         })
-        .test('twodecimals-price', 'El precio máximo debe tener dos decimales', function (value) {
+        .test('twodecimals-price', 'El precio máximo debe ser con punto y tener dos decimales', function (value) {
             const regex = /^\d+(\.[0-9]{2})?$/;
             
             return regex.test(value);

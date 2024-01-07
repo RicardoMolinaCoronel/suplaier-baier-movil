@@ -23,6 +23,8 @@ export const MetodoPagoModal = ({
 }) => {
   const [checked, setChecked] = React.useState("");
   const { getOfertasTodos } = useData();
+  const [disabled, setDisabled] = useState(false);
+
   const actualizarOferta = async () => {
     const body = {
       IdOferta: dataproducto.IdOferta,
@@ -48,7 +50,10 @@ export const MetodoPagoModal = ({
           [
             {
               text: "Aceptar",
-              onPress: () => oncloseReservado(),
+              onPress: () => {
+                setDisabled(false);
+                oncloseReservado();
+              },
             },
           ],
           { cancelable: false }
@@ -61,7 +66,10 @@ export const MetodoPagoModal = ({
           [
             {
               text: "Aceptar",
-              onPress: () => oncloseReservado(),
+              onPress: () => {
+                setDisabled(false);
+                oncloseReservado();
+              },
             },
           ],
           { cancelable: false }
@@ -104,7 +112,10 @@ export const MetodoPagoModal = ({
           [
             {
               text: "Aceptar",
-              onPress: () => oncloseReservado(),
+              onPress: () => {
+                setDisabled(false);
+                oncloseReservado();
+              },
             },
           ],
           { cancelable: false }
@@ -195,13 +206,17 @@ export const MetodoPagoModal = ({
             anyfunction={() => {
               setChecked(""), oncloseMetodoPago();
             }}
-            title={"cancelar"}
+            title={"Cancelar"}
             color={theme.colors.red}
           />
           <ButtonWithText
-            anyfunction={postpago}
+            anyfunction={() => {
+              setDisabled(true);
+              postpago();
+            }}
             title={"Continuar"}
-            color="#3498DB"
+            color={disabled ? "gray" : theme.colors.lightblue1}
+            disabled={disabled}
           />
         </View>
       </View>

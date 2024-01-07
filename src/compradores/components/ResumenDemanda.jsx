@@ -1,5 +1,5 @@
 import { View, Image, Modal } from "react-native";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../auth/context/AuthContext";
 import { StyleSheet, ScrollView } from "react-native";
 import StyledText from "../../styles/StyledText";
@@ -17,7 +17,10 @@ export const ResumenDemanda = ({
   const {
     authState: { user },
   } = useContext(AuthContext);
+  const [disabled, setDisabled] = useState(false);
+
   const uploadDemanda = async () => {
+    setDisabled(true);
     let fechaEnvio = values.date;
     let año = fechaEnvio.getFullYear();
     let mes = fechaEnvio.getMonth() + 1;
@@ -54,7 +57,15 @@ export const ResumenDemanda = ({
         Alert.alert(
           "¡Éxito!",
           "Se ha creado la demanda con éxito",
-          [{ text: "Aceptar", onPress: () => onclose() }],
+          [
+            {
+              text: "Aceptar",
+              onPress: () => {
+                onclose();
+                setDisabled(false);
+              },
+            },
+          ],
           { cancelable: false }
         );
       })
@@ -62,7 +73,15 @@ export const ResumenDemanda = ({
         Alert.alert(
           "Error",
           "Ha habido un error al intentar crear la demanda",
-          [{ text: "Aceptar", onPress: () => onclose() }],
+          [
+            {
+              text: "Aceptar",
+              onPress: () => {
+                onclose();
+                setDisabled(false);
+              },
+            },
+          ],
           { cancelable: false }
         );
       });
@@ -153,7 +172,8 @@ export const ResumenDemanda = ({
           <ButtonWithText
             anyfunction={() => uploadDemanda()}
             title={"Crear demanda"}
-            color="#3498DB"
+            color={disabled ? "gray" : theme.colors.blue}
+            disabled={disabled}
           />
         </ScrollView>
       </View>

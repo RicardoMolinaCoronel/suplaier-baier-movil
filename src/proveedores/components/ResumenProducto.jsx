@@ -1,5 +1,5 @@
 import { View, Image, Modal } from "react-native";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../auth/context/AuthContext";
 import { StyleSheet, ScrollView } from "react-native";
 import StyledText from "../../styles/StyledText";
@@ -8,7 +8,6 @@ import { ButtonWithText } from "./ButtonWithText";
 import { dateOptions } from "../../components/dateOptions";
 import { apiUrl } from "../../../apiUrl";
 import { Alert } from "react-native";
-
 export const ResumenProducto = ({
   isvisible,
   onclose,
@@ -19,7 +18,9 @@ export const ResumenProducto = ({
   const {
     authState: { user },
   } = useContext(AuthContext);
+  const [disabled, setDisabled] = useState(false);
   const createProduct = async () => {
+    setDisabled(true);
     const body = {
       IdProveedor: user.IdUsuario,
       IdCatProducto: values.categoria,
@@ -44,15 +45,31 @@ export const ResumenProducto = ({
         Alert.alert(
           "¡Éxito!",
           "Se ha creado el producto con éxito",
-          [{ text: "Aceptar", onPress: () => onclose() }],
+          [
+            {
+              text: "Aceptar",
+              onPress: () => {
+                onclose();
+                setDisabled(false);
+              },
+            },
+          ],
           { cancelable: false }
         );
       })
       .catch(() => {
         Alert.alert(
           "Error",
-          "Ha habido un error al intentar crear el producto, verifique que el tamaño de la imagen no supere los 52kb",
-          [{ text: "Aceptar", onPress: () => onclose() }],
+          "Ha habido un error al intentar crear el producto, verifique que el tamaño de la imagen no supere los 17mb",
+          [
+            {
+              text: "Aceptar",
+              onPress: () => {
+                onclose();
+                setDisabled(false);
+              },
+            },
+          ],
           { cancelable: false }
         );
       });
@@ -112,7 +129,8 @@ export const ResumenProducto = ({
           <ButtonWithText
             anyfunction={() => createProduct()}
             title={"Crear producto"}
-            color="#3498DB"
+            color={disabled ? "gray" : theme.colors.blue}
+            disabled={disabled}
           />
         </ScrollView>
       </View>
