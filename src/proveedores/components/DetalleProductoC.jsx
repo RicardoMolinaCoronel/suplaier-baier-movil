@@ -8,11 +8,11 @@ import StyledText from "../../styles/StyledText";
 import theme from "../../theme";
 import { dateOptions } from "../../components/dateOptions";
 import { UnirseOfertaModal } from "./UnirseOfertaModal";
-import { UnirseOfertaAhoraModal } from "./UnirseOfertaAhoraModal";
+//import { UnirseOfertaAhoraModal } from "./UnirseOfertaAhoraModal";
 
 export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
-  const [isvisibleUnirseOfertaAhoraModal, setisvisibleUnirseOfertaAhoraModal] =
-    useState(false);
+  /*const [isvisibleUnirseOfertaAhoraModal, setisvisibleUnirseOfertaAhoraModal] =
+    useState(false);*/
   const [isvisibleUnirseoferta, setisvisibleUnirseoferta] = useState(false);
   const fechaLimiteObj = new Date(dataproducto?.fechaLimiteObj ?? "");
 
@@ -69,36 +69,36 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
           <View style={styles.secondContainer}>
             <View style={styles.secondFirstContainer}>
               <StyledText color={"purple"} fontWeight={"bold"}>
-                Proveedor:
-              </StyledText>
-              <StyledText color={"primary"}>
-                {dataproducto?.nombreProveedor ?? ""}
-              </StyledText>
-            </View>
-            <View style={styles.secondsecondContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
-                Precio Unitario:
-              </StyledText>
-              <StyledText color={"primary"}>
-                ${dataproducto?.datosProd?.costoU ?? 0}
-              </StyledText>
-            </View>
-          </View>
-          <View style={styles.precioInstContainerSub}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
-              Precio de compra instantanea:{" "}
+              Precio minimo:{" "}
             </StyledText>
             <StyledText color={"primary"}>
               {dataproducto?.datosProd?.costoInst === 0
                 ? "--"
-                : "$" + dataproducto?.datosProd?.costoInst}
+                : "$" + dataproducto?.Minimo}
             </StyledText>
+            </View>
+            <View style={styles.secondsecondContainer}>
+              <StyledText color={"purple"} fontWeight={"bold"}>
+                Precio Maximo:
+              </StyledText>
+              <StyledText color={"primary"}>
+                ${dataproducto?.Maximo ?? 0}
+              </StyledText>
+            </View>
+          </View>
+          <View style={styles.precioInstContainerSub}>
+          <StyledText color={"purple"} fontWeight={"bold"}>
+                Comprador:
+              </StyledText>
+              <StyledText color={"primary"}>
+                {dataproducto?.nombreComprador ?? ""}
+              </StyledText>
           </View>
 
           <View style={styles.unidadesFechaContainer}>
             <View style={styles.unidadesContainer}>
               <StyledText color={"purple"} fontWeight={"bold"}>
-                Unidades restantes:{" "}
+                Unidades faltantes:{" "}
               </StyledText>
               <StyledText color={"primary"}>
                 {parseInt(dataproducto?.Maximo) -
@@ -115,6 +115,7 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
               </StyledText>
             </View>
           </View>
+          
           <View style={styles.descripcionContainer}>
             <View style={styles.descripcionSubContainer}>
               <StyledText color={"primary"}>
@@ -130,16 +131,7 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
               </StyledText>
             </View>
           </View>
-          <View style={styles.progesoContainer}>
-            <View style={styles.progresoSubContainer}>
-              <StyledText color={"primary"}>
-                Progreso de Unidades Vendidas
-              </StyledText>
-              <ProgressBar
-                porcentaje={dataproducto?.progresoOferta * 100}
-              ></ProgressBar>
-            </View>
-          </View>
+          
 
           {!dataproducto?.estaUnido && (
             <>
@@ -149,14 +141,7 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
                   title={"Unirse"}
                   color="#3498DB"
                 />
-                {dataproducto?.datosProd?.costoInst != 0 && (
-                  <ButtonWithText
-                    anyfunction={() => setisvisibleUnirseOfertaAhoraModal(true)}
-                    //anyfunction={() => undefined}
-                    title={"Pagar Ahora"}
-                    color={theme.colors.red}
-                  />
-                )}
+                
               </View>
               {/* modales */}
               <UnirseOfertaModal
@@ -167,19 +152,7 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
                   setisvisibleUnirseoferta(false), onclose();
                 }}
               ></UnirseOfertaModal>
-              <UnirseOfertaAhoraModal
-                dataproducto={dataproducto}
-                isvisibleUnirseOfertaAhoraModal={
-                  isvisibleUnirseOfertaAhoraModal
-                }
-                oncloseUnirseOfertaAhora={() =>
-                  setisvisibleUnirseOfertaAhoraModal(false)
-                }
-                oncloseexito={() => {
-                  setisvisibleUnirseOfertaAhoraModal(false);
-                  onclose();
-                }}
-              ></UnirseOfertaAhoraModal>
+              
             </>
           )}
           {dataproducto?.estaUnido && (

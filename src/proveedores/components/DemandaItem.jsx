@@ -10,7 +10,6 @@ import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
 import { useNavigate } from "react-router-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { DetalleProductoC } from "./DetalleProductoC";
-
 import React from "react";
 
 const DemandaItem = (props) => {
@@ -74,8 +73,8 @@ const DemandaItem = (props) => {
   useEffect(() => {
     setDatosProd({
       nombreProd: producto?.Name,
-      precioMin: parseFloat(props.PrecioMinimo),
-      precioMax: parseFloat(props.PrecioMaximo),
+      precioMin: props.PrecioMinimo,
+      precioMax: props.PrecioMaximo,
       urlImg: producto?.UrlImg,
     });
   }, [producto, props]);
@@ -83,7 +82,7 @@ const DemandaItem = (props) => {
   return (
     <View style={styles.ofertaContainer}>
       <View style={styles.demandaIcon}>
-        <SimpleLineIcons name="basket" size={24} color={theme.colors.blue} />
+        <SimpleLineIcons name="basket" size={24} color={theme.colors.purple} />
       </View>
       <View style={styles.textoImagenContainer}>
         <StyledText
@@ -165,7 +164,7 @@ const DemandaItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
-      {isvisible && ( <DetalleProductoC
+      { <DetalleProductoC
         isvisible={isvisible}
         onclose={() => setisvisible(false)}
         dataproducto={{
@@ -183,7 +182,7 @@ const DemandaItem = (props) => {
           IdDemanda: props.IdDemanda,
           IdUsuario: authState.user.IdUsuario
         }}
-      ></DetalleProductoC>)}
+      ></DetalleProductoC> }
     </View>
   );
 };
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: 210,
     height: 210,
-    resizeMode: "center",
+    resizeMode: "contain",
   },
   provEstadoContainer: {
     alignItems: "center",
