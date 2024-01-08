@@ -9,23 +9,31 @@ import Cargar_Categorias from '../../components/CargarCategorias';
 import {useEffect, useState} from 'react'
 import OfertaItem from "../components/OfertaItem";
 const Busqueda_Comprador = () => {
-  const { ofertasBusqueda, getOfertasTodos } = Search_Logic();
+  const { ofertasBusqueda, getOfertasTodos, getOfertasPorCategoria } = Search_Logic();
   const [showEmptyArray, setShowEmptyArray] = useState(false);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState();
 
   const handleSearch = async (searchText) => {
-    // Actualiza los resultados en Search_Logic usando la función getOfertasTodos
-    await getOfertasTodos(searchText);
+    if (categoriaSeleccionada && categoriaSeleccionada.IdCatProducto) {
+      await getOfertasPorCategoria(searchText, categoriaSeleccionada.IdCatProducto);
+    } else {
+      await getOfertasTodos(searchText);
+    }
   };
 
   useEffect(() => {
-    // Actualiza showEmptyArray cuando ofertasBusqueda cambia
     setShowEmptyArray(ofertasBusqueda.length === 0);
   }, [ofertasBusqueda]);
 
   useEffect(() => {
-    // Cuando el componente se monta, carga las ofertas iniciales
     getOfertasTodos('');
   }, []);
+
+    const onCategoriaSelect = (categoria) => {
+      setCategoriaSeleccionada(categoria);
+      handleSearch('');
+    };
+  
 
   return (
     
@@ -40,11 +48,11 @@ const Busqueda_Comprador = () => {
             Búsqueda
           </StyledText>
         </View>
-        <Search_Input onSearch={(text) => handleSearch(text)} />
-        <Cargar_Categorias />
+        <Search_Input onSearch={handleSearch} />
+        <Cargar_Categorias onSelectCategoria={onCategoriaSelect}/>
         {showEmptyArray && (
           <Text style={styles.textNothing}>
-            No hay demandas disponibles con ese nombre
+            No hay ofertas disponibles con ese nombre
           </Text>
         )}
       </View>
@@ -54,6 +62,7 @@ const Busqueda_Comprador = () => {
   }
   data={ofertasBusqueda}
   renderItem={({ item: oferta }) => <OfertaItem {...oferta} />}
+  
 />
 
   );
