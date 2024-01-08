@@ -86,7 +86,7 @@ export const UnirseOfertaModal = ({
         .catch(() => {
           Alert.alert(
             "Error",
-            "Ha habido un error al intentar crear la demanda",
+            "Ha habido un error al intentar crear la propuesta",
             [{ text: "Aceptar", onPress: () => oncloseUnirseOferta() }],
             { cancelable: false }
           );
@@ -94,7 +94,7 @@ export const UnirseOfertaModal = ({
         .then(() => {
           Alert.alert(
             "¡Éxito!",
-            "Se ha creado la demanda con éxito",
+            "Se ha creado la propuesta con éxito",
             [{ text: "Aceptar", onPress: () => oncloseUnirseOferta() }],
             { cancelable: false }
           );
@@ -137,7 +137,7 @@ export const UnirseOfertaModal = ({
             }}
           >
             <Text style={{ color: "black", margin: 10, fontWeight: "bold" }}>
-              Unirse a la oferta
+              Crear Propuesta
             </Text>
             <View style={styles.firstContainer}>
               <Image
