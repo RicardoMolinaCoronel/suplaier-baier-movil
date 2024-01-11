@@ -54,7 +54,7 @@ const NavigationBar = () => {
             }
           />
         </NavBarTab>
-        <NavBarTab active to="/comprador/home/notifications">
+        {/* <NavBarTab active to="/comprador/home/notifications">
           <Icon
             name="notifications-button"
             height={iconHeight}
@@ -65,7 +65,7 @@ const NavigationBar = () => {
                 : theme.bottomBar.iconPrimary
             }
           />
-        </NavBarTab>
+        </NavBarTab> */}
       </View>
     </View>
   );

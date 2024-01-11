@@ -1,5 +1,5 @@
 import { View, Image, Modal } from "react-native";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../auth/context/AuthContext";
 import { StyleSheet, ScrollView } from "react-native";
 import StyledText from "../../styles/StyledText";
@@ -18,7 +18,7 @@ export const ResumenDemanda = ({
     authState: { user },
   } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(false);
-
+  const [fechaMostrar, setFechaMostrar] = useState("");
   const uploadDemanda = async () => {
     setDisabled(true);
     let fechaEnvio = values.date;
@@ -86,6 +86,14 @@ export const ResumenDemanda = ({
         );
       });
   };
+  useEffect(() => {
+    const fechaMostrar = values.date;
+    fechaMostrar.setHours(0);
+    fechaMostrar.setMinutes(0);
+    fechaMostrar.setSeconds(0);
+    setFechaMostrar(fechaMostrar);
+  }, []);
+
   return (
     <Modal visible={isvisible} transparent={true} animationType="slide">
       <View style={styles.container}>
@@ -166,7 +174,7 @@ export const ResumenDemanda = ({
               Fecha límite:{" "}
             </StyledText>
             <StyledText color={"primary"}>
-              {values.date.toLocaleString(undefined, dateOptions)}
+              {fechaMostrar.toLocaleString(undefined, dateOptions)}
             </StyledText>
           </View>
           <ButtonWithText

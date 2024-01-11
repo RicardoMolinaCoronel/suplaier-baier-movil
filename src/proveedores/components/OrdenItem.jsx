@@ -7,6 +7,7 @@ import { useState, useEffect, useContext } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
 import { DetalleOrden } from "../../components/DetalleOrden";
+import { SimpleLineIcons } from "@expo/vector-icons";
 const OrdenItem = (props) => {
   const [oferta, setOferta] = useState();
   const [producto, setProducto] = useState();
@@ -88,6 +89,13 @@ const OrdenItem = (props) => {
 
   return (
     <View style={styles.ordenContainer}>
+      <View style={styles.demandaIcon}>
+        <SimpleLineIcons
+          name={props.TipoCompra === "instantanea" ? "energy" : "handbag"}
+          size={24}
+          color={theme.colors.purple}
+        />
+      </View>
       <View style={styles.textoImagenContainer}>
         <StyledText
           style={styles.textTitulo}
@@ -199,6 +207,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
   },
+  demandaIcon: { width: "100%", alignItems: "flex-start" },
+
   textTitulo: {
     textAlign: "center",
   },

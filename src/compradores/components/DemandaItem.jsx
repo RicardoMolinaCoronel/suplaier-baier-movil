@@ -9,7 +9,7 @@ import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
 import { useNavigate } from "react-router-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
-
+import PropuestasList from "./PropuestasList";
 import React from "react";
 
 const DemandaItem = (props) => {
@@ -164,25 +164,14 @@ const DemandaItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
-      {/* <DetalleProductoC
-        isvisible={isvisible}
-        onclose={() => setisvisible(false)}
-        dataproducto={{
-          props,
-          producto,
-          comprador,
-          estadoDemanda,
-          nombreComprador,
-          datosProd,
-          progresoDemanda,
-          fechaLimiteObj,
-          Maximo: parseInt(props.Maximo),
-          Minimo: parseInt(props.Minimo),
-          actualProductos: parseInt(props.ActualProductos),
-          IdDemanda: props.IdDemanda,
-          IdUsuario: authState.user.IdUsuario
-        }}
-      ></DetalleProductoC> */}
+      {/* {isvisible && (
+        <PropuestasList
+          isvisible={isvisible}
+          onclose={() => setisvisible(false)}
+          IdDemanda={props.IdDemanda}
+          ActualProductos={props.ActualProductos}
+        ></PropuestasList>
+      )} */}
     </View>
   );
 };

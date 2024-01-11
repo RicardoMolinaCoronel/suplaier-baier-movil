@@ -15,14 +15,14 @@ export const UnirseOfertaModal = ({
   dataproducto,
   isvisibleUnirseOfertaModal,
   oncloseUnirseOferta,
-  
+
   onclopagado,
 }) => {
-  
   const fechaLimiteObj = new Date(dataproducto?.fechaLimiteObj ?? "");
   const [contador, setContador] = useState(0);
   const [valortotal, setvalortotal] = useState(0);
   const [precioPropuesta, setPrecioPropuesta] = useState(0);
+  const [values, setValues] = useState();
   let unidadesdisponibles =
     parseInt(dataproducto?.Maximo) - parseInt(dataproducto?.actualProductos);
 
@@ -47,8 +47,14 @@ export const UnirseOfertaModal = ({
   const validationSchema = Yup.object().shape({
     precioPropuesta: Yup.number()
       .required("El precio es requerido")
-      .min(dataproducto.Minimo, "Precio debe ser mayor o igual al precio minimo")
-      .max(dataproducto.Maximo, "Precio debe ser menor o igual al precio maximo")
+      .min(
+        dataproducto.Minimo,
+        "Precio debe ser mayor o igual al precio minimo"
+      )
+      .max(
+        dataproducto.Maximo,
+        "Precio debe ser menor o igual al precio maximo"
+      ),
   });
 
   const formik = useFormik({
@@ -57,7 +63,7 @@ export const UnirseOfertaModal = ({
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      CrearPropuesta(values)
+      CrearPropuesta(values);
       console.log(values);
     },
   });
@@ -65,41 +71,39 @@ export const UnirseOfertaModal = ({
     authState: { user },
   } = useContext(AuthContext);
 
-
-    const uploadPropuesta = async () => {
-     
-      const body = {
-        IdDemanda: dataproducto.IdDemanda,
-        IdProveedor: user.IdUsuario,
-        Precio: precioPropuesta,
-        Cantidad: contador,
-        Estado: "Pendiente"
-      };
-      console.log(body)
-      const resp = await fetch(`${apiUrl}/propuestas`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      })
-        .catch(() => {
-          Alert.alert(
-            "Error",
-            "Ha habido un error al intentar crear la propuesta",
-            [{ text: "Aceptar", onPress: () => oncloseUnirseOferta() }],
-            { cancelable: false }
-          );
-        })
-        .then(() => {
-          Alert.alert(
-            "¡Éxito!",
-            "Se ha creado la propuesta con éxito",
-            [{ text: "Aceptar", onPress: () => oncloseUnirseOferta() }],
-            { cancelable: false }
-          );
-        });
+  const uploadPropuesta = async (values) => {
+    const body = {
+      IdDemanda: dataproducto.IdDemanda,
+      IdProveedor: user.IdUsuario,
+      Precio: values.precioPropuesta,
+      Cantidad: contador,
+      Estado: "Pendiente",
     };
+    console.log(body);
+    const resp = await fetch(`${apiUrl}/propuestas`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .catch(() => {
+        Alert.alert(
+          "Error",
+          "Ha habido un error al intentar crear la propuesta",
+          [{ text: "Aceptar", onPress: () => oncloseUnirseOferta() }],
+          { cancelable: false }
+        );
+      })
+      .then(() => {
+        Alert.alert(
+          "¡Éxito!",
+          "Se ha creado la propuesta con éxito",
+          [{ text: "Aceptar", onPress: () => oncloseUnirseOferta() }],
+          { cancelable: false }
+        );
+      });
+  };
 
   return (
     <Formik
@@ -108,7 +112,7 @@ export const UnirseOfertaModal = ({
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        uploadPropuesta(values)
+        uploadPropuesta(values);
         console.log(values);
       }}
     >
@@ -240,11 +244,11 @@ export const UnirseOfertaModal = ({
                 color={theme.colors.red}
               ></ButtonWithText>
               <ButtonWithText
-              anyfunction={() => {
-               uploadPropuesta()}}
+                anyfunction={() => {
+                  formik.handleSubmit();
+                }}
                 title={"Continuar"}
                 color={theme.colors.lightblue1}
-                
               ></ButtonWithText>
             </View>
           </View>
@@ -255,7 +259,7 @@ export const UnirseOfertaModal = ({
 };
 const styles = StyleSheet.create({
   container: {
-    width:50000,
+    width: 50000,
     flex: 1,
     padding: "5%",
     margin: "3%",
@@ -391,10 +395,9 @@ const styles = StyleSheet.create({
   textInputLabel: {
     color: theme.colors.purple,
     textAlign: "left",
-},
-errorText: {
-  color: "red",
-  fontSize: theme.fontSizes.body,
-},
+  },
+  errorText: {
+    color: "red",
+    fontSize: theme.fontSizes.body,
+  },
 });
-

@@ -69,13 +69,13 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
           <View style={styles.secondContainer}>
             <View style={styles.secondFirstContainer}>
               <StyledText color={"purple"} fontWeight={"bold"}>
-              Precio minimo:{" "}
-            </StyledText>
-            <StyledText color={"primary"}>
-              {dataproducto?.datosProd?.costoInst === 0
-                ? "--"
-                : "$" + dataproducto?.Minimo}
-            </StyledText>
+                Precio minimo:{" "}
+              </StyledText>
+              <StyledText color={"primary"}>
+                {dataproducto?.datosProd?.costoInst === 0
+                  ? "--"
+                  : "$" + dataproducto?.Minimo}
+              </StyledText>
             </View>
             <View style={styles.secondsecondContainer}>
               <StyledText color={"purple"} fontWeight={"bold"}>
@@ -87,12 +87,12 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
             </View>
           </View>
           <View style={styles.precioInstContainerSub}>
-          <StyledText color={"purple"} fontWeight={"bold"}>
-                Comprador:
-              </StyledText>
-              <StyledText color={"primary"}>
-                {dataproducto?.nombreComprador ?? ""}
-              </StyledText>
+            <StyledText color={"purple"} fontWeight={"bold"}>
+              Comprador:
+            </StyledText>
+            <StyledText color={"primary"}>
+              {dataproducto?.nombreComprador ?? ""}
+            </StyledText>
           </View>
 
           <View style={styles.unidadesFechaContainer}>
@@ -115,7 +115,7 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
               </StyledText>
             </View>
           </View>
-          
+
           <View style={styles.descripcionContainer}>
             <View style={styles.descripcionSubContainer}>
               <StyledText color={"primary"}>
@@ -131,7 +131,6 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
               </StyledText>
             </View>
           </View>
-          
 
           {!dataproducto?.estaUnido && (
             <>
@@ -141,7 +140,6 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
                   title={"Unirse"}
                   color="#3498DB"
                 />
-                
               </View>
               {/* modales */}
               <UnirseOfertaModal
@@ -152,7 +150,6 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
                   setisvisibleUnirseoferta(false), onclose();
                 }}
               ></UnirseOfertaModal>
-              
             </>
           )}
           {dataproducto?.estaUnido && (
