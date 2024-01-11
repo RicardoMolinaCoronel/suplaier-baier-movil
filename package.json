@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test": "jest"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
@@ -58,6 +59,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.33.2",
+    "jest-junit": "^16.0.0",
     "prettier": "^3.0.3"
   },
   "private": true,
@@ -82,5 +84,11 @@
       "react/react-in-jsx-scope": "off",
       "eqeqeq": "off"
     }
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      ["jest-junit", { "outputDirectory": "./test-results", "outputName": "junit.xml" }]
+    ]
   }
 }
