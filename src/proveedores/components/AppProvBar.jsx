@@ -13,7 +13,7 @@ import theme from "../../theme.js";
 import Icon from "react-native-ico-material-design";
 import { AuthContext } from "../../auth/context/AuthContext.jsx";
 
-const AppProvBar = ({
+const AppProvBar = React.memo(({
   closeButtonOffset,
   scaleValue,
   offsetValue,
@@ -116,7 +116,7 @@ const AppProvBar = ({
       </Animated.View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
