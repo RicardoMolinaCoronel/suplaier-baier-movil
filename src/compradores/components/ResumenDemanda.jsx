@@ -1,13 +1,20 @@
-import { View, Image, Modal } from "react-native";
+import {
+  View,
+  Image,
+  Modal,
+  StyleSheet,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../auth/context/AuthContext";
-import { StyleSheet, ScrollView } from "react-native";
+
 import StyledText from "../../styles/StyledText";
 import theme from "../../theme";
 import { ButtonWithText } from "../../proveedores/components/ButtonWithText";
 import { dateOptions } from "../../components/dateOptions";
 import { apiUrl } from "../../../apiUrl";
-import { Alert } from "react-native";
+
 export const ResumenDemanda = ({
   isvisible,
   onclose,
@@ -21,14 +28,14 @@ export const ResumenDemanda = ({
   const [fechaMostrar, setFechaMostrar] = useState("");
   const uploadDemanda = async () => {
     setDisabled(true);
-    let fechaEnvio = values.date;
-    let año = fechaEnvio.getFullYear();
-    let mes = fechaEnvio.getMonth() + 1;
-    let dia = fechaEnvio.getDate();
-    let fechaFormateada = `${año}-${mes < 10 ? "0" + mes : mes}-${
+    const fechaEnvio = values.date;
+    const año = fechaEnvio.getFullYear();
+    const mes = fechaEnvio.getMonth() + 1;
+    const dia = fechaEnvio.getDate();
+    const fechaFormateada = `${año}-${mes < 10 ? "0" + mes : mes}-${
       dia < 10 ? "0" + dia : dia
     }`;
-    //IdProducto, IdProveedor, IdEstadosOferta, Minimo, Maximo, Descripcion, ActualProductos, FechaLimite, Estado, ValorUProducto
+    // IdProducto, IdProveedor, IdEstadosOferta, Minimo, Maximo, Descripcion, ActualProductos, FechaLimite, Estado, ValorUProducto
     const body = {
       IdProducto: parseInt(values.product),
       IdComprador: user.IdUsuario,
@@ -43,7 +50,7 @@ export const ResumenDemanda = ({
       PrecioMaximo: values.pmax,
     };
 
-    const resp = await fetch(`${apiUrl}/demandas`, {
+    await fetch(`${apiUrl}/demandas`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -92,33 +99,34 @@ export const ResumenDemanda = ({
     fechaMostrar.setMinutes(0);
     fechaMostrar.setSeconds(0);
     setFechaMostrar(fechaMostrar);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Modal visible={isvisible} transparent={true} animationType="slide">
+    <Modal visible={isvisible} transparent animationType="slide">
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.tituloContainer}>
             <StyledText
-              fontWeight={"bold"}
-              color={"purple"}
+              fontWeight="bold"
+              color="purple"
               style={styles.textName}
-              fontSize={"subtitle"}
+              fontSize="subtitle"
             >
               Resumen de la demanda
             </StyledText>
             <ButtonWithText
               anyfunction={onclose}
-              title={""}
-              icon={"close-sharp"}
+              title=""
+              icon="close-sharp"
               color={theme.colors.red2}
             />
           </View>
           <View style={styles.soloContainer}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Producto:{" "}
             </StyledText>
-            <StyledText color={"primary"}>{datosProducto?.Name}</StyledText>
+            <StyledText color="primary">{datosProducto?.Name}</StyledText>
           </View>
           <View style={styles.productoContainer}>
             <Image
@@ -132,54 +140,51 @@ export const ResumenDemanda = ({
               }
               style={styles.imageContainer}
             />
-            <StyledText
-              color={"primary"}
-              style={styles.textProductoDescripcion}
-            >
+            <StyledText color="primary" style={styles.textProductoDescripcion}>
               {datosProducto?.Descripcion}
             </StyledText>
           </View>
           <View style={styles.soloContainerRow}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Precio mínimo:{" "}
             </StyledText>
-            <StyledText color={"primary"}>{values.pmin}$</StyledText>
+            <StyledText color="primary">{values.pmin}$</StyledText>
           </View>
           <View style={styles.soloContainerRow}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Precio máximo:{" "}
             </StyledText>
-            <StyledText color={"primary"}>{values.pmax}$</StyledText>
+            <StyledText color="primary">{values.pmax}$</StyledText>
           </View>
           <View style={styles.soloContainer}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Descripción:{" "}
             </StyledText>
-            <StyledText color={"primary"}>{values.description}</StyledText>
+            <StyledText color="primary">{values.description}</StyledText>
           </View>
           <View style={styles.soloContainerRow}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Cantidad mínima de productos:{" "}
             </StyledText>
-            <StyledText color={"primary"}>{values.umin}</StyledText>
+            <StyledText color="primary">{values.umin}</StyledText>
           </View>
           <View style={styles.soloContainerRow}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Cantidad total de productos:{" "}
             </StyledText>
-            <StyledText color={"primary"}>{values.umax}</StyledText>
+            <StyledText color="primary">{values.umax}</StyledText>
           </View>
           <View style={styles.soloContainer}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Fecha límite:{" "}
             </StyledText>
-            <StyledText color={"primary"}>
+            <StyledText color="primary">
               {fechaMostrar.toLocaleString(undefined, dateOptions)}
             </StyledText>
           </View>
           <ButtonWithText
             anyfunction={() => uploadDemanda()}
-            title={"Crear demanda"}
+            title="Crear demanda"
             color={disabled ? "gray" : theme.colors.blue}
             disabled={disabled}
           />

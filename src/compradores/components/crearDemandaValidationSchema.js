@@ -2,13 +2,13 @@
 import * as Yup from 'yup';
 
 const crearDemandaValidationSchema = Yup.object().shape({
-    //title: Yup.string().required('Title is required'),
+    // title: Yup.string().required('Title is required'),
     product: Yup.number().required('El producto es requerido'),
     description: Yup.string()
     .required('La descripción es requerida')
     .min(20,"La descripción no puede ser menor a 20 caracteres")
     .max(480,"La descripción no puede ser superior a los 480 caracteres")
-    .test('valid-structure', '\" - \' son caracteres especiales inválidos',
+    .test('valid-structure', '" - \' son caracteres especiales inválidos',
     function (value) {
        const regex=/^[^-"']*$/;
        return regex.test(value) 

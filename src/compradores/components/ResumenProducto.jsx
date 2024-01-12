@@ -1,13 +1,18 @@
-import { View, Image, Modal } from "react-native";
+import {
+  View,
+  Image,
+  Modal,
+  StyleSheet,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../auth/context/AuthContext";
-import { StyleSheet, ScrollView } from "react-native";
+
 import StyledText from "../../styles/StyledText";
 import theme from "../../theme";
 import { ButtonWithText } from "../../proveedores/components/ButtonWithText";
-import { dateOptions } from "../../components/dateOptions";
 import { apiUrl } from "../../../apiUrl";
-import { Alert } from "react-native";
 
 export const ResumenProducto = ({
   isvisible,
@@ -32,7 +37,7 @@ export const ResumenProducto = ({
       UrlImg: productoImg,
       Name: values.name,
     };
-    const resp = await global
+    await global
       .fetch(`${apiUrl}/productos`, {
         method: "POST",
         headers: {
@@ -79,30 +84,30 @@ export const ResumenProducto = ({
     console.log("peticion");
   };
   return (
-    <Modal visible={isvisible} transparent={true} animationType="slide">
+    <Modal visible={isvisible} transparent animationType="slide">
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.tituloContainer}>
             <StyledText
-              fontWeight={"bold"}
-              color={"purple"}
+              fontWeight="bold"
+              color="purple"
               style={styles.textName}
-              fontSize={"subtitle"}
+              fontSize="subtitle"
             >
               Resumen del producto
             </StyledText>
             <ButtonWithText
               anyfunction={onclose}
-              title={""}
-              icon={"close-sharp"}
+              title=""
+              icon="close-sharp"
               color={theme.colors.red2}
             />
           </View>
           <View style={styles.soloContainer}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Nombre producto:{" "}
             </StyledText>
-            <StyledText color={"primary"}>{values.name}</StyledText>
+            <StyledText color="primary">{values.name}</StyledText>
           </View>
           <View style={styles.productoContainer}>
             <Image
@@ -115,22 +120,19 @@ export const ResumenProducto = ({
               }
               style={styles.imageContainer}
             />
-            <StyledText
-              color={"primary"}
-              style={styles.textProductoDescripcion}
-            >
+            <StyledText color="primary" style={styles.textProductoDescripcion}>
               {values.description}
             </StyledText>
           </View>
           <View style={styles.soloContainerRow}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Categoría:{" "}
             </StyledText>
-            <StyledText color={"primary"}>{categoriaNombreSelected}</StyledText>
+            <StyledText color="primary">{categoriaNombreSelected}</StyledText>
           </View>
           <ButtonWithText
             anyfunction={() => createProduct()}
-            title={"Crear producto"}
+            title="Crear producto"
             color={disabled ? "gray" : theme.colors.blue}
             disabled={disabled}
           />

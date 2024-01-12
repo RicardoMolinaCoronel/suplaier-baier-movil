@@ -6,7 +6,6 @@ import { AuthContext } from "../../auth/context/AuthContext.jsx";
 import theme from "../../theme.js";
 import CompradorRoutes from "./CompradorRoutes.jsx";
 import TabProfile from "../components/TabProfile.jsx";
-import StyledText from "../../styles/StyledText.jsx";
 
 const MainComprador = () => {
   const { authState } = useContext(AuthContext);

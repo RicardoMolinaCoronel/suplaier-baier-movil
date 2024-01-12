@@ -1,3 +1,4 @@
+/* eslint-disable no-sequences */
 import React, { useState } from "react";
 import {
   Modal,
@@ -26,7 +27,7 @@ export const UnirseOfertaAhoraModal = ({
   const { getOfertasTodos } = useData();
   const [disabled, setDisabled] = useState(false);
 
-  let unidadesdisponibles =
+  const unidadesdisponibles =
     parseInt(dataproducto?.Maximo) - parseInt(dataproducto?.actualProductos);
 
   const incrementarContador = () => {
@@ -57,7 +58,7 @@ export const UnirseOfertaAhoraModal = ({
       PagadoAProveedor: false,
     };
 
-    const resp = await fetch(`${apiUrl}/compras`, {
+    await fetch(`${apiUrl}/compras`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -111,7 +112,7 @@ export const UnirseOfertaAhoraModal = ({
         NuevoActualProductos:
           parseInt(dataproducto.actualProductos) + parseInt(contador),
       };
-      const resp = await fetch(`${apiUrl}/ofertas`, {
+      await fetch(`${apiUrl}/ofertas`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -142,7 +143,7 @@ export const UnirseOfertaAhoraModal = ({
 
   return (
     <Modal
-      //transparent={true}
+      // transparent={true}
       style={{ backgroundColor: "rgba(255,255,255,0.6)", flex: 1 }}
       visible={isvisibleUnirseOfertaAhoraModal}
       animationType="slide"
@@ -175,32 +176,32 @@ export const UnirseOfertaAhoraModal = ({
             style={styles.imageContainer}
           />
           <View style={styles.starsContainer}>
-            <StyledText color={"primary"} fontWeight={"bold"}>
+            <StyledText color="primary" fontWeight="bold">
               {dataproducto?.datosProd?.nombreProd ?? ""}
             </StyledText>
-            <StyledText color={"primary"}>
+            <StyledText color="primary">
               P. Instantáneo: ${dataproducto?.datosProd?.costoInst ?? 0}
             </StyledText>
-            <StyledText color={"primary"}>
+            <StyledText color="primary">
               U. Disponibles: {unidadesdisponibles}
             </StyledText>
           </View>
         </View>
 
         <View style={styles.secondFirstContainer}>
-          <StyledText color={"primary"} fontWeight={"bold"}>
-            Proveedor: {""}
+          <StyledText color="primary" fontWeight="bold">
+            Proveedor:
           </StyledText>
-          <StyledText color={"primary"}>
+          <StyledText color="primary">
             {dataproducto?.nombreProveedor ?? ""}
           </StyledText>
         </View>
 
         <View style={styles.fechaCierreContainer}>
-          <StyledText color={"primary"} fontWeight={"bold"}>
+          <StyledText color="primary" fontWeight="bold">
             Fecha cierre:{" "}
           </StyledText>
-          <StyledText color={"primary"}>
+          <StyledText color="primary">
             {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
           </StyledText>
         </View>
@@ -221,7 +222,7 @@ export const UnirseOfertaAhoraModal = ({
           <View style={styles.unidadesContainer}>
             <Text style={{ textAlign: "center" }}>
               <Text style={{ textAlign: "center", fontWeight: "bold" }}>
-                Total: $ {""}
+                Total: $
               </Text>
               {valortotal}
             </Text>
@@ -239,17 +240,18 @@ export const UnirseOfertaAhoraModal = ({
         >
           <ButtonWithText
             anyfunction={() => {
+              // eslint-disable-next-line no-unused-expressions
               setContador(0), setvalortotal(0), oncloseUnirseOfertaAhora();
             }}
-            title={"Cancelar"}
+            title="Cancelar"
             color={theme.colors.red}
-          ></ButtonWithText>
+          />
           <ButtonWithText
             anyfunction={() => (contador != 0 ? pagarahora() : undefined)}
-            title={"Continuar"}
+            title="Continuar"
             color={disabled ? "gray" : theme.colors.lightblue1}
             disabled={disabled}
-          ></ButtonWithText>
+          />
         </View>
       </View>
     </Modal>

@@ -1,5 +1,14 @@
-import React, { useState } from "react";
-import { Modal, Image, Text, View, StyleSheet, Button } from "react-native";
+/* eslint-disable no-unused-vars */
+import React, { useState, useContext } from "react";
+import {
+  Modal,
+  Image,
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  Alert,
+} from "react-native";
 import { ButtonWithText } from "../../proveedores/components/ButtonWithText";
 import StyledText from "../../styles/StyledText";
 import theme from "../../theme";
@@ -8,9 +17,9 @@ import StyledTextInput from "../../styles/StyledTextInput";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthContext } from "../../auth/context/AuthContext";
-import { useContext } from "react";
+
 import { apiUrl } from "../../../apiUrl";
-import { Alert } from "react-native";
+
 export const UnirseOfertaModal = ({
   dataproducto,
   isvisibleUnirseOfertaModal,
@@ -22,8 +31,7 @@ export const UnirseOfertaModal = ({
   const [contador, setContador] = useState(0);
   const [valortotal, setvalortotal] = useState(0);
   const [precioPropuesta, setPrecioPropuesta] = useState(0);
-  const [values, setValues] = useState();
-  let unidadesdisponibles =
+  const unidadesdisponibles =
     parseInt(dataproducto?.Maximo) - parseInt(dataproducto?.actualProductos);
 
   const incrementarContador = () => {
@@ -61,9 +69,8 @@ export const UnirseOfertaModal = ({
     initialValues: {
       precioPropuesta: "",
     },
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: (values) => {
-      CrearPropuesta(values);
       console.log(values);
     },
   });
@@ -118,7 +125,7 @@ export const UnirseOfertaModal = ({
     >
       {(formik) => (
         <Modal
-          transparent={true}
+          transparent
           style={{ backgroundColor: "rgba(255,255,255,0.6)", flex: 1 }}
           visible={isvisibleUnirseOfertaModal}
           animationType="slide"
@@ -151,40 +158,40 @@ export const UnirseOfertaModal = ({
                 style={styles.imageContainer}
               />
               <View style={styles.starsContainer}>
-                <StyledText color={"primary"} fontWeight={"bold"}>
+                <StyledText color="primary" fontWeight="bold">
                   {dataproducto?.datosProd?.nombreProd ?? ""}
                 </StyledText>
-                <StyledText color={"primary"}>
+                <StyledText color="primary">
                   Precio Minimo: ${dataproducto?.Minimo ?? 0}
                 </StyledText>
-                <StyledText color={"primary"}>
+                <StyledText color="primary">
                   Precio Maximo: ${dataproducto?.Maximo ?? 0}
                 </StyledText>
-                <StyledText color={"primary"}>
+                <StyledText color="primary">
                   Unidades Disponibles: {unidadesdisponibles}
                 </StyledText>
               </View>
             </View>
 
             <View style={styles.secondFirstContainer}>
-              <StyledText color={"primary"} fontWeight={"bold"}>
-                Comprador: {""}
+              <StyledText color="primary" fontWeight="bold">
+                Comprador:
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {dataproducto?.nombreComprador ?? ""}
               </StyledText>
             </View>
 
             <View style={styles.fechaCierreContainer}>
-              <StyledText color={"primary"} fontWeight={"bold"}>
+              <StyledText color="primary" fontWeight="bold">
                 Fecha cierre:{" "}
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
               </StyledText>
             </View>
             <View style={styles.fechaCierreContainer}>
-              <StyledText color={"primary"} fontWeight={"bold"}>
+              <StyledText color="primary" fontWeight="bold">
                 Precio:{" "}
               </StyledText>
               <StyledTextInput
@@ -220,7 +227,7 @@ export const UnirseOfertaModal = ({
               <View style={styles.unidadesContainer}>
                 <Text style={{ textAlign: "center" }}>
                   <Text style={{ textAlign: "center", fontWeight: "bold" }}>
-                    Total: $ {""}
+                    Total: $
                   </Text>
                   {contador * formik.values.precioPropuesta}
                 </Text>
@@ -238,18 +245,19 @@ export const UnirseOfertaModal = ({
             >
               <ButtonWithText
                 anyfunction={() => {
+                  // eslint-disable-next-line no-unused-expressions, no-sequences
                   setContador(0), setvalortotal(0), oncloseUnirseOferta();
                 }}
-                title={"Cancelar"}
+                title="Cancelar"
                 color={theme.colors.red}
-              ></ButtonWithText>
+              />
               <ButtonWithText
                 anyfunction={() => {
                   formik.handleSubmit();
                 }}
-                title={"Continuar"}
+                title="Continuar"
                 color={theme.colors.lightblue1}
-              ></ButtonWithText>
+              />
             </View>
           </View>
         </Modal>

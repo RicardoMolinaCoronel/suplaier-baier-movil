@@ -1,4 +1,4 @@
-import { React, useState, useRef, useContext } from "react";
+import { React, useContext } from "react";
 import { StyleSheet, View, Image, ScrollView, Text } from "react-native";
 import StyledText from "../../styles/StyledText";
 import { StatusBar } from "expo-status-bar";
@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 16,
     borderBottomColor: "gray", // Color de las líneas
     borderBottomWidth: 1, // Ancho de las líneas grises
     marginBottom: 10,

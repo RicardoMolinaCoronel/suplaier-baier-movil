@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, StyleProp, ViewStyle } from "react-native";
+import { TouchableOpacity, Text } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 export const ButtonWithText = ({
@@ -9,7 +9,7 @@ export const ButtonWithText = ({
   colorTexto = "#FFFFFF",
   icon = "",
   disabled,
-  //width = 150,
+  // width = 150,
 }) => {
   return (
     <TouchableOpacity
@@ -35,7 +35,7 @@ export const ButtonWithText = ({
       }}
       disabled={disabled}
     >
-      {icon.length > 0 && <Icon name={icon} size={26} color={"#FFFFFF"}></Icon>}
+      {icon.length > 0 && <Icon name={icon} size={26} color="#FFFFFF" />}
       {title.length > 0 && (
         <Text
           style={{

@@ -1,87 +1,86 @@
-import { StyleSheet, View, Image, TouchableOpacity, ScrollView } from "react-native";
-import { useState, useContext } from "react";
+import { StyleSheet, View, TouchableOpacity, ScrollView } from "react-native";
+import { useState } from "react";
 import { Formik, useField } from "formik";
 import { StatusBar } from "expo-status-bar";
 import { Octicons, Ionicons } from "@expo/vector-icons";
-import { useNavigate, Navigate } from "react-router-native";
+import { useNavigate } from "react-router-native";
 import { loginValidationSchema } from "../components/loginValidationSchema";
 import { apiUrl } from "../../../apiUrl";
-import { AuthContext } from "../context/AuthContext";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 import StyledTextInput from "../../styles/StyledTextInput";
 import UploadImage from "../../styles/UploadImage";
 
 const initialValues = {
-    user: '',
-    password: '',
-    password2: '',
-    mail: '',
-    nombre: '',
-    tipoID: '',
+  user: "",
+  password: "",
+  password2: "",
+  mail: "",
+  nombre: "",
+  tipoID: "",
 };
 
 const FormikInputValue = ({
-    name,
-    icon,
-    label,
-    isPassword,
-    hidePassword,
-    setHidePassword,
-    isDropDown,
-    ...props
+  name,
+  icon,
+  label,
+  isPassword,
+  hidePassword,
+  setHidePassword,
+  isDropDown,
+  ...props
 }) => {
-    const [field, meta, helpers] = useField(name);
-    return (
-        <View>
-            <Octicons
-                style={styles.leftIcon}
-                name={icon}
-                size={30}
-                color={theme.colors.purple1}
-            />
-            <StyledText style={styles.textInputLabel}>{label}</StyledText>
-            <StyledTextInput
-                error={meta.error}
-                value={field.value}
-                onChangeText={(value) => helpers.setValue(value)}
-                {...props}
-            />
-            {isPassword && (
-                <TouchableOpacity
-                    style={styles.rightIcon}
-                    onPress={() => setHidePassword(!hidePassword)}
-                >
-                    <Ionicons
-                        name={hidePassword ? "md-eye-off" : "md-eye"}
-                        size={30}
-                        color={theme.colors.gray1}
-                    />
-                </TouchableOpacity>
-            )}
+  const [field, meta, helpers] = useField(name);
+  return (
+    <View>
+      <Octicons
+        style={styles.leftIcon}
+        name={icon}
+        size={30}
+        color={theme.colors.purple1}
+      />
+      <StyledText style={styles.textInputLabel}>{label}</StyledText>
+      <StyledTextInput
+        error={meta.error}
+        value={field.value}
+        onChangeText={(value) => helpers.setValue(value)}
+        {...props}
+      />
+      {isPassword && (
+        <TouchableOpacity
+          style={styles.rightIcon}
+          onPress={() => setHidePassword(!hidePassword)}
+        >
+          <Ionicons
+            name={hidePassword ? "md-eye-off" : "md-eye"}
+            size={30}
+            color={theme.colors.gray1}
+          />
+        </TouchableOpacity>
+      )}
 
-            {meta.error && (
-                <StyledText style={styles.errorText} fontSize="body">
-                    {meta.error}
-                </StyledText>
-            )}
-        </View>
-    );
+      {meta.error && (
+        <StyledText style={styles.errorText} fontSize="body">
+          {meta.error}
+        </StyledText>
+      )}
+    </View>
+  );
 };
 
 const RegistroCompradorPage = () => {
-    const [hidePassword, setHidePassword] = useState(true);
-    //const [credentialsIncorrect, setCredentialsIncorrect] = useState(false);
-    const navigate = useNavigate();
+  const [hidePassword, setHidePassword] = useState(true);
+  // const [credentialsIncorrect, setCredentialsIncorrect] = useState(false);
+  const navigate = useNavigate();
 
   const getRegResponse = async (username, password, mail, nombre, tipoID) => {
     const body = {
-        idRol: 2,
-        nombre: nombre,
-        tipoID: tipoID,
-        usuario: username,
-        pass: password,
-        correo: mail,
+      idRol: 2,
+      nombre,
+      tipoID,
+      usuario: username,
+      pass: password,
+      correo: mail,
     };
     const resp = await global.fetch(`${apiUrl}/usuarios`, {
       method: "POST",
@@ -100,251 +99,250 @@ const RegistroCompradorPage = () => {
     }
   };
 
-
-    const onSubmitRegister = (values) => {
-    getRegResponse(values.nombre, values.tipoID, values.user, values.password, values.mail).then( navigate("/login", {
+  const onSubmitRegister = (values) => {
+    getRegResponse(
+      values.nombre,
+      values.tipoID,
+      values.user,
+      values.password,
+      values.mail
+    ).then(
+      navigate("/login", {
         replace: true,
-    }))
+      })
+    );
   };
 
-   
-    return (
-        <>
+  return (
+    <>
+      <ScrollView>
+        <StyledText
+          color="tertiary"
+          fontWeight="bold"
+          fontSize="title"
+          style={styles.pageTitle}
+        >
+          Registrar Comprador
+        </StyledText>
+        <StyledText
+          color="tertiary"
+          fontWeight="normal"
+          fontSize="subheading"
+          style={styles.subtitle}
+        >
+          Por favor ingresa los siguientes datos
+        </StyledText>
+        <Formik
+          validationSchema={loginValidationSchema}
+          initialValues={initialValues}
+          onSubmit={(values) => onSubmitRegister(values)}
+        >
+          {({ handleSubmit }) => {
+            return (
+              <View style={styles.form}>
+                <FormikInputValue
+                  name="user"
+                  icon="person"
+                  placeholder="Usuario"
+                  placeholderTextColor={theme.colors.gray1}
+                  label="Usuario"
+                />
+                <FormikInputValue
+                  name="password"
+                  icon="lock"
+                  placeholder="**********"
+                  placeholderTextColor={theme.colors.gray1}
+                  secureTextEntry={hidePassword}
+                  label="Contraseña"
+                  isPassword
+                  hidePassword={hidePassword}
+                  setHidePassword={setHidePassword}
+                />
 
-            <ScrollView>
-                <StyledText
-                    color="tertiary"
-                    fontWeight="bold"
-                    fontSize="title"
-                    style={styles.pageTitle}
+                <FormikInputValue
+                  name="password2"
+                  icon="lock"
+                  placeholder="**********"
+                  placeholderTextColor={theme.colors.gray1}
+                  secureTextEntry={hidePassword}
+                  label="Confirmar Contraseña"
+                  isPassword
+                  hidePassword={hidePassword}
+                  setHidePassword={setHidePassword}
+                />
+
+                <FormikInputValue
+                  name="mail"
+                  icon="mail"
+                  placeholder="Correo@ejemplo.com"
+                  placeholderTextColor={theme.colors.gray1}
+                  label="Correo Electrónico"
+                />
+
+                <FormikInputValue
+                  name="name"
+                  icon="note"
+                  placeholder="Nombre"
+                  placeholderTextColor={theme.colors.gray1}
+                  label="Nombre Completo"
+                />
+
+                <FormikInputValue
+                  name="tipoID"
+                  icon="id-badge"
+                  placeholder="000000000"
+                  placeholderTextColor={theme.colors.gray1}
+                  label="ID"
+                  isDropDown
+                />
+
+                <StyledText style={styles.textInputLabel}>Imagen</StyledText>
+                <UploadImage />
+                <View style={styles.borderLine} />
+                <TouchableOpacity
+                  style={styles.registerButton}
+                  onPress={handleSubmit}
                 >
-                    Registrar Comprador
-                </StyledText>
-                <StyledText
-                    color="tertiary"
-                    fontWeight="normal"
+                  <StyledText
                     fontSize="subheading"
-                    style={styles.subtitle}
+                    color="secondary"
+                    fontWeight="bold"
+                  >
+                    Registrarse
+                  </StyledText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.cancelButton}
+                  onPress={() => {
+                    navigate("/login", {
+                      replace: true,
+                    });
+                  }}
                 >
-                    Por favor ingresa los siguientes datos
-                </StyledText>
-                <Formik
-                    validationSchema={loginValidationSchema}
-                    initialValues={initialValues}
-                    onSubmit={(values) => onSubmitRegister(values)}
-                >
-                    {({ handleSubmit }) => {
-                        return (
-                            <View style={styles.form}>
-                                <FormikInputValue
-                                    name="user"
-                                    icon="person"
-                                    placeholder="Usuario"
-                                    placeholderTextColor={theme.colors.gray1}
-                                    label="Usuario"
-                                />
-                                <FormikInputValue
-                                    name="password"
-                                    icon="lock"
-                                    placeholder="**********"
-                                    placeholderTextColor={theme.colors.gray1}
-                                    secureTextEntry={hidePassword}
-                                    label="Contraseña"
-                                    isPassword
-                                    hidePassword={hidePassword}
-                                    setHidePassword={setHidePassword}
-                                />
+                  <StyledText
+                    fontSize="subheading"
+                    color="secondary"
+                    fontWeight="bold"
+                  >
+                    Cancelar
+                  </StyledText>
+                </TouchableOpacity>
+              </View>
+            );
+          }}
+        </Formik>
+      </ScrollView>
 
-                                <FormikInputValue
-                                    name="password2"
-                                    icon="lock"
-                                    placeholder="**********"
-                                    placeholderTextColor={theme.colors.gray1}
-                                    secureTextEntry={hidePassword}
-                                    label="Confirmar Contraseña"
-                                    isPassword
-                                    hidePassword={hidePassword}
-                                    setHidePassword={setHidePassword}
-                                />
-
-                                <FormikInputValue
-                                    name="mail"
-                                    icon="mail"
-                                    placeholder="Correo@ejemplo.com"
-                                    placeholderTextColor={theme.colors.gray1}
-                                    label="Correo Electrónico"
-                                />
-
-                                <FormikInputValue
-                                    name="name"
-                                    icon="note"
-                                    placeholder="Nombre"
-                                    placeholderTextColor={theme.colors.gray1}
-                                    label="Nombre Completo"
-                                />
-
-                                <FormikInputValue
-                                    name="tipoID"
-                                    icon="id-badge"
-                                    placeholder="000000000"
-                                    placeholderTextColor={theme.colors.gray1}
-                                   
-                                    label="ID"
-                                    isDropDown
-                                />
-
-                                <StyledText style={styles.textInputLabel}>Imagen</StyledText>
-                                <UploadImage />
-                                <View style={styles.borderLine} />
-                                <TouchableOpacity
-                                    style={styles.registerButton}
-                                    onPress={
-                                        handleSubmit
-                                    }
-                                >
-                                    <StyledText
-                                        fontSize="subheading"
-                                        color="secondary"
-                                        fontWeight="bold"
-                                    >
-                                        Registrarse
-                                    </StyledText>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={styles.cancelButton}
-                                    onPress={() => {
-                                        navigate("/login", {
-                                            replace: true,
-                                        });
-                                    }}
-                                >
-                                    <StyledText
-                                        fontSize="subheading"
-                                        color="secondary"
-                                        fontWeight="bold"
-                                    >
-                                        Cancelar
-                                    </StyledText>
-                                </TouchableOpacity>
-
-
-                            </View>
-                        );
-                    }}
-                </Formik>
-            </ScrollView>
-
-            <StatusBar style="light" />
-
-        </>
-    );
+      <StatusBar style="light" />
+    </>
+  );
 };
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "white",
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-    },
-    pageLogo: {
-        width: 307.98,
-        height: 61.14,
-        marginTop: 60,
-        marginBottom: 5,
-    },
-    pageTitle: {
-        textAlign: "center",
-        padding: 10,
-        marginTop: 20,
-    },
-    form: {
-        margin: 20,
-    },
-    textInputLabel: {
-        color: theme.colors.purple,
-        textAlign: "left",
-    },
-    subtitle: {
-        textAlign: "center",
-        marginBottom: 20,
-        letterSpacing: 1,
-        paddingHorizontal: 25,
-    },
-    leftIcon: {
-        left: 15,
-        top: 38,
-        position: "absolute",
-        zIndex: 1,
-    },
-    rightIcon: {
-        right: 15,
-        top: 38,
-        position: "absolute",
-        zIndex: 1,
-    },
-    submitButton: {
-        padding: 15,
-        backgroundColor: theme.colors.lightblue1,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 5,
-        marginVertical: 5,
-        height: 60,
-    },
-    registerButton: {
-        padding: 15,
-        backgroundColor: theme.colors.lightgreen,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 5,
-        marginVertical: 5,
-        height: 60,
-    },
-    borderLine: {
-        borderBottomColor: theme.colors.gray1,
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        marginVertical: 15,
-    },
-    bottomText: {
-        marginTop: 10,
-        textAlign: "center",
-    },
-    errorText: {
-        color: theme.colors.red,
-        marginBottom: 10,
-        marginTop: -13,
-    },
-    extraView: {
-        justifyContent: "center",
-        flexDirection: "row",
-        alignItems: "center",
-        padding: 5,
-    },
-    extraText: {
-        justifyContent: "center",
-        alignContent: "center",
-    },
-    extraTextLink: {
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    textLink: {
-        color: theme.colors.purple,
-    },
-    cancelButton: {
-        padding: 15,
-        backgroundColor: theme.colors.red,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 5,
-        marginVertical: 5,
-        height: 60,
-    },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  pageLogo: {
+    width: 307.98,
+    height: 61.14,
+    marginTop: 60,
+    marginBottom: 5,
+  },
+  pageTitle: {
+    textAlign: "center",
+    padding: 10,
+    marginTop: 20,
+  },
+  form: {
+    margin: 20,
+  },
+  textInputLabel: {
+    color: theme.colors.purple,
+    textAlign: "left",
+  },
+  subtitle: {
+    textAlign: "center",
+    marginBottom: 20,
+    letterSpacing: 1,
+    paddingHorizontal: 25,
+  },
+  leftIcon: {
+    left: 15,
+    top: 38,
+    position: "absolute",
+    zIndex: 1,
+  },
+  rightIcon: {
+    right: 15,
+    top: 38,
+    position: "absolute",
+    zIndex: 1,
+  },
+  submitButton: {
+    padding: 15,
+    backgroundColor: theme.colors.lightblue1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    marginVertical: 5,
+    height: 60,
+  },
+  registerButton: {
+    padding: 15,
+    backgroundColor: theme.colors.lightgreen,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    marginVertical: 5,
+    height: 60,
+  },
+  borderLine: {
+    borderBottomColor: theme.colors.gray1,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginVertical: 15,
+  },
+  bottomText: {
+    marginTop: 10,
+    textAlign: "center",
+  },
+  errorText: {
+    color: theme.colors.red,
+    marginBottom: 10,
+    marginTop: -13,
+  },
+  extraView: {
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 5,
+  },
+  extraText: {
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  extraTextLink: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textLink: {
+    color: theme.colors.purple,
+  },
+  cancelButton: {
+    padding: 15,
+    backgroundColor: theme.colors.red,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    marginVertical: 5,
+    height: 60,
+  },
 });
 
 export default RegistroCompradorPage;

@@ -1,15 +1,17 @@
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
 import { useNavigate } from "react-router-native";
 import { useContext, useEffect } from "react";
 import theme from "../theme";
 import { AuthContext } from "../auth/context/AuthContext";
-import Animated from "react-native-reanimated";
-import { withTiming } from "react-native-reanimated";
-import { withSequence } from "react-native-reanimated";
-import { useAnimatedStyle } from "react-native-reanimated";
-import { useSharedValue } from "react-native-reanimated";
-import { Easing } from "react-native-reanimated";
+import Animated, {
+  withTiming,
+  withSequence,
+  useAnimatedStyle,
+  useSharedValue,
+  Easing,
+} from "react-native-reanimated";
+
 const SplashScreen = () => {
   const navigate = useNavigate();
   const { authState } = useContext(AuthContext);
@@ -25,7 +27,7 @@ const SplashScreen = () => {
   }));
 
   useEffect(() => {
-    //offset.value = withTiming(0, { duration: 2500 });
+    // offset.value = withTiming(0, { duration: 2500 });
     offsetLogo.value = withSequence(
       withTiming(-offsetLogo.value, { duration: 1400 }),
       withTiming(0, { duration: 700 })

@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, createContext } from "react";
+import { useContext, useState, createContext } from "react";
 import { apiUrl } from "../../apiUrl";
 import { AuthContext } from "../auth/context/AuthContext";
 const DataContext = createContext();
@@ -19,7 +19,7 @@ const DemandasDataProvider = ({ children }) => {
   };
 
   const getDemandasTodos = async () => {
-    //ofertas por devolver pago
+    // ofertas por devolver pago
     const resp = await fetch(`${apiUrl}/demandas?idEstadosOferta=${1}`);
     const data = await resp.json();
     const { rows: demandas } = !!data && data;

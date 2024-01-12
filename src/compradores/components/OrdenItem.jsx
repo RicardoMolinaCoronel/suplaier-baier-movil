@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import theme from "../../theme";
 import ProgressBar from "react-native-progress/Bar";
 import StyledText from "../../styles/StyledText";
 import { apiUrl } from "../../../apiUrl";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
 import { DetalleOrden } from "../../components/DetalleOrden";
@@ -74,8 +75,9 @@ const OrdenItem = (props) => {
   useEffect(() => {
     getOferta();
     getProveedorOferta();
-    //getEstadoCompra();
+    // getEstadoCompra();
     getEstadoOferta();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
   useEffect(() => {
@@ -155,7 +157,7 @@ const OrdenItem = (props) => {
           <StyledText color="purple">{datosProd?.costoU}$</StyledText>
         </View>
         {estadoOferta?.Descripcion === "Cerrado" ? (
-          <EtiquetaEstadoOferta estado={"Verificando pagos"} />
+          <EtiquetaEstadoOferta estado="Verificando pagos" />
         ) : (
           <EtiquetaEstadoOferta estado={estadoOferta?.Descripcion} />
         )}
@@ -198,7 +200,7 @@ const OrdenItem = (props) => {
             proveedor,
             props,
           }}
-        ></DetalleOrden>
+        />
       )}
     </View>
   );

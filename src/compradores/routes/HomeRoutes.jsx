@@ -1,8 +1,6 @@
 import { React } from "react";
 import { Routes, Route } from "react-router-native";
-import { View } from "react-native";
 import HomeCompradorPage from "../pages/HomeCompradorPage";
-import StyledText from "../../styles/StyledText";
 import Notificaciones_Comprador from "../pages/Notificaciones_Comprador";
 import Busqueda_Comprador from "../pages/Busqueda_Comprador";
 import DemandasCompradorPage from "../pages/DemandasCompradorPage";

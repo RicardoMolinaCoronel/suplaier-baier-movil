@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-sequences */
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Modal, Image, Text, View, StyleSheet, Button } from "react-native";
 import { ButtonWithText } from "../../proveedores/components/ButtonWithText";
@@ -18,7 +21,7 @@ export const UnirseOfertaModal = ({
   const [contador, setContador] = useState(0);
   const [valortotal, setvalortotal] = useState(0);
 
-  let unidadesdisponibles =
+  const unidadesdisponibles =
     parseInt(dataproducto?.Maximo) - parseInt(dataproducto?.actualProductos);
 
   const incrementarContador = () => {
@@ -69,32 +72,32 @@ export const UnirseOfertaModal = ({
             style={styles.imageContainer}
           />
           <View style={styles.starsContainer}>
-            <StyledText color={"primary"} fontWeight={"bold"}>
+            <StyledText color="primary" fontWeight="bold">
               {dataproducto?.datosProd?.nombreProd ?? ""}
             </StyledText>
-            <StyledText color={"primary"}>
+            <StyledText color="primary">
               Precio Unitario: ${dataproducto?.datosProd?.costoU ?? 0}
             </StyledText>
-            <StyledText color={"primary"}>
+            <StyledText color="primary">
               Unidades Disponibles: {unidadesdisponibles}
             </StyledText>
           </View>
         </View>
 
         <View style={styles.secondFirstContainer}>
-          <StyledText color={"primary"} fontWeight={"bold"}>
-            Proveedor: {""}
+          <StyledText color="primary" fontWeight="bold">
+            Proveedor:
           </StyledText>
-          <StyledText color={"primary"}>
+          <StyledText color="primary">
             {dataproducto?.nombreProveedor ?? ""}
           </StyledText>
         </View>
 
         <View style={styles.fechaCierreContainer}>
-          <StyledText color={"primary"} fontWeight={"bold"}>
+          <StyledText color="primary" fontWeight="bold">
             Fecha cierre:{" "}
           </StyledText>
-          <StyledText color={"primary"}>
+          <StyledText color="primary">
             {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
           </StyledText>
         </View>
@@ -115,7 +118,7 @@ export const UnirseOfertaModal = ({
           <View style={styles.unidadesContainer}>
             <Text style={{ textAlign: "center" }}>
               <Text style={{ textAlign: "center", fontWeight: "bold" }}>
-                Total: $ {""}
+                Total: $
               </Text>
               {contador * dataproducto?.datosProd?.costoU}
             </Text>
@@ -133,18 +136,19 @@ export const UnirseOfertaModal = ({
         >
           <ButtonWithText
             anyfunction={() => {
+              // eslint-disable-next-line no-unused-expressions
               setContador(0), setvalortotal(0), oncloseUnirseOferta();
             }}
-            title={"Cancelar"}
+            title="Cancelar"
             color={theme.colors.red}
-          ></ButtonWithText>
+          />
           <ButtonWithText
             anyfunction={() =>
               contador != 0 ? setisvisibleMetodoPagoModal(true) : undefined
             }
-            title={"Continuar"}
+            title="Continuar"
             color={theme.colors.lightblue1}
-          ></ButtonWithText>
+          />
         </View>
         <MetodoPagoModal
           isvisibleMetodoPagoModal={isvisibleMetodoPagoModal}
@@ -155,7 +159,7 @@ export const UnirseOfertaModal = ({
           valortotal={contador * dataproducto?.datosProd?.costoU}
           dataproducto={dataproducto}
           contador={contador}
-        ></MetodoPagoModal>
+        />
       </View>
     </Modal>
   );

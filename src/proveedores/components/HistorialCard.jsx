@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, Text } from "react-native";
-import { color } from "react-native-elements/dist/helpers";
 
 export const HistorialCard = ({ item }) => {
   return (

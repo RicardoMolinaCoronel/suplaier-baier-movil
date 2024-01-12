@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, Modal } from "react-native";
+import { View, Image, Modal, StyleSheet, ScrollView } from "react-native";
 import { StarsQualification } from "./StarsQualification";
 import { ProgressBar } from "./ProgressBar";
 import { ButtonWithText } from "./ButtonWithText";
-import { HistorialModal } from "./HistorialModal";
 import { CancelarOferta } from "./CancelarOferta";
-import { StyleSheet, ScrollView } from "react-native";
+
 import StyledText from "../../styles/StyledText";
 import theme from "../../theme";
 import { dateOptions } from "../../components/dateOptions";
 import { CerrarOferta } from "./CerrarOferta";
 export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
-  const [isvisiblemodal, setisvisiblemodal] = useState(false);
   const [isvisiblecancelaroferta, setisvisiblecancelaroferta] = useState(false);
   const [isvisiblecerraroferta, setisvisiblecerraroferta] = useState(false);
   const [llegaMinimo, setLlegaMinimo] = useState(false);
@@ -29,30 +27,32 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
     );
   };
 
-  let calificacion = validarValoracion(dataproducto?.producto?.Valoracion ?? 1);
-  let porcentaje =
-    ((dataproducto?.actualProductos ?? 0) / (dataproducto?.maximo ?? 1)) * 100;
+  const calificacion = validarValoracion(
+    dataproducto?.producto?.Valoracion ?? 1
+  );
+
   useEffect(() => {
     calcularLlegaMinimo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Modal visible={isvisible} transparent={true} animationType="slide">
+    <Modal visible={isvisible} transparent animationType="slide">
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.tituloContainer}>
             <StyledText
-              fontWeight={"bold"}
-              color={"purple"}
+              fontWeight="bold"
+              color="purple"
               style={styles.textName}
-              fontSize={"subtitle"}
+              fontSize="subtitle"
             >
               {dataproducto?.datosProd?.nombreProd ?? ""}
             </StyledText>
             <ButtonWithText
               anyfunction={onclose}
-              title={""}
-              icon={"close-sharp"}
+              title=""
+              icon="close-sharp"
               color={theme.colors.red2}
             />
           </View>
@@ -70,10 +70,8 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
               style={styles.imageContainer}
             />
             <View style={styles.starsContainer}>
-              <StarsQualification
-                calificacion={calificacion}
-              ></StarsQualification>
-              <StyledText color={"primary"}>
+              <StarsQualification calificacion={calificacion} />
+              <StyledText color="primary">
                 {dataproducto?.producto?.Descripcion ?? ""}
               </StyledText>
             </View>
@@ -81,18 +79,18 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
 
           <View style={styles.secondContainer}>
             <View style={styles.secondFirstContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Proveedor:
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {dataproducto?.nombreProveedor ?? ""}
               </StyledText>
             </View>
             <View style={styles.secondsecondContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Precio Unitario:
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {" "}
                 ${dataproducto?.datosProd?.costoU ?? 0}
               </StyledText>
@@ -100,10 +98,10 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
           </View>
 
           <View style={styles.precioInstContainerSub}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Precio de compra instantanea:{" "}
             </StyledText>
-            <StyledText color={"primary"}>
+            <StyledText color="primary">
               {dataproducto?.datosProd?.costoInst === 0
                 ? "--"
                 : "$" + dataproducto?.datosProd?.costoInst}
@@ -112,44 +110,42 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
 
           <View style={styles.unidadesFechaContainer}>
             <View style={styles.unidadesContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Unidades restantes:{" "}
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {parseInt(dataproducto?.maximoOferta) -
                   parseInt(dataproducto?.actualProductosOferta)}
                 /{dataproducto?.maximoOferta}
               </StyledText>
             </View>
             <View style={styles.fechaCierreContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Fecha cierre:{" "}
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
               </StyledText>
             </View>
           </View>
           <View style={styles.descripcionContainer}>
             <View style={styles.descripcionSubContainer}>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {dataproducto?.descripcionOferta}
               </StyledText>
             </View>
           </View>
           <View style={styles.progesoContainer}>
             <View style={styles.progresoSubContainer}>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 Progreso de Unidades Vendidas
               </StyledText>
-              <ProgressBar
-                porcentaje={dataproducto?.progresoOferta * 100}
-              ></ProgressBar>
+              <ProgressBar porcentaje={dataproducto?.progresoOferta * 100} />
             </View>
           </View>
           <View style={styles.restantesContainer}>
             <View style={styles.restantesSubContainer}>
-              <StyledText color={"lightblue"} fontWeight={"bold"}>
+              <StyledText color="lightblue" fontWeight="bold">
                 Unidades Restantes para Completar el Minimo:{" "}
                 {dataproducto?.minimoOferta -
                   dataproducto?.actualProductosOferta}
@@ -161,7 +157,7 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
               <View style={styles.botonesContainer}>
                 <ButtonWithText
                   anyfunction={() => setisvisiblecerraroferta(true)}
-                  title={"Cerrar oferta"}
+                  title="Cerrar oferta"
                   color={llegaMinimo ? theme.colors.blue : "grey"}
                   disabled={!llegaMinimo}
                 />
@@ -173,8 +169,8 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
             ></ButtonWithText> */}
                 <ButtonWithText
                   anyfunction={() => setisvisiblecancelaroferta(true)}
-                  //anyfunction={undefined}
-                  title={"Cancelar oferta"}
+                  // anyfunction={undefined}
+                  title="Cancelar oferta"
                   color={theme.colors.red}
                 />
               </View>
@@ -190,8 +186,8 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
                   onclose();
                 }}
                 oncloseretroceder={() => setisvisiblecerraroferta(false)}
-                IdOferta={dataproducto?.IdOferta} //oferta={dataproducto.producto}
-              ></CerrarOferta>
+                IdOferta={dataproducto?.IdOferta} // oferta={dataproducto.producto}
+              />
               <CancelarOferta
                 isvisible={isvisiblecancelaroferta}
                 onclosecerraroferta={() => {
@@ -199,8 +195,8 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
                   onclose();
                 }}
                 oncloseoferta={() => setisvisiblecancelaroferta(false)}
-                IdOferta={dataproducto?.IdOferta} //oferta={dataproducto.producto}
-              ></CancelarOferta>
+                IdOferta={dataproducto?.IdOferta} // oferta={dataproducto.producto}
+              />
             </>
           )}
           {dataproducto?.estadoOferta?.Descripcion !== "En curso" && (

@@ -1,0 +1,15 @@
+node_modules/
+**/*.json
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.ico
+**/*.txt
+**/*.gif
+firebase-messaging-sw.js
+build/
+babel.config.js
+firebase.js
+prettierignore
+*.md
+*.html

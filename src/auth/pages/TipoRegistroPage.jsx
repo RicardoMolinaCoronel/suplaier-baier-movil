@@ -7,7 +7,7 @@ import {
   BackHandler,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { useHistory, useNavigate } from "react-router-native";
+import { useNavigate } from "react-router-native";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 
@@ -23,23 +23,24 @@ const TipoRegistroPage = () => {
     return () => {
       BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <View style={styles.container}>
         <StyledText
-          fontSize={"bigtitle"}
-          fontWeight={"bold"}
-          color={"purple"}
+          fontSize="bigtitle"
+          fontWeight="bold"
+          color="purple"
           style={styles.titleText}
         >
           ¿Qué tipo de usuario deseas ser?
         </StyledText>
         <StyledText
-          fontSize={"title"}
-          fontWeight={"normal"}
-          color={"purple"}
+          fontSize="title"
+          fontWeight="normal"
+          color="purple"
           style={styles.compradorText}
         >
           Comprador
@@ -48,13 +49,16 @@ const TipoRegistroPage = () => {
           source={require("../../../public/comprador_registro.jpeg")}
           style={styles.imageComprador}
         />
-        <TouchableOpacity style={styles.compradorButton} onPress={() => {
-          navigate("/signup_comprador", {
-            replace: true,
-          });
-        }}>
+        <TouchableOpacity
+          style={styles.compradorButton}
+          onPress={() => {
+            navigate("/signup_comprador", {
+              replace: true,
+            });
+          }}
+        >
           <StyledText
-            color={"secondary"}
+            color="secondary"
             fontSize="subheading"
             style={styles.compradorButtonText}
           >
@@ -62,9 +66,9 @@ const TipoRegistroPage = () => {
           </StyledText>
         </TouchableOpacity>
         <StyledText
-          fontSize={"title"}
-          color={"purple"}
-          fontWeight={"normal"}
+          fontSize="title"
+          color="purple"
+          fontWeight="normal"
           style={styles.proveedorText}
         >
           Proveedor
@@ -73,16 +77,18 @@ const TipoRegistroPage = () => {
           source={require("../../../public/proveedor_v2.jpeg")}
           style={styles.imageComprador}
         />
-        <TouchableOpacity style={styles.proveedorButton} onPress={() => {
-          navigate("/signup_proveedor", {
-            replace: true,
-          });
-        }} >
+        <TouchableOpacity
+          style={styles.proveedorButton}
+          onPress={() => {
+            navigate("/signup_proveedor", {
+              replace: true,
+            });
+          }}
+        >
           <StyledText
-            color={"secondary"}
+            color="secondary"
             fontSize="subheading"
             style={styles.proveedorButtonText}
-
           >
             Continuar
           </StyledText>

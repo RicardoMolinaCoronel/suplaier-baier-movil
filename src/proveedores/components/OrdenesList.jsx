@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList, Image } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import useOrdenes from "../hooks/useOrdenes";
 import OrdenItem from "./OrdenItem";
 import StyledText from "../../styles/StyledText";
@@ -11,7 +11,7 @@ const OrdenesList = () => {
     <>
       {showEmptyArray && (
         <View style={styles.vacioContainer}>
-          <StyledText color={"purple"}>
+          <StyledText color="purple">
             No hay órdenes de compra por el momento
           </StyledText>
           <MaterialIcons
@@ -22,13 +22,11 @@ const OrdenesList = () => {
           />
         </View>
       )}
-      {
-        <FlatList
-          style={styles.flatListContainer}
-          data={ordenesProv}
-          renderItem={({ item: orden }) => <OrdenItem {...orden} />}
-        />
-      }
+      <FlatList
+        style={styles.flatListContainer}
+        data={ordenesProv}
+        renderItem={({ item: orden }) => <OrdenItem {...orden} />}
+      />
     </>
   );
 };

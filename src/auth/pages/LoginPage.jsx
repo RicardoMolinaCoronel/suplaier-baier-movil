@@ -3,15 +3,15 @@ import { useState, useContext } from "react";
 import { Formik, useField } from "formik";
 import { StatusBar } from "expo-status-bar";
 import { Octicons, Ionicons } from "@expo/vector-icons";
-import { useNavigate, Navigate } from "react-router-native";
+import { useNavigate } from "react-router-native";
 import { loginValidationSchema } from "../components/loginValidationSchema";
 import { apiUrl } from "../../../apiUrl";
 import { AuthContext } from "../context/AuthContext";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 import StyledTextInput from "../../styles/StyledTextInput";
-import { FadeIn, FadeInDown } from "react-native-reanimated";
-import Animated from "react-native-reanimated";
+import Animated, { FadeInDown } from "react-native-reanimated";
+
 const initialValues = {
   user: "",
   password: "",
@@ -96,7 +96,7 @@ const LoginPage = () => {
     setDisabled(true);
     getAuthResponse(values.user.trim(), values.password.trim()).then((user) => {
       setDisabled(false);
-      if (!!user) {
+      if (user) {
         login(user);
         setCredentialsIncorrect(false);
         // switch (user.Rol) {

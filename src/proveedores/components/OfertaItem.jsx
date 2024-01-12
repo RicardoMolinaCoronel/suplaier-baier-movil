@@ -3,15 +3,12 @@ import theme from "../../theme";
 import ProgressBar from "react-native-progress/Bar";
 import StyledText from "../../styles/StyledText";
 import { apiUrl } from "../../../apiUrl";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
-import { useNavigate } from "react-router-native";
 import { DetalleProducto } from "./DetalleProducto";
-import React from "react";
 
 const OfertaItem = (props) => {
-  const navigate = useNavigate();
   const [isvisible, setisvisible] = useState(false);
   const [IdOferta] = useState(props.IdOferta);
   const [producto, setProducto] = useState();
@@ -23,10 +20,12 @@ const OfertaItem = (props) => {
   const [nombreProveedor, setNombreProveedor] = useState();
   const [datosProd, setDatosProd] = useState({});
   const [progresoOferta, setProgresoOferta] = useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [descripcionOferta, setDescripcionOferta] = useState(props.Descripcion);
   const fechaLimiteObj = new Date(props.FechaLimite);
 
   let maximo;
+  let minimo;
   let actualProductos;
 
   const updateProgresoOferta = () => {
@@ -68,6 +67,7 @@ const OfertaItem = (props) => {
     getProveedorOferta();
     getEstadoOferta();
     updateProgresoOferta();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
   useEffect(() => {
@@ -136,7 +136,7 @@ const OfertaItem = (props) => {
           <StyledText color="purple">${datosProd?.costoU}</StyledText>
         </View>
         {estadoOferta?.Descripcion === "Cerrado" ? (
-          <EtiquetaEstadoOferta estado={"Verificando pagos"} />
+          <EtiquetaEstadoOferta estado="Verificando pagos" />
         ) : (
           <EtiquetaEstadoOferta estado={estadoOferta?.Descripcion} />
         )}
@@ -183,7 +183,7 @@ const OfertaItem = (props) => {
             actualProductosOferta,
             descripcionOferta,
           }}
-        ></DetalleProducto>
+        />
       )}
     </View>
   );

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useState } from "react";
+import { View, TextInput, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const Search_Input = ({ onSearch }) => {
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
 
   const handleSearch = () => {
     onSearch(searchText);
@@ -16,7 +16,7 @@ const Search_Input = ({ onSearch }) => {
         placeholder="Buscar..."
         value={searchText}
         onChangeText={setSearchText}
-        onSubmitEditing={handleSearch}  // Permite buscar al presionar Enter
+        onSubmitEditing={handleSearch} // Permite buscar al presionar Enter
         returnKeyType="search"
       />
       <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
@@ -28,10 +28,10 @@ const Search_Input = ({ onSearch }) => {
 
 const styles = {
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 2,
-    borderColor: 'lightgray',
+    borderColor: "lightgray",
     borderRadius: 9,
     padding: 6,
   },
@@ -40,7 +40,7 @@ const styles = {
     padding: 5,
   },
   searchButton: {
-    backgroundColor: 'deepskyblue',
+    backgroundColor: "deepskyblue",
     padding: 10,
     borderTopRightRadius: 5,
     borderBottomRightRadius: 5,

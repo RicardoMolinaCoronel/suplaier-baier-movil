@@ -1,15 +1,13 @@
-import React, { useEffect, useState, useContext } from "react";
-import { View, Image, Modal } from "react-native";
+import React, { useEffect, useContext } from "react";
+import { View, Image, Modal, StyleSheet, ScrollView } from "react-native";
 import { StarsQualification } from "../proveedores/components/StarsQualification";
 import { ButtonWithText } from "../proveedores/components/ButtonWithText";
 import { AuthContext } from "../auth/context/AuthContext";
-import { StyleSheet, ScrollView } from "react-native";
+
 import StyledText from "../styles/StyledText";
 import theme from "../theme";
 import { dateOptions } from "./dateOptions";
 export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
-  const [isvisiblemodal, setisvisiblemodal] = useState(false);
-  const [isvisiblecerraroferta, setisvisiblecerraroferta] = useState(false);
   const { authState } = useContext(AuthContext);
   const fechaLimiteObj = new Date(dataorden?.props.Fecha ?? "");
 
@@ -18,31 +16,29 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
     return Math.min(Math.max(valorEntero, 1), 5);
   };
 
-  let calificacion = validarValoracion(dataorden?.producto?.Valoracion ?? 1);
-  let porcentaje =
-    ((dataorden?.oferta?.ActualProductos ?? 0) / (dataorden?.maximo ?? 1)) *
-    100;
+  const calificacion = validarValoracion(dataorden?.producto?.Valoracion ?? 1);
+
   useEffect(() => {
-    //console.log("Detalle Producto", dataorden?.estadoOferta);
+    // console.log("Detalle Producto", dataorden?.estadoOferta);
   }, []);
 
   return (
-    <Modal visible={isvisible} transparent={true} animationType="slide">
+    <Modal visible={isvisible} transparent animationType="slide">
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.tituloContainer}>
             <StyledText
-              fontWeight={"bold"}
-              color={"purple"}
+              fontWeight="bold"
+              color="purple"
               style={styles.textName}
-              fontSize={"subtitle"}
+              fontSize="subtitle"
             >
               {dataorden?.datosProd?.nombreProd ?? ""}
             </StyledText>
             <ButtonWithText
               anyfunction={onclose}
-              title={""}
-              icon={"close-sharp"}
+              title=""
+              icon="close-sharp"
               color={theme.colors.red2}
             />
           </View>
@@ -60,10 +56,8 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
               style={styles.imageContainer}
             />
             <View style={styles.starsContainer}>
-              <StarsQualification
-                calificacion={calificacion}
-              ></StarsQualification>
-              <StyledText color={"primary"}>
+              <StarsQualification calificacion={calificacion} />
+              <StyledText color="primary">
                 {dataorden?.producto?.Descripcion ?? ""}
               </StyledText>
             </View>
@@ -72,29 +66,29 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
           <View style={styles.secondContainer}>
             {authState?.user?.Rol === "proveedor" ? (
               <View style={styles.secondFirstContainer}>
-                <StyledText color={"purple"} fontWeight={"bold"}>
+                <StyledText color="purple" fontWeight="bold">
                   Comprador:
                 </StyledText>
-                <StyledText color={"primary"}>
+                <StyledText color="primary">
                   {dataorden?.comprador?.Nombre ?? ""}
                 </StyledText>
               </View>
             ) : (
               <View style={styles.secondFirstContainer}>
-                <StyledText color={"purple"} fontWeight={"bold"}>
+                <StyledText color="purple" fontWeight="bold">
                   Proveedor:
                 </StyledText>
-                <StyledText color={"primary"}>
+                <StyledText color="primary">
                   {dataorden?.proveedor?.Nombre ?? ""}
                 </StyledText>
               </View>
             )}
 
             <View style={styles.secondsecondContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Precio Unitario:
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {" "}
                 ${dataorden?.datosProd?.costoU ?? 0}
               </StyledText>
@@ -102,10 +96,10 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
           </View>
 
           <View style={styles.precioInstContainerSub}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Precio de compra instantanea:{" "}
             </StyledText>
-            <StyledText color={"primary"}>
+            <StyledText color="primary">
               {dataorden?.datosProd?.costoInst === 0
                 ? "--"
                 : "$" + dataorden?.datosProd?.costoInst}
@@ -113,7 +107,7 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
           </View>
           <View style={styles.restantesContainer}>
             <View style={styles.restantesSubContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Tipo de compra:{" "}
               </StyledText>
               {dataorden?.props.TipoCompra === "instantanea" && (
@@ -126,32 +120,30 @@ export const DetalleOrden = ({ isvisible, onclose, dataorden }) => {
           </View>
           <View style={styles.secondContainer}>
             <View style={styles.secondFirstContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Unidades adquiridas:
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {dataorden?.props.Cantidad ?? ""}
               </StyledText>
             </View>
             <View style={styles.secondsecondContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Total:
               </StyledText>
-              <StyledText color={"primary"}>
-                ${dataorden?.props.Total}
-              </StyledText>
+              <StyledText color="primary">${dataorden?.props.Total}</StyledText>
             </View>
           </View>
           <View style={styles.descripcionContainer}>
             <View style={styles.descripcionSubContainer}>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {dataorden?.oferta?.Descripcion}
               </StyledText>
             </View>
           </View>
           <View style={styles.restantesContainer}>
             <View style={styles.restantesSubContainer}>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 Fecha de compra:{" "}
                 {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
               </StyledText>

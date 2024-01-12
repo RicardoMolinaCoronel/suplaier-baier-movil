@@ -2,7 +2,6 @@ import { useReducer } from "react";
 import { types } from "../types/types";
 import { AuthContext } from "./AuthContext";
 import { authReducer } from "./authReducer";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 const init = async () => {
   return {
     logged: false,

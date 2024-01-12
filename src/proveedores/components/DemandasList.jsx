@@ -1,9 +1,9 @@
-import { View, StyleSheet, FlatList, Image } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import DemandaItem from "./DemandaItem";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useData } from "../../hooks/DemandasDataProvider";
 
 const DemandasList = () => {
@@ -13,12 +13,13 @@ const DemandasList = () => {
 
   useEffect(() => {
     getDemandasTodos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
       {showEmptyArray && (
         <View style={styles.vacioContainer}>
-          <StyledText color={"purple"}>
+          <StyledText color="purple">
             No hay demandas en curso por el momento
           </StyledText>
           <MaterialIcons
@@ -29,13 +30,11 @@ const DemandasList = () => {
           />
         </View>
       )}
-      {
-        <FlatList
-          style={styles.flatListContainer}
-          data={demandasTodos}
-          renderItem={({ item: demanda }) => <DemandaItem {...demanda} />}
-        />
-      }
+      <FlatList
+        style={styles.flatListContainer}
+        data={demandasTodos}
+        renderItem={({ item: demanda }) => <DemandaItem {...demanda} />}
+      />
     </>
   );
 };

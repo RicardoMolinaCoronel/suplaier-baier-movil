@@ -1,8 +1,6 @@
 import { React } from "react";
 import { Routes, Route } from "react-router-native";
-import { View } from "react-native";
 
-import StyledText from "../../styles/StyledText";
 import HomeProveedorPage from "../pages/HomeProveedorPage";
 import SearchProveedorPage from "../pages/SearchProveedorPage";
 import NotificationsProveedorPage from "../pages/NotificationsProveedorPage";

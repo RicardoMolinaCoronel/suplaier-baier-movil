@@ -7,8 +7,6 @@ import AppProvBar from "../components/AppProvBar";
 import NavigationBar from "../components/NavigationBar";
 import CrearProductoPage from "../pages/CrearProductoPage";
 import CrearOfertaPage from "../pages/CrearOfertaPage";
-import { View } from "react-native";
-import { Text } from "react-native-paper";
 import OrdenesRoutes from "./OrdenesRoutes";
 const ProveedorRoutes = ({
   closeButtonOffset,
@@ -95,7 +93,6 @@ const ProveedorRoutes = ({
             />
             <StatusBar style="light" />
             <CrearOfertaPage />
-
           </>
         }
       />
@@ -112,12 +109,9 @@ const ProveedorRoutes = ({
             />
             <StatusBar style="light" />
             <CrearProductoPage />
-
           </>
         }
       />
-      
-
     </Routes>
   );
 };

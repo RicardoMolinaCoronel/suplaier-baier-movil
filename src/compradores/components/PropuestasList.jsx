@@ -1,10 +1,11 @@
-import { View, StyleSheet, FlatList, Image, Modal } from "react-native";
+import { View, StyleSheet, FlatList, Modal } from "react-native";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
 import { PropuestaItem } from "./PropuestaItem";
 import { ButtonWithText } from "../../proveedores/components/ButtonWithText";
+import { apiUrl } from "../../../apiUrl";
 const PropuestasList = (IdDemanda, ActualProductos, onclose, isvisible) => {
   const [propuestas, setPropuestas] = useState([]);
 
@@ -28,27 +29,27 @@ const PropuestasList = (IdDemanda, ActualProductos, onclose, isvisible) => {
   }, [IdDemanda]);
 
   return (
-    <Modal visible={isvisible} transparent={true} animationType="slide">
+    <Modal visible={isvisible} transparent animationType="slide">
       <View style={styles.container}>
         <View style={styles.tituloContainer}>
           <StyledText
-            fontWeight={"bold"}
-            color={"purple"}
+            fontWeight="bold"
+            color="purple"
             style={styles.textName}
-            fontSize={"subtitle"}
+            fontSize="subtitle"
           >
-            {"Propuestas de demanda"}
+            Propuestas de demanda
           </StyledText>
           <ButtonWithText
             anyfunction={onclose}
-            title={""}
-            icon={"close-sharp"}
+            title=""
+            icon="close-sharp"
             color={theme.colors.red2}
           />
         </View>
         {showEmptyArray && (
           <View style={styles.vacioContainer}>
-            <StyledText color={"purple"}>
+            <StyledText color="purple">
               No hay ofertas propuestas por el momento
             </StyledText>
             <MaterialIcons

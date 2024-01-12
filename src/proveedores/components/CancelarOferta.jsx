@@ -16,10 +16,10 @@ export const CancelarOferta = ({
 
   const actualizarOferta = async () => {
     const bodySolicitud = {
-      IdOferta: IdOferta,
-      IdEstadosOferta: 7, //Id Estado DB
+      IdOferta,
+      IdEstadosOferta: 7, // Id Estado DB
     };
-    const resp = await fetch(`${apiUrl}/ofertas/estadoOferta`, {
+    await fetch(`${apiUrl}/ofertas/estadoOferta`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export const CancelarOferta = ({
   };
 
   return (
-    <Modal visible={isvisible} transparent={true} animationType="slide">
+    <Modal visible={isvisible} transparent animationType="slide">
       <View
         style={{
           alignItems: "center",
@@ -95,12 +95,12 @@ export const CancelarOferta = ({
         </Text>
         <Text style={{ color: "black", margin: 5 }}>
           ¿Está seguro de{" "}
-          <StyledText color="primary" fontWeight={"bold"}>
+          <StyledText color="primary" fontWeight="bold">
             cancelar su oferta
           </StyledText>
           ?, los pagos serán devueltos a los compradores y podría existir una
           tarifa de cobro adicional. Si esta seguro de cancelar la oferta pulse{" "}
-          <StyledText color="primary" fontWeight={"bold"}>
+          <StyledText color="primary" fontWeight="bold">
             Aceptar
           </StyledText>
         </Text>
@@ -115,18 +115,18 @@ export const CancelarOferta = ({
         >
           <ButtonWithText
             anyfunction={oncloseoferta}
-            title={"Retroceder"}
+            title="Retroceder"
             color={theme.colors.red}
-          ></ButtonWithText>
+          />
           <ButtonWithText
             anyfunction={() => {
               setDisabled(true);
               ActualizarOferta();
             }}
-            title={"Aceptar"}
+            title="Aceptar"
             color={disabled ? "gray" : theme.colors.lightblue1}
             disabled={disabled}
-          ></ButtonWithText>
+          />
         </View>
       </View>
     </Modal>

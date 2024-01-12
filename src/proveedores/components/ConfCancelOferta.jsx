@@ -1,21 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View, Text, Button } from "react-native";
 import { apiUrl } from "../../apiUrl";
-import { AuthContext } from "../../auth";
 
 export const ConfirmarCancelarOferta = ({
   oferta,
   setShowConfirmarCancelarOferta,
   setShowAccionExitosa,
 }) => {
-  const {
-    authState: { user },
-  } = useContext(AuthContext);
-
   const actualizarOferta = async () => {
     const bodySolicitud = {
       IdOferta: oferta.IdOferta,
-      IdEstadosOferta: 7, //Id Estado DB
+      IdEstadosOferta: 7, // Id Estado DB
     };
 
     try {
@@ -48,7 +43,7 @@ export const ConfirmarCancelarOferta = ({
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <View style={styles.resumenProducto}>
         <View style={styles.resumenProductoVentana}>
-          <View style={styles.metodoPagoBarraSupProv}></View>
+          <View style={styles.metodoPagoBarraSupProv} />
           <View style={styles.resumenProductoVentanaContenido}>
             <View style={styles.explorarCatTitle}>
               <Text style={styles.iconGrey}>arrow_forward_ios</Text>

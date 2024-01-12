@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, useWindowDimensions } from "react-native";
 
 export const ProgressBar = ({ porcentaje }) => {
@@ -27,7 +27,7 @@ export const ProgressBar = ({ porcentaje }) => {
           elevation: 4,
           backgroundColor: "#FFFFFF",
         }}
-      ></View>
+      />
       <View
         style={{
           position: "absolute",

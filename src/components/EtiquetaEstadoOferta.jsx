@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet , View } from "react-native";
 import theme from "../theme";
-import { View } from "react-native";
+
 import StyledText from "../styles/StyledText";
 export const EtiquetaEstadoOferta = ({ estado, esOfertaDetalle = false }) => {
   const [estiloSegunEstado, setEstiloSegunEstado] = useState("containerGray");

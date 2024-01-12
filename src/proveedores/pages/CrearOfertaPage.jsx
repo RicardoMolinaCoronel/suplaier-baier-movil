@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   StyleSheet,
   View,
@@ -8,16 +9,13 @@ import {
 import { useState, useContext, useEffect } from "react";
 import { Formik, useField } from "formik";
 import { StatusBar } from "expo-status-bar";
-import { Octicons, Ionicons } from "@expo/vector-icons";
-import { useNavigate, Navigate } from "react-router-native";
+import { Octicons } from "@expo/vector-icons";
 import { apiUrl } from "../../../apiUrl";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 import StyledTextInput from "../../styles/StyledTextInput";
-import UploadImage from "../../styles/UploadImage";
 import crearOfertaValidationSchema from "../components/crearOfertaValidationSchema";
 import { AuthContext } from "../../auth/context/AuthContext";
-import { SelectList } from "react-native-dropdown-select-list";
 import StyledSelectList from "../../styles/StyledSelectList";
 import { ResumenOferta } from "../components/ResumenOferta";
 import DateTimePicker from "react-native-modal-datetime-picker";
@@ -95,8 +93,8 @@ const FormikInputValue = ({
 
 const FormikDateValue = ({ name, icon, label, ...props }) => {
   const [field, meta, helpers] = useField(name);
-  let fechaLimiteMinimo = new Date();
-  let fechaLimiteMaximo = new Date();
+  const fechaLimiteMinimo = new Date();
+  const fechaLimiteMaximo = new Date();
   fechaLimiteMinimo.setDate(fechaLimiteMinimo.getDate() + 1);
   fechaLimiteMaximo.setDate(fechaLimiteMinimo.getDate() + 183);
   const [date, setDate] = useState();
@@ -165,7 +163,7 @@ const CrearOfertaPage = () => {
       const data = await resp.json();
       const { rows: productos } = !!data && data;
 
-      let productosComprador = productos.map((producto) => {
+      const productosComprador = productos.map((producto) => {
         return { key: producto.IdProducto, value: producto.Name };
       });
       setProductosSelectList(productosComprador);
@@ -231,7 +229,7 @@ const CrearOfertaPage = () => {
                   isDropDown
                   productosSelectList={productosSelectList}
                   getSelectProduct={getSelectProduct}
-                  isWithPeticion={true}
+                  isWithPeticion
                 />
                 {selected && (
                   <View style={styles.productoContainer}>
@@ -247,7 +245,7 @@ const CrearOfertaPage = () => {
                       style={styles.imageContainer}
                     />
                     <StyledText
-                      color={"primary"}
+                      color="primary"
                       style={styles.textProductoDescripcion}
                     >
                       {productoSelected?.Descripcion}
@@ -275,7 +273,7 @@ const CrearOfertaPage = () => {
                   icon="list-unordered"
                   placeholder="Descripción de la demanda"
                   placeholderTextColor={theme.colors.gray1}
-                  multiline={true}
+                  multiline
                   numberOfLines={8}
                   textAreaSize="descripcion"
                   label="Descripción"

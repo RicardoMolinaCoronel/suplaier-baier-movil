@@ -3,8 +3,6 @@ import Main from './Main.jsx'
 import { AuthProvider } from './src/auth/context/AuthProvider.jsx';
 import { registerForPushNotificationsAsync, sendTokenToServer } from './src/utils/notifications.js'; 
 import { useEffect } from 'react';
-import firebase from './firebase.js';
-
 import { LogBox } from "react-native"
 
 LogBox.ignoreAllLogs(true)

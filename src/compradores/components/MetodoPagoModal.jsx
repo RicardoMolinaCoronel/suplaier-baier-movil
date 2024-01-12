@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Modal,
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Switch,
-  Alert,
-} from "react-native";
+import { Modal, View, Text, Image, StyleSheet, Alert } from "react-native";
 import { ButtonWithText } from "../../proveedores/components/ButtonWithText";
 import theme from "../../theme";
 import { RadioButton } from "react-native-paper";
@@ -31,7 +23,7 @@ export const MetodoPagoModal = ({
       NuevoActualProductos:
         parseInt(dataproducto.actualProductos) + parseInt(contador),
     };
-    const resp = await fetch(`${apiUrl}/ofertas`, {
+    await fetch(`${apiUrl}/ofertas`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +84,7 @@ export const MetodoPagoModal = ({
       TipoCompra: "normal",
     };
 
-    const resp = await fetch(`${apiUrl}/compras`, {
+    await fetch(`${apiUrl}/compras`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -141,11 +133,7 @@ export const MetodoPagoModal = ({
     }
   };
   return (
-    <Modal
-      transparent={true}
-      visible={isvisibleMetodoPagoModal}
-      animationType="slide"
-    >
+    <Modal transparent visible={isvisibleMetodoPagoModal} animationType="slide">
       <View
         style={{
           backgroundColor: "#ffffff",
@@ -171,7 +159,7 @@ export const MetodoPagoModal = ({
             borderTopStartRadius: 15,
             borderTopEndRadius: 15,
           }}
-        ></View>
+        />
         <Text style={{ color: "black", margin: 10, fontWeight: "bold" }}>
           Seleccione Metodo de Pago:
         </Text>
@@ -204,9 +192,10 @@ export const MetodoPagoModal = ({
         <View style={styles.botonesContainer}>
           <ButtonWithText
             anyfunction={() => {
+              // eslint-disable-next-line no-unused-expressions, no-sequences
               setChecked(""), oncloseMetodoPago();
             }}
-            title={"Cancelar"}
+            title="Cancelar"
             color={theme.colors.red}
           />
           <ButtonWithText
@@ -214,7 +203,7 @@ export const MetodoPagoModal = ({
               setDisabled(true);
               postpago();
             }}
-            title={"Continuar"}
+            title="Continuar"
             color={disabled ? "gray" : theme.colors.lightblue1}
             disabled={disabled}
           />

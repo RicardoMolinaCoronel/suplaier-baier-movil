@@ -4,16 +4,13 @@ import theme from "../../theme";
 import ProgressBar from "react-native-progress/Bar";
 import StyledText from "../../styles/StyledText";
 import { apiUrl } from "../../../apiUrl";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
-import { useNavigate } from "react-router-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { DetalleProductoC } from "./DetalleProductoC";
-import React from "react";
 
 const DemandaItem = (props) => {
-  const navigate = useNavigate();
   const [isvisible, setisvisible] = useState(false);
   const [producto, setProducto] = useState();
   const [comprador, setComprador] = useState();
@@ -21,7 +18,6 @@ const DemandaItem = (props) => {
   const [nombreComprador, setNombreComprador] = useState();
   const [datosProd, setDatosProd] = useState({});
   const [progresoDemanda, setProgresoDemanda] = useState(0);
-  const [estaUnido, setEstaUnido] = useState(false);
   const fechaLimiteObj = new Date(props.FechaLimite);
   const { authState } = useContext(AuthContext);
 
@@ -63,7 +59,8 @@ const DemandaItem = (props) => {
     getCompradorDemanda();
     getEstadoDemanda();
     updateProgresoDemanda();
-    //checkEstaUnidoDemanda();
+    // checkEstaUnidoDemanda();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
   useEffect(() => {
@@ -137,7 +134,7 @@ const DemandaItem = (props) => {
           <StyledText color="purple">{datosProd?.precioMin}$</StyledText>
         </View>
         {estadoDemanda?.Descripcion === "Cerrado" ? (
-          <EtiquetaEstadoOferta estado={"Verificando pagos"} />
+          <EtiquetaEstadoOferta estado="Verificando pagos" />
         ) : (
           <EtiquetaEstadoOferta estado={estadoDemanda?.Descripcion} />
         )}
@@ -164,7 +161,7 @@ const DemandaItem = (props) => {
           {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
         </StyledText>
       </View>
-      { <DetalleProductoC
+      <DetalleProductoC
         isvisible={isvisible}
         onclose={() => setisvisible(false)}
         dataproducto={{
@@ -180,9 +177,9 @@ const DemandaItem = (props) => {
           Minimo: parseInt(props.Minimo),
           actualProductos: parseInt(props.ActualProductos),
           IdDemanda: props.IdDemanda,
-          IdUsuario: authState.user.IdUsuario
+          IdUsuario: authState.user.IdUsuario,
         }}
-      ></DetalleProductoC> }
+      />
     </View>
   );
 };

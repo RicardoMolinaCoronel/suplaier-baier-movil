@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Button, Modal, Alert } from "react-native";
+import { View, Text, Modal, Alert } from "react-native";
 import { apiUrl } from "../../../apiUrl";
 import { ButtonWithText } from "./ButtonWithText";
 import theme from "../../theme";
@@ -18,7 +19,7 @@ export const CerrarOferta = ({
 
   const cerrarOferta = async () => {
     const body = {
-      IdOferta: IdOferta,
+      IdOferta,
       IdEstadosOferta: 11, // Id Estado PENDIENTE DB
     };
 
@@ -213,7 +214,7 @@ export const CerrarOferta = ({
   };
 
   return (
-    <Modal visible={isvisible} transparent={true} animationType="slide">
+    <Modal visible={isvisible} transparent animationType="slide">
       <View
         style={{
           alignItems: "center",
@@ -245,18 +246,18 @@ export const CerrarOferta = ({
         </Text>
         <Text style={{ margin: 5 }}>
           <StyledText color="primary">Su oferta ha alcanzado la </StyledText>
-          <StyledText color="primary" fontWeight={"bold"}>
+          <StyledText color="primary" fontWeight="bold">
             mínima cantidad
           </StyledText>
           <StyledText color="primary">
             {" "}
             de productos a vender, sin embargo, la oferta todavía no ha llegado
             a su{" "}
-            <StyledText color="primary" fontWeight={"bold"}>
+            <StyledText color="primary" fontWeight="bold">
               fecha de vigencia.{" "}
             </StyledText>
             Si está seguro de cerrar su oferta, pulse
-            <StyledText color="primary" fontWeight={"bold"}>
+            <StyledText color="primary" fontWeight="bold">
               {" "}
               Aceptar
             </StyledText>
@@ -274,18 +275,18 @@ export const CerrarOferta = ({
         >
           <ButtonWithText
             anyfunction={oncloseretroceder}
-            title={"Retroceder"}
+            title="Retroceder"
             color={theme.colors.red}
-          ></ButtonWithText>
+          />
           <ButtonWithText
             anyfunction={() => {
               setDisabled(true);
               onClickConfirmarCierre();
             }}
-            title={"Aceptar"}
+            title="Aceptar"
             color={disabled ? "gray" : theme.colors.lightblue1}
             disabled={disabled}
-          ></ButtonWithText>
+          />
         </View>
       </View>
     </Modal>

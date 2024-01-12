@@ -35,9 +35,9 @@ export const Cargar_Categorias = ({ onSelectCategoria }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
-    //justifyContent: 'center',
-    //alignItems: 'center',
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
     // Otros estilos necesarios
   }
 });

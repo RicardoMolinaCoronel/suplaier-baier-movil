@@ -1,21 +1,13 @@
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import { useState, useContext, useEffect } from "react";
+import { StyleSheet, View, TouchableOpacity, ScrollView } from "react-native";
+import { useState, useEffect } from "react";
 import { Formik, useField } from "formik";
 import { StatusBar } from "expo-status-bar";
 import { Octicons, Ionicons } from "@expo/vector-icons";
-import { useNavigate, Navigate } from "react-router-native";
 import { apiUrl } from "../../../apiUrl";
 import theme from "../../theme";
 import StyledText from "../../styles/StyledText";
 import StyledTextInput from "../../styles/StyledTextInput";
 import UploadImage from "../../styles/UploadImage";
-import { AuthContext } from "../../auth/context/AuthContext.jsx";
 import validationSchema from "../components/crearProductoValidationSchema";
 import StyledSelectList from "../../styles/StyledSelectList";
 import { ResumenProducto } from "../components/ResumenProducto";
@@ -101,15 +93,16 @@ const CrearProductoPage = () => {
   const [productoImg, setProductoImg] = useState("no-img.jpeg");
   const [values, setValues] = useState();
   const [categoriaNombreSelected, setCategoriaNombreSelected] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [imageUri, setImageUri] = useState(null);
-  
+
   const getCategorias = async () => {
     try {
       const response = await fetch(`${apiUrl}/catProductos`);
       const data = await response.json();
       const { rows: categorias } = data;
 
-      let categoriasProducto = categorias.map((categoria) => {
+      const categoriasProducto = categorias.map((categoria) => {
         return { key: categoria.IdCatProducto, value: categoria.Nombre };
       });
       setCategorias(categoriasProducto);
@@ -122,10 +115,10 @@ const CrearProductoPage = () => {
   }, []);
 
   const onMostrarResumen = (values) => {
-    let nombre = categorias.filter(
+    const nombre = categorias.filter(
       (categoria) => parseInt(categoria.key) === parseInt(selected)
     );
-    setCategoriaNombreSelected(nombre[0]["value"]);
+    setCategoriaNombreSelected(nombre[0].value);
     setValues(values);
     setisvisibleresumen(true);
   };
@@ -174,7 +167,7 @@ const CrearProductoPage = () => {
                   icon="list-unordered"
                   placeholder="Descripción del producto"
                   placeholderTextColor={theme.colors.gray1}
-                  multiline={true}
+                  multiline
                   numberOfLines={8}
                   textAreaSize="descripcion"
                   label="Descripción"

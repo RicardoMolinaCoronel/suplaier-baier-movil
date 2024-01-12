@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Modal, Text, FlatList } from "react-native";
+import { View, Modal, FlatList } from "react-native";
 import { apiUrl } from "../../../apiUrl";
 import { HistorialCard } from "./HistorialCard";
 import { ButtonWithText } from "./ButtonWithText";
@@ -18,7 +18,7 @@ export const HistorialModal = ({ isvisiblemodal, oncloseHistorial }) => {
   }, []);
 
   return (
-    <Modal transparent={true} visible={isvisiblemodal} animationType="slide">
+    <Modal transparent visible={isvisiblemodal} animationType="slide">
       <View
         style={{
           alignItems: "center",
@@ -46,10 +46,7 @@ export const HistorialModal = ({ isvisiblemodal, oncloseHistorial }) => {
           data={data}
           renderItem={({ item }) => <HistorialCard item={item} />}
         />
-        <ButtonWithText
-          anyfunction={oncloseHistorial}
-          title={"cerrar"}
-        ></ButtonWithText>
+        <ButtonWithText anyfunction={oncloseHistorial} title="cerrar" />
       </View>
     </Modal>
   );

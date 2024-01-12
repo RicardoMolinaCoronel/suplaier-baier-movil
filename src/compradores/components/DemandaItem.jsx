@@ -1,19 +1,18 @@
+/* eslint-disable no-unused-vars */
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { AuthContext } from "../../auth/context/AuthContext";
 import theme from "../../theme";
 import ProgressBar from "react-native-progress/Bar";
 import StyledText from "../../styles/StyledText";
 import { apiUrl } from "../../../apiUrl";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
 import { useNavigate } from "react-router-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import PropuestasList from "./PropuestasList";
-import React from "react";
 
 const DemandaItem = (props) => {
-  const navigate = useNavigate();
   const [isvisible, setisvisible] = useState(false);
   const [producto, setProducto] = useState();
   const [comprador, setComprador] = useState();
@@ -63,7 +62,8 @@ const DemandaItem = (props) => {
     getCompradorDemanda();
     getEstadoDemanda();
     updateProgresoDemanda();
-    //checkEstaUnidoDemanda();
+    // checkEstaUnidoDemanda();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
   useEffect(() => {
@@ -137,7 +137,7 @@ const DemandaItem = (props) => {
           <StyledText color="purple">{datosProd?.precioMin}$</StyledText>
         </View>
         {estadoDemanda?.Descripcion === "Cerrado" ? (
-          <EtiquetaEstadoOferta estado={"Verificando pagos"} />
+          <EtiquetaEstadoOferta estado="Verificando pagos" />
         ) : (
           <EtiquetaEstadoOferta estado={estadoDemanda?.Descripcion} />
         )}
@@ -170,7 +170,7 @@ const DemandaItem = (props) => {
           onclose={() => setisvisible(false)}
           IdDemanda={props.IdDemanda}
           ActualProductos={props.ActualProductos}
-        ></PropuestasList>
+        />
       )} */}
     </View>
   );

@@ -3,7 +3,7 @@ import theme from "../../theme";
 import ProgressBar from "react-native-progress/Bar";
 import StyledText from "../../styles/StyledText";
 import { apiUrl } from "../../../apiUrl";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
 import { DetalleOrden } from "../../components/DetalleOrden";
@@ -14,6 +14,7 @@ const OrdenItem = (props) => {
   const [proveedor, setProveedor] = useState();
   const [comprador, setComprador] = useState();
   const [estadoOferta, setEstadoOferta] = useState();
+  // eslint-disable-next-line no-unused-vars
   const [nombreProveedor, setNombreProveedor] = useState();
   const [datosProd, setDatosProd] = useState({});
   const [progresoOferta, setProgresoOferta] = useState(0);
@@ -21,8 +22,8 @@ const OrdenItem = (props) => {
   const fechaLimiteObj = new Date(oferta?.FechaLimite);
 
   const updateProgresoOferta = () => {
-    let maximo = parseInt(oferta?.Maximo ?? 1);
-    let actualProductos = parseInt(oferta?.ActualProductos ?? 0);
+    const maximo = parseInt(oferta?.Maximo ?? 1);
+    const actualProductos = parseInt(oferta?.ActualProductos ?? 0);
     setProgresoOferta(actualProductos / maximo);
   };
   const getOferta = async () => {
@@ -72,6 +73,7 @@ const OrdenItem = (props) => {
     getProveedorOferta();
     getCompradorOferta();
     getEstadoOferta();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
   useEffect(() => {
@@ -151,7 +153,7 @@ const OrdenItem = (props) => {
           <StyledText color="purple">{datosProd?.costoU}$</StyledText>
         </View>
         {estadoOferta?.Descripcion === "Cerrado" ? (
-          <EtiquetaEstadoOferta estado={"Verificando pagos"} />
+          <EtiquetaEstadoOferta estado="Verificando pagos" />
         ) : (
           <EtiquetaEstadoOferta estado={estadoOferta?.Descripcion} />
         )}
@@ -194,7 +196,7 @@ const OrdenItem = (props) => {
             proveedor,
             props,
           }}
-        ></DetalleOrden>
+        />
       )}
     </View>
   );

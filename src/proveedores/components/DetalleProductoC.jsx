@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { View, Image, Modal, Text } from "react-native";
+import React, { useState } from "react";
+import { View, Image, Modal, Text, StyleSheet, ScrollView } from "react-native";
 import { StarsQualification } from "../../proveedores/components/StarsQualification";
-import { ProgressBar } from "../../proveedores/components/ProgressBar";
 import { ButtonWithText } from "../../proveedores/components/ButtonWithText";
-import { StyleSheet, ScrollView } from "react-native";
+
 import StyledText from "../../styles/StyledText";
 import theme from "../../theme";
 import { dateOptions } from "../../components/dateOptions";
 import { UnirseOfertaModal } from "./UnirseOfertaModal";
-//import { UnirseOfertaAhoraModal } from "./UnirseOfertaAhoraModal";
 
 export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
-  /*const [isvisibleUnirseOfertaAhoraModal, setisvisibleUnirseOfertaAhoraModal] =
-    useState(false);*/
   const [isvisibleUnirseoferta, setisvisibleUnirseoferta] = useState(false);
   const fechaLimiteObj = new Date(dataproducto?.fechaLimiteObj ?? "");
 
@@ -21,25 +17,27 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
     return Math.min(Math.max(valorEntero, 1), 5);
   };
 
-  let calificacion = validarValoracion(dataproducto?.producto?.Valoracion ?? 1);
+  const calificacion = validarValoracion(
+    dataproducto?.producto?.Valoracion ?? 1
+  );
 
   return (
-    <Modal visible={isvisible} transparent={true} animationType="slide">
+    <Modal visible={isvisible} transparent animationType="slide">
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.tituloContainer}>
             <StyledText
-              fontWeight={"bold"}
-              color={"purple"}
+              fontWeight="bold"
+              color="purple"
               style={styles.textName}
-              fontSize={"subtitle"}
+              fontSize="subtitle"
             >
               {dataproducto?.datosProd?.nombreProd ?? ""}
             </StyledText>
             <ButtonWithText
               anyfunction={onclose}
-              title={""}
-              icon={"close-sharp"}
+              title=""
+              icon="close-sharp"
               color={theme.colors.red2}
             />
           </View>
@@ -57,10 +55,8 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
               style={styles.imageContainer}
             />
             <View style={styles.starsContainer}>
-              <StarsQualification
-                calificacion={calificacion}
-              ></StarsQualification>
-              <StyledText color={"primary"}>
+              <StarsQualification calificacion={calificacion} />
+              <StyledText color="primary">
                 {dataproducto?.producto?.Descripcion ?? ""}
               </StyledText>
             </View>
@@ -68,49 +64,49 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
 
           <View style={styles.secondContainer}>
             <View style={styles.secondFirstContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Precio minimo:{" "}
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {dataproducto?.datosProd?.costoInst === 0
                   ? "--"
                   : "$" + dataproducto?.Minimo}
               </StyledText>
             </View>
             <View style={styles.secondsecondContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Precio Maximo:
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 ${dataproducto?.Maximo ?? 0}
               </StyledText>
             </View>
           </View>
           <View style={styles.precioInstContainerSub}>
-            <StyledText color={"purple"} fontWeight={"bold"}>
+            <StyledText color="purple" fontWeight="bold">
               Comprador:
             </StyledText>
-            <StyledText color={"primary"}>
+            <StyledText color="primary">
               {dataproducto?.nombreComprador ?? ""}
             </StyledText>
           </View>
 
           <View style={styles.unidadesFechaContainer}>
             <View style={styles.unidadesContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Unidades faltantes:{" "}
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {parseInt(dataproducto?.Maximo) -
                   parseInt(dataproducto?.actualProductos)}
                 /{dataproducto?.Maximo}
               </StyledText>
             </View>
             <View style={styles.fechaCierreContainer}>
-              <StyledText color={"purple"} fontWeight={"bold"}>
+              <StyledText color="purple" fontWeight="bold">
                 Fecha cierre:{" "}
               </StyledText>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {fechaLimiteObj.toLocaleString(undefined, dateOptions)}
               </StyledText>
             </View>
@@ -118,14 +114,14 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
 
           <View style={styles.descripcionContainer}>
             <View style={styles.descripcionSubContainer}>
-              <StyledText color={"primary"}>
+              <StyledText color="primary">
                 {dataproducto?.props.Descripcion}
               </StyledText>
             </View>
           </View>
           <View style={styles.restantesContainer}>
             <View style={styles.restantesSubContainer}>
-              <StyledText color={"lightblue"} fontWeight={"bold"}>
+              <StyledText color="lightblue" fontWeight="bold">
                 Unidades Restantes para Completar el Minimo:{" "}
                 {dataproducto?.Minimo - dataproducto?.actualProductos}
               </StyledText>
@@ -137,7 +133,7 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
               <View style={styles.botonesContainer}>
                 <ButtonWithText
                   anyfunction={() => setisvisibleUnirseoferta(true)}
-                  title={"Unirse"}
+                  title="Unirse"
                   color="#3498DB"
                 />
               </View>
@@ -147,14 +143,15 @@ export const DetalleProductoC = ({ isvisible, onclose, dataproducto }) => {
                 isvisibleUnirseOfertaModal={isvisibleUnirseoferta}
                 oncloseUnirseOferta={() => setisvisibleUnirseoferta(false)}
                 onclopagado={() => {
+                  // eslint-disable-next-line no-sequences, no-unused-expressions
                   setisvisibleUnirseoferta(false), onclose();
                 }}
-              ></UnirseOfertaModal>
+              />
             </>
           )}
           {dataproducto?.estaUnido && (
             <View>
-              <View style={styles.borderLine}></View>
+              <View style={styles.borderLine} />
               <Text style={{ color: theme.colors.purple, fontWeight: "bold" }}>
                 Tu orden de compra
               </Text>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Image, View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import theme from "../theme";
@@ -6,10 +6,11 @@ import * as ImagePicker from "expo-image-picker";
 
 export default function UploadImage({ setImageUri }) {
   const [image, setImage] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [base64Image, setBase64Image] = useState(null);
 
   const addImage = async () => {
-    let _image = await ImagePicker.launchImageLibraryAsync({
+    const _image = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
@@ -22,6 +23,7 @@ export default function UploadImage({ setImageUri }) {
         const response = await fetch(_image.uri);
         const blob = await response.blob();
 
+        // eslint-disable-next-line no-undef
         const reader = new FileReader();
         reader.onload = () => {
           const base64Data = reader.result;

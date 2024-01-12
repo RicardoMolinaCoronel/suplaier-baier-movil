@@ -32,6 +32,7 @@ const Busqueda_Comprador = () => {
 
   useEffect(() => {
     getOfertasTodos("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onCategoriaSelect = (categoria) => {
@@ -117,9 +118,6 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     marginTop: 15,
-  },
-  spaceBorder: {
-    marginTop: 45,
   },
 });
 

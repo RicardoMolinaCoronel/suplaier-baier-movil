@@ -6,7 +6,6 @@ import { AuthContext } from "../../auth/context/AuthContext.jsx";
 import theme from "../../theme.js";
 import ProveedorRoutes from "./ProveedorRoutes.jsx";
 import TabProfile from "../components/TabProfile.jsx";
-import StyledText from "../../styles/StyledText.jsx";
 
 const MainProveedor = () => {
   const { authState } = useContext(AuthContext);

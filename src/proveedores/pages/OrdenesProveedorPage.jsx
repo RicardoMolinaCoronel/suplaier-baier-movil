@@ -3,7 +3,6 @@ import StyledText from "../../styles/StyledText";
 import { StatusBar } from "expo-status-bar";
 import Icon from "react-native-ico-material-design";
 import theme from "../../theme";
-import OfertasList from "../components/OfertasList";
 import OrdenesList from "../components/OrdenesList";
 const OrdenesProveedorPage = () => {
   return (

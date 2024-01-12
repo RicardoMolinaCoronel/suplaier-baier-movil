@@ -12,17 +12,18 @@ async function registerForPushNotificationsAsync() {
   });
 
   if (status !== 'granted') {
+    // eslint-disable-next-line no-undef
     alert('No se tienen permisos para enviar notificaciones!');
-    return;
+    
   }
 
   // Obtiene el token de notificación
-  /*const tokenResponse = await Notifications.getExpoPushTokenAsync({
+  /* const tokenResponse = await Notifications.getExpoPushTokenAsync({
     experienceId: `@SuplaierMovil/SuplaierMovil`,
     projectId: 'baiernotificaciones',
   });
   console.log(tokenResponse); // enviar este token a backend
-  return tokenResponse.data;*/
+  return tokenResponse.data; */
 }
 
 async function sendTokenToServer(token) {

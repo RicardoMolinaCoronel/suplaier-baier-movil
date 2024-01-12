@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity, View, Text, Alert } from "react-native";
 import StyledText from "../../styles/StyledText";
@@ -19,8 +21,8 @@ export const PropuestaItem = ({
     const resp = await globalThis.fetch(
       `${apiUrl}/usuarios?idUsuario=${data.IdProveedor}`
     );
-    const data = await resp.json();
-    const { rows: proveedor } = !!data && data;
+    const dataP = await resp.json();
+    const { rows: proveedor } = !!dataP && dataP;
     setProveedor(proveedor[0]);
   };
 
@@ -70,18 +72,19 @@ export const PropuestaItem = ({
     const nuevoActualProductos =
       parseInt(ActualProductos, 10) + parseInt(data.Cantidad, 10);
     const body = JSON.stringify({
-      IdDemanda: IdDemanda,
+      IdDemanda,
       NuevoActualProductos: parseInt(nuevoActualProductos, 10),
     });
     const respondePathDemanda = await fetch(`${apiUrl}/demandas`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: body,
+      body,
     });
   };
 
   useEffect(() => {
     getProveedorPropuesta();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

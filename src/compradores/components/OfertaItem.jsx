@@ -4,15 +4,12 @@ import theme from "../../theme";
 import ProgressBar from "react-native-progress/Bar";
 import StyledText from "../../styles/StyledText";
 import { apiUrl } from "../../../apiUrl";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { dateOptions } from "../../components/dateOptions";
 import { EtiquetaEstadoOferta } from "../../components/EtiquetaEstadoOferta";
-import { useNavigate } from "react-router-native";
 import { DetalleProductoC } from "./DetalleProductoC";
-import React from "react";
 
 const OfertaItem = (props) => {
-  const navigate = useNavigate();
   const [isvisible, setisvisible] = useState(false);
   const [producto, setProducto] = useState();
   const [proveedor, setProveedor] = useState();
@@ -74,6 +71,7 @@ const OfertaItem = (props) => {
     getEstadoOferta();
     updateProgresoOferta();
     checkEstaUnidoOferta();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
   useEffect(() => {
@@ -123,7 +121,7 @@ const OfertaItem = (props) => {
           </StyledText>
           <StyledText color="purple">{props.Maximo}</StyledText>
         </View>
-        {estaUnido && <EtiquetaEstadoOferta estado={"Unido"} />}
+        {estaUnido && <EtiquetaEstadoOferta estado="Unido" />}
       </View>
       <View style={styles.progressContainer}>
         <View style={styles.progressBar}>
@@ -145,7 +143,7 @@ const OfertaItem = (props) => {
           <StyledText color="purple">{datosProd?.costoU}$</StyledText>
         </View>
         {estadoOferta?.Descripcion === "Cerrado" ? (
-          <EtiquetaEstadoOferta estado={"Verificando pagos"} />
+          <EtiquetaEstadoOferta estado="Verificando pagos" />
         ) : (
           <EtiquetaEstadoOferta estado={estadoOferta?.Descripcion} />
         )}
@@ -194,7 +192,7 @@ const OfertaItem = (props) => {
             IdUsuario: authState.user.IdUsuario,
             estaUnido,
           }}
-        ></DetalleProductoC>
+        />
       )}
     </View>
   );

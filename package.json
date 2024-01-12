@@ -16,6 +16,7 @@
     "@react-native-picker/picker": "2.4.10",
     "@react-navigation/drawer": "^6.6.4",
     "@react-navigation/native": "^6.1.8",
+    "eslint-html-reporter": "^0.7.4",
     "expo": "~49.0.13",
     "expo-constants": "~14.4.2",
     "expo-dev-client": "~2.4.12",
@@ -80,7 +81,10 @@
     "rules": {
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
-      "eqeqeq": "off"
+      "eqeqeq": "off",
+      "camelcase": "off",
+      "react/jsx-pascal-case": "off",
+      "react-hooks/exhaustive-deps": "off"
     }
   }
 }

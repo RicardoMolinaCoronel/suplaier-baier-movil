@@ -1,10 +1,10 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigate } from "react-router-native";
 import { AuthContext } from "../../auth/context/AuthContext.jsx";
-import React from "react";
+import React, { useContext } from "react";
 import theme from "../../theme.js";
 import Icon from "react-native-ico-material-design";
-import { useContext } from "react";
+
 
 export const TabButton = ({ currentTab, setCurrentTab, text, icon }) => {
   const { logout } = useContext(AuthContext);

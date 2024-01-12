@@ -1,10 +1,9 @@
-import { View, StyleSheet, FlatList, Image } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import OfertaItem from "./OfertaItem";
 import theme from "../../theme";
-import useOfertasTodos from "../hooks/useOfertasTodos";
 import StyledText from "../../styles/StyledText";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useData } from "../../hooks/OfertasDataProvider";
 
 const OfertasList = () => {
@@ -14,12 +13,13 @@ const OfertasList = () => {
 
   useEffect(() => {
     getOfertasTodos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
       {showEmptyArray && (
         <View style={styles.vacioContainer}>
-          <StyledText color={"purple"}>
+          <StyledText color="purple">
             No hay ofertas en curso por el momento
           </StyledText>
           <MaterialIcons
@@ -30,13 +30,11 @@ const OfertasList = () => {
           />
         </View>
       )}
-      {
-        <FlatList
-          style={styles.flatListContainer}
-          data={ofertasTodos}
-          renderItem={({ item: oferta }) => <OfertaItem {...oferta} />}
-        />
-      }
+      <FlatList
+        style={styles.flatListContainer}
+        data={ofertasTodos}
+        renderItem={({ item: oferta }) => <OfertaItem {...oferta} />}
+      />
     </>
   );
 };
