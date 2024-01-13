@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="27" failures="0" errors="0" time="15.79">
-  <testsuite name="&lt;CrearProductoPage /&gt; Proveedor" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:27:59" time="9.831" tests="4">
-    <testcase classname="&lt;CrearProductoPage /&gt; Proveedor se renderiza correctamente" name="&lt;CrearProductoPage /&gt; Proveedor se renderiza correctamente" time="2.253">
+<testsuites name="jest tests" tests="15" failures="0" errors="0" time="6.924">
+  <testsuite name="OrdenItem component" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:35:21" time="2.605" tests="1">
+    <testcase classname="OrdenItem component renders correctly" name="OrdenItem component renders correctly" time="0.847">
+    </testcase>
+  </testsuite>
+  <testsuite name="&lt;CrearProductoPage /&gt;" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:35:21" time="3.337" tests="4">
+    <testcase classname="&lt;CrearProductoPage /&gt; se renderiza correctamente" name="&lt;CrearProductoPage /&gt; se renderiza correctamente" time="0.776">
+    </testcase>
+    <testcase classname=" ingresar todos los campos" name=" ingresar todos los campos" time="0.099">
+    </testcase>
+    <testcase classname=" limite minimo y maximo de caracteres nombre" name=" limite minimo y maximo de caracteres nombre" time="0.16">
+    </testcase>
+    <testcase classname=" limite minimo y maximo de caracteres descripcion" name=" limite minimo y maximo de caracteres descripcion" time="0.153">
+    </testcase>
+  </testsuite>
+  <testsuite name="&lt;CrearOfertaPage /&gt;" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:35:21" time="3.767" tests="4">
+    <testcase classname="&lt;CrearOfertaPage /&gt; se renderiza correctamente" name="&lt;CrearOfertaPage /&gt; se renderiza correctamente" time="0.775">
+    </testcase>
+    <testcase classname=" ingresar todos los campos" name=" ingresar todos los campos" time="0.127">
+    </testcase>
+    <testcase classname=" limite minimo y maximo de precio unitario, y formato adecuado" name=" limite minimo y maximo de precio unitario, y formato adecuado" time="0.252">
+    </testcase>
+    <testcase classname=" limite minimo y maximo de precio instantaneo, y formato adecuado" name=" limite minimo y maximo de precio instantaneo, y formato adecuado" time="0.361">
+    </testcase>
+  </testsuite>
+  <testsuite name="DemandasList component" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:35:24" time="1.263" tests="1">
+    <testcase classname="DemandasList component renders correctly" name="DemandasList component renders correctly" time="0.369">
+    </testcase>
+  </testsuite>
+  <testsuite name="OfertaItem component" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:35:25" time="1.137" tests="1">
+    <testcase classname="OfertaItem component renders correctly" name="OfertaItem component renders correctly" time="0.379">
+    </testcase>
+  </testsuite>
+  <testsuite name="DetalleProducto component" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:35:25" time="1.091" tests="1">
+    <testcase classname="DetalleProducto component renders correctly" name="DetalleProducto component renders correctly" time="0.449">
+    </testcase>
+  </testsuite>
+  <testsuite name="DemandaItem component" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:35:25" time="1.25" tests="1">
+    <testcase classname="DemandaItem component renders correctly" name="DemandaItem component renders correctly" time="0.436">
+    </testcase>
+  </testsuite>
+  <testsuite name="OfertasList component" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:35:26" time="0.983" tests="1">
+    <testcase classname="OfertasList component renders correctly" name="OfertasList component renders correctly" time="0.316">
+    </testcase>
+  </testsuite>
+  <testsuite name="&lt;AppProvBar /&gt;" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:35:26" time="0.631" tests="1">
+    <testcase classname="&lt;AppProvBar /&gt; se renderiza correctamente" name="&lt;AppProvBar /&gt; se renderiza correctamente" time="0.209">
+<testsuites name="jest tests" tests="9" failures="0" errors="0" time="7.812">
+  <testsuite name="&lt;CrearDemandaPage /&gt;" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:25:12" time="7.461" tests="9">
+    <testcase classname="&lt;CrearDemandaPage /&gt; se renderiza correctamente" name="&lt;CrearDemandaPage /&gt; se renderiza correctamente" time="1.185">
+
     </testcase>
     <testcase classname="&lt;CrearProductoPage /&gt; Proveedor ingresar todos los campos" name="&lt;CrearProductoPage /&gt; Proveedor ingresar todos los campos" time="0.236">
     </testcase>

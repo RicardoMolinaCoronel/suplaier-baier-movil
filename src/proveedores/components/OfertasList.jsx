@@ -16,9 +16,9 @@ const OfertasList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <>
+    <View testID='ofertas-list'>
       {showEmptyArray && (
-        <View style={styles.vacioContainer}>
+        <View  style={styles.vacioContainer}>
           <StyledText color="purple">No hay ofertas por el momento</StyledText>
           <MaterialIcons
             name="local-offer"
@@ -33,7 +33,7 @@ const OfertasList = () => {
         data={ofertasProv}
         renderItem={({ item: oferta }) => <OfertaItem {...oferta} />}
       />
-    </>
+    </View>
   );
 };
 const styles = StyleSheet.create({
