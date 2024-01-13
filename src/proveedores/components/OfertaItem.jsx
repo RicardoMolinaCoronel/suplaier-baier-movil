@@ -84,7 +84,7 @@ const OfertaItem = (props) => {
   }, [producto, props]);
 
   return (
-    <View style={styles.ofertaContainer}>
+    <View testID="oferta-item" style={styles.ofertaContainer}>
       <View style={styles.textoImagenContainer}>
         <StyledText
           style={styles.textTitulo}

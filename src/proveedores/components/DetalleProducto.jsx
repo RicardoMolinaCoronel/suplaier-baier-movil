@@ -38,7 +38,7 @@ export const DetalleProducto = ({ isvisible, onclose, dataproducto }) => {
 
   return (
     <Modal visible={isvisible} transparent animationType="slide">
-      <View style={styles.container}>
+      <View testID='detalleProductoComponent'style={styles.container}>
         <ScrollView>
           <View style={styles.tituloContainer}>
             <StyledText

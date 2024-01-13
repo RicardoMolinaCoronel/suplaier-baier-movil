@@ -10,7 +10,7 @@ const OrdenesList = () => {
   return (
     <>
       {showEmptyArray && (
-        <View style={styles.vacioContainer}>
+        <View testID="ordenesListRoot" style={styles.vacioContainer}>
           <StyledText color="purple">
             No hay órdenes de compra por el momento
           </StyledText>

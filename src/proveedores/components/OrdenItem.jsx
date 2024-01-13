@@ -90,7 +90,7 @@ const OrdenItem = (props) => {
   }, [producto, oferta]);
 
   return (
-    <View style={styles.ordenContainer}>
+    <View testID="ordenItemRoot" style={styles.ordenContainer}>
       <View style={styles.demandaIcon}>
         <SimpleLineIcons
           name={props.TipoCompra === "instantanea" ? "energy" : "handbag"}

@@ -18,7 +18,7 @@ const DemandasList = () => {
   return (
     <>
       {showEmptyArray && (
-        <View style={styles.vacioContainer}>
+        <View testID="demandaListRoot" style={styles.vacioContainer}>
           <StyledText color="purple">
             No hay demandas en curso por el momento
           </StyledText>

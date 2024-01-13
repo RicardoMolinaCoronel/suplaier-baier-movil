@@ -77,7 +77,7 @@ const DemandaItem = (props) => {
   }, [producto, props]);
 
   return (
-    <View style={styles.ofertaContainer}>
+    <View testID="demandaItemRoot" style={styles.ofertaContainer}>
       <View style={styles.demandaIcon}>
         <SimpleLineIcons name="basket" size={24} color={theme.colors.purple} />
       </View>
