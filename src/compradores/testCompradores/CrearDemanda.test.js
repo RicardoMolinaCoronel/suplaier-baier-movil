@@ -3,11 +3,11 @@ import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import CrearProductoPage from '../pages/CrearProductoPage';
 import { AuthContext } from '../../auth/context/AuthContext'; // Importa AuthContext
 import generarStringAleatorio from './utils';
-import CrearOfertaPage from '../pages/CrearOfertaPage';
+import CrearDemandaPage from '../pages/CrearDemandaPage';
 import renderer from "react-test-renderer"
 const mockAuthState = {
     user: {
-        IdUsuario: 3,
+        IdUsuario: 1,
       UrlLogoEmpresa: 'http://example.com/logo.png',
     },
   };
@@ -18,11 +18,11 @@ const mockAuthState = {
     </AuthContext.Provider>
   );
 
-  describe('<CrearOfertaPage />', () => {
+  describe('<CrearDemandaPage />', () => {
     it('se renderiza correctamente', () => {
       render(
         <AuthProvider>
-          <CrearOfertaPage
+          <CrearDemandaPage
           />
         </AuthProvider>
       );
@@ -31,17 +31,17 @@ const mockAuthState = {
 it('ingresar todos los campos', async () => {
         const { getByTestId, getByText } = render(
             <AuthProvider>
-              <CrearOfertaPage
+              <CrearDemandaPage
               />
             </AuthProvider>
         );
         //fireEvent.changeText(getByTestId("nombreProducto"), "b")
-        fireEvent.press(getByTestId("CrearOferta.Button"))
+        fireEvent.press(getByTestId("CrearDemanda.Button"))
         await waitFor(() => {
         getByText('El producto es requerido')
         getByText("La descripción es requerida")
         getByText('El precio mínimo es requerido')
-        getByText('El precio instantáneo es requerido')
+        getByText('El precio máximo es requerido')
         getByText('La cantidad mínima de unidades es requerida')
         getByText("La cantidad total es requerida")
         getByText('La fecha límite es requerida')    
@@ -51,11 +51,11 @@ it('ingresar todos los campos', async () => {
 it('limite minimo y maximo de precio unitario, formato adecuado', async () => {
         const { getByTestId, getByText } = render(
             <AuthProvider>
-              <CrearOfertaPage
+              <CrearDemandaPage
               />
             </AuthProvider>
         );
-        let input = getByTestId("CrearOferta.InputPU")
+        let input = getByTestId("CrearDemanda.InputPU")
         fireEvent.changeText(input, "-1")
         await waitFor(() => {
         getByText("El precio mínimo debe ser un número positivo")
@@ -66,28 +66,28 @@ it('limite minimo y maximo de precio unitario, formato adecuado', async () => {
     });
     fireEvent.changeText(input, "5000.9")
     await waitFor(() => {
-    getByText("El precio unitario debe ser con punto y tener dos decimales")
+    getByText("El precio mínimo debe ser con punto y tener dos decimales")
     });
       });
     
 it('precio instantaneo no inferior a unitario, precio unitario e instantáneo válidos', async () => {
         const { getByTestId, getByText, queryAllByTestId } = render(
             <AuthProvider>
-              <CrearOfertaPage
+              <CrearDemandaPage
               />
             </AuthProvider>
         );
-        let inputInst = getByTestId("CrearOferta.InputPI")
-        let inputU = getByTestId("CrearOferta.InputPU")
+        let inputInst = getByTestId("CrearDemanda.InputPI")
+        let inputU = getByTestId("CrearDemanda.InputPU")
         fireEvent.changeText(inputInst, "50")
         fireEvent.changeText(inputU, "80")
         await waitFor(() => {
-        getByText("El precio instantáneo debe ser mayor o igual al precio mínimo")
+        getByText("El precio máximo debe ser mayor o igual al precio mínimo")
     });
     fireEvent.changeText(inputU, "30")
         await waitFor(() => {
-            expect(queryAllByTestId("CrearOferta.Error.InputPI").length).toBe(0)
-            expect(queryAllByTestId("CrearOferta.Error.InputPU").length).toBe(0)
+            expect(queryAllByTestId("CrearDemanda.Error.InputPI").length).toBe(0)
+            expect(queryAllByTestId("CrearDemanda.Error.InputPU").length).toBe(0)
         });
 
 })
@@ -95,24 +95,24 @@ it('precio instantaneo no inferior a unitario, precio unitario e instantáneo v�
 it('limite minimo y maximo de precio instantaneo, formato adecuado', async () => {
         const { getByTestId, getByText } = render(
             <AuthProvider>
-              <CrearOfertaPage
+              <CrearDemandaPage
               />
             </AuthProvider>
         );
-        let input = getByTestId("CrearOferta.InputPI")
+        let input = getByTestId("CrearDemanda.InputPI")
         fireEvent.changeText(input, "-1")
         await waitFor(() => {
-        getByText("El precio instantáneo debe ser un número positivo")
+        getByText("El precio máximo debe ser un número positivo")
     });
     fireEvent.changeText(input, "10001")
     await waitFor(() => {
     getByText("El precio máximo no puede ser mayor a 10000")
     });
-    let inputU = getByTestId("CrearOferta.InputPU")
+    let inputU = getByTestId("CrearDemanda.InputPU")
     fireEvent.changeText(inputU, "80")
     fireEvent.changeText(input, "5000.956")
     await waitFor(() => {
-        getByText("El precio instantáneo debe ser con punto y tener dos decimales")
+        getByText("El precio máximo debe ser con punto y tener dos decimales")
 
     });
       });
@@ -121,11 +121,11 @@ it('limite minimo y maximo de precio instantaneo, formato adecuado', async () =>
 it('limite minimo y maximo de cantidad minima, formato adecuado', async () => {
         const { getByTestId, getByText, queryAllByTestId } = render(
             <AuthProvider>
-              <CrearOfertaPage
+              <CrearDemandaPage
               />
             </AuthProvider>
         );
-        let input = getByTestId("CrearOferta.InputUMin")
+        let input = getByTestId("CrearDemanda.InputUMin")
         fireEvent.changeText(input, "-1")
         await waitFor(() => {
         getByText("La cantidad minima debe ser un número positivo")
@@ -144,11 +144,11 @@ it('limite minimo y maximo de cantidad minima, formato adecuado', async () => {
 it('limite minimo y maximo de cantidad máxima, formato adecuado', async () => {
         const { getByTestId, getByText } = render(
             <AuthProvider>
-              <CrearOfertaPage
+              <CrearDemandaPage
               />
             </AuthProvider>
         );
-        let input = getByTestId("CrearOferta.InputUMax")
+        let input = getByTestId("CrearDemanda.InputUMax")
         fireEvent.changeText(input, "-1")
         await waitFor(() => {
         getByText("La cantidad total debe ser un número positivo")
@@ -166,12 +166,12 @@ it('limite minimo y maximo de cantidad máxima, formato adecuado', async () => {
 it('unidades maximas no inferior a minimas, unidades minimas y maximas válidas', async () => {
         const { getByTestId, getByText, queryAllByTestId } = render(
             <AuthProvider>
-              <CrearOfertaPage
+              <CrearDemandaPage
               />
             </AuthProvider>
         );
-        let inputMin = getByTestId("CrearOferta.InputUMin")
-        let inputMax = getByTestId("CrearOferta.InputUMax")
+        let inputMin = getByTestId("CrearDemanda.InputUMin")
+        let inputMax = getByTestId("CrearDemanda.InputUMax")
         fireEvent.changeText(inputMin, "70")
         fireEvent.changeText(inputMax, "60")
         await waitFor(() => {
@@ -179,8 +179,8 @@ it('unidades maximas no inferior a minimas, unidades minimas y maximas válidas'
     });
     fireEvent.changeText(inputMin, "30")
     await waitFor(() => {
-        expect(queryAllByTestId("CrearOferta.Error.InputUMin").length).toBe(0)
-        expect(queryAllByTestId("CrearOferta.Error.InputUMax").length).toBe(0)
+        expect(queryAllByTestId("CrearDemanda.Error.InputUMin").length).toBe(0)
+        expect(queryAllByTestId("CrearDemanda.Error.InputUMax").length).toBe(0)
     });
 })
 
@@ -188,11 +188,11 @@ it('unidades maximas no inferior a minimas, unidades minimas y maximas válidas'
 it('limite minimo y maximo de caracteres descripcion e input válido', async () => {
         const { getByTestId, getByText } = render(
             <AuthProvider>
-              <CrearOfertaPage
+              <CrearDemandaPage
               />
             </AuthProvider>
         );
-        let input = getByTestId("CrearOferta.InputDescripcion")
+        let input = getByTestId("CrearDemanda.InputDescripcion")
         fireEvent.changeText(input, "A")
         await waitFor(() => {
         getByText("La descripción no puede ser menor a 20 caracteres")
@@ -203,7 +203,7 @@ it('limite minimo y maximo de caracteres descripcion e input válido', async () 
     });
     fireEvent.changeText(input, generarStringAleatorio(380))
     await waitFor(() => {
-        expect(getByTestId("CrearOferta.Error.InputDescripcion")).toHaveTextContent("")
+        expect(getByTestId("CrearDemanda.Error.InputDescripcion")).toHaveTextContent("")
     });
       });  
  

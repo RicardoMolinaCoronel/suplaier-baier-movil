@@ -5,7 +5,7 @@ import generarStringAleatorio from './utils';
 
 
 
-describe('<CrearProductoPage /> Proveedor', () => {
+describe('<CrearProductoPage /> Comprador', () => {
     it('se renderiza correctamente', () => {
       render(
           <CrearProductoPage
@@ -17,6 +17,7 @@ describe('<CrearProductoPage /> Proveedor', () => {
             <CrearProductoPage
             />
         );
+        //fireEvent.changeText(getByTestId("nombreProducto"), "b")
         fireEvent.press(getByTestId("CrearProducto.Button"))
         await waitFor(() => {
         getByText("El nombre del producto es requerido")

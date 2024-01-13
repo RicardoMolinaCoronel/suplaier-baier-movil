@@ -46,6 +46,25 @@
   </testsuite>
   <testsuite name="&lt;AppProvBar /&gt;" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:35:26" time="0.631" tests="1">
     <testcase classname="&lt;AppProvBar /&gt; se renderiza correctamente" name="&lt;AppProvBar /&gt; se renderiza correctamente" time="0.209">
+<testsuites name="jest tests" tests="9" failures="0" errors="0" time="7.812">
+  <testsuite name="&lt;CrearDemandaPage /&gt;" errors="0" failures="0" skipped="0" timestamp="2024-01-13T04:25:12" time="7.461" tests="9">
+    <testcase classname="&lt;CrearDemandaPage /&gt; se renderiza correctamente" name="&lt;CrearDemandaPage /&gt; se renderiza correctamente" time="1.185">
+    </testcase>
+    <testcase classname="&lt;CrearDemandaPage /&gt; ingresar todos los campos" name="&lt;CrearDemandaPage /&gt; ingresar todos los campos" time="0.141">
+    </testcase>
+    <testcase classname="&lt;CrearDemandaPage /&gt; limite minimo y maximo de precio unitario, formato adecuado" name="&lt;CrearDemandaPage /&gt; limite minimo y maximo de precio unitario, formato adecuado" time="0.319">
+    </testcase>
+    <testcase classname="&lt;CrearDemandaPage /&gt; precio instantaneo no inferior a unitario, precio unitario e instantáneo válidos" name="&lt;CrearDemandaPage /&gt; precio instantaneo no inferior a unitario, precio unitario e instantáneo válidos" time="0.188">
+    </testcase>
+    <testcase classname="&lt;CrearDemandaPage /&gt; limite minimo y maximo de precio instantaneo, formato adecuado" name="&lt;CrearDemandaPage /&gt; limite minimo y maximo de precio instantaneo, formato adecuado" time="0.243">
+    </testcase>
+    <testcase classname="&lt;CrearDemandaPage /&gt; limite minimo y maximo de cantidad minima, formato adecuado" name="&lt;CrearDemandaPage /&gt; limite minimo y maximo de cantidad minima, formato adecuado" time="0.224">
+    </testcase>
+    <testcase classname="&lt;CrearDemandaPage /&gt; limite minimo y maximo de cantidad máxima, formato adecuado" name="&lt;CrearDemandaPage /&gt; limite minimo y maximo de cantidad máxima, formato adecuado" time="0.235">
+    </testcase>
+    <testcase classname="&lt;CrearDemandaPage /&gt; unidades maximas no inferior a minimas, unidades minimas y maximas válidas" name="&lt;CrearDemandaPage /&gt; unidades maximas no inferior a minimas, unidades minimas y maximas válidas" time="0.204">
+    </testcase>
+    <testcase classname="&lt;CrearDemandaPage /&gt; limite minimo y maximo de caracteres descripcion e input válido" name="&lt;CrearDemandaPage /&gt; limite minimo y maximo de caracteres descripcion e input válido" time="0.206">
     </testcase>
   </testsuite>
 </testsuites>
