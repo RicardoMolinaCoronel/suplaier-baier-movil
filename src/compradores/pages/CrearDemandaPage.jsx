@@ -81,6 +81,7 @@ const FormikInputValue = ({
         <StyledText
           style={isDropDown ? styles.errorTextSelect : styles.errorText}
           fontSize="body"
+          testID={props.testIdError}
         >
           {meta.error}
         </StyledText>
@@ -251,6 +252,8 @@ const CrearDemandaPage = () => {
                   icon="tag"
                   placeholderTextColor={theme.colors.gray1}
                   label="Precio mínimo"
+                  testID="CrearDemanda.InputPU"
+                  testIdError="CrearDemanda.Error.InputPU"
                 />
                 <FormikInputValue
                   name="pmax"
@@ -259,6 +262,8 @@ const CrearDemandaPage = () => {
                   icon="star"
                   placeholderTextColor={theme.colors.gray1}
                   label="Precio máximo"
+                  testID="CrearDemanda.InputPI"
+                  testIdError="CrearDemanda.Error.InputPI"
                 />
                 <FormikInputValue
                   name="description"
@@ -269,6 +274,8 @@ const CrearDemandaPage = () => {
                   numberOfLines={8}
                   textAreaSize="descripcion"
                   label="Descripción"
+                  testID="CrearDemanda.InputDescripcion"
+                  testIdError="CrearDemanda.Error.InputDescripcion"
                 />
                 <FormikInputValue
                   name="umin"
@@ -277,6 +284,8 @@ const CrearDemandaPage = () => {
                   label="Cantidad mínima"
                   placeholder="Cantidad mínima de productos"
                   icon="package"
+                  testID="CrearDemanda.InputUMin"
+                  testIdError="CrearDemanda.Error.InputUMin"
                 />
                 <FormikInputValue
                   name="umax"
@@ -285,6 +294,8 @@ const CrearDemandaPage = () => {
                   label="Cantidad total"
                   placeholder="Cantidad total de productos"
                   icon="stack"
+                  testID="CrearDemanda.InputUMax"
+                  testIdError="CrearDemanda.Error.InputUMax"
                 />
                 <FormikDateValue name="date" label="Fecha límite" />
 
@@ -292,6 +303,7 @@ const CrearDemandaPage = () => {
                 <TouchableOpacity
                   style={styles.registerButton}
                   onPress={handleSubmit}
+                  testID="CrearDemanda.Button"
                 >
                   <StyledText
                     fontSize="subheading"

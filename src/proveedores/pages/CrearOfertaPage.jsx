@@ -83,6 +83,7 @@ const FormikInputValue = ({
         <StyledText
           style={isDropDown ? styles.errorTextSelect : styles.errorText}
           fontSize="body"
+          testID={props.testIDError}
         >
           {meta.error}
         </StyledText>
@@ -260,6 +261,7 @@ const CrearOfertaPage = () => {
                   placeholderTextColor={theme.colors.gray1}
                   label="Precio unitario"
                   testID="CrearOferta.InputPU"
+                  testIDError="CrearOferta.Error.InputPU"
                 />
                 <FormikInputValue
                   name="pmax"
@@ -269,6 +271,7 @@ const CrearOfertaPage = () => {
                   placeholderTextColor={theme.colors.gray1}
                   label="Precio Instantáneo"
                   testID="CrearOferta.InputPI"
+                  testIDError="CrearOferta.Error.InputPI"
                 />
                 <FormikInputValue
                   name="description"
@@ -279,7 +282,8 @@ const CrearOfertaPage = () => {
                   numberOfLines={8}
                   textAreaSize="descripcion"
                   label="Descripción"
-                  testID="CrearOferta.InputDescription"
+                  testID="CrearOferta.InputDescripcion"
+                  testIDError="CrearOferta.Error.InputDescripcion"
                 />
                 <FormikInputValue
                   name="umin"
@@ -289,6 +293,7 @@ const CrearOfertaPage = () => {
                   placeholder="Cantidad mínima de productos"
                   icon="package"
                   testID="CrearOferta.InputUMin"
+                  testIDError="CrearOferta.Error.InputUMin"
                 />
                 <FormikInputValue
                   name="umax"
@@ -298,6 +303,7 @@ const CrearOfertaPage = () => {
                   placeholder="Cantidad total de productos"
                   icon="stack"
                   testID="CrearOferta.InputUMax"
+                  testIDError="CrearOferta.Error.InputUMax"
                 />
                 <FormikDateValue name="date" label="Fecha límite" />
 

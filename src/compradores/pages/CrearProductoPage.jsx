@@ -160,6 +160,7 @@ const CrearProductoPage = () => {
                   placeholder="Nombre del producto"
                   placeholderTextColor={theme.colors.gray1}
                   label="Nombre"
+                  testID="CrearProducto.InputNombre"
                 />
 
                 <FormikInputValue
@@ -171,6 +172,7 @@ const CrearProductoPage = () => {
                   numberOfLines={8}
                   textAreaSize="descripcion"
                   label="Descripción"
+                  testID="CrearProducto.InputDescripcion"
                 />
                 <FormikInputValue
                   name="categoria"
@@ -189,6 +191,7 @@ const CrearProductoPage = () => {
                 <TouchableOpacity
                   style={styles.registerButton}
                   onPress={handleSubmit}
+                  testID="CrearProducto.Button"
                 >
                   <StyledText
                     fontSize="subheading"
