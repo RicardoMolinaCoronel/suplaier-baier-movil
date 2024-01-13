@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="1" failures="0" errors="0" time="3.141">
-  <testsuite name="&lt;AppProvBar /&gt;" errors="0" failures="0" skipped="0" timestamp="2024-01-11T04:55:08" time="2.904" tests="1">
-    <testcase classname="&lt;AppProvBar /&gt; se renderiza correctamente" name="&lt;AppProvBar /&gt; se renderiza correctamente" time="0.653">
+<testsuites name="jest tests" tests="9" failures="0" errors="0" time="11.715">
+  <testsuite name="&lt;AppProvBar /&gt;" errors="0" failures="0" skipped="0" timestamp="2024-01-13T02:27:41" time="4.53" tests="1">
+    <testcase classname="&lt;AppProvBar /&gt; se renderiza correctamente" name="&lt;AppProvBar /&gt; se renderiza correctamente" time="1.668">
+    </testcase>
+  </testsuite>
+  <testsuite name="&lt;CrearProductoPage /&gt;" errors="0" failures="0" skipped="0" timestamp="2024-01-13T02:27:41" time="8.67" tests="4">
+    <testcase classname="&lt;CrearProductoPage /&gt; se renderiza correctamente" name="&lt;CrearProductoPage /&gt; se renderiza correctamente" time="1.638">
+    </testcase>
+    <testcase classname=" ingresar todos los campos" name=" ingresar todos los campos" time="0.183">
+    </testcase>
+    <testcase classname=" limite minimo y maximo de caracteres nombre" name=" limite minimo y maximo de caracteres nombre" time="0.172">
+    </testcase>
+    <testcase classname=" limite minimo y maximo de caracteres descripcion" name=" limite minimo y maximo de caracteres descripcion" time="0.186">
+    </testcase>
+  </testsuite>
+  <testsuite name="&lt;CrearOfertaPage /&gt;" errors="0" failures="0" skipped="0" timestamp="2024-01-13T02:27:41" time="10.248" tests="4">
+    <testcase classname="&lt;CrearOfertaPage /&gt; se renderiza correctamente" name="&lt;CrearOfertaPage /&gt; se renderiza correctamente" time="1.385">
+    </testcase>
+    <testcase classname=" ingresar todos los campos" name=" ingresar todos los campos" time="0.157">
+    </testcase>
+    <testcase classname=" limite minimo y maximo de precio unitario, y formato adecuado" name=" limite minimo y maximo de precio unitario, y formato adecuado" time="0.268">
+    </testcase>
+    <testcase classname=" limite minimo y maximo de precio instantaneo, y formato adecuado" name=" limite minimo y maximo de precio instantaneo, y formato adecuado" time="0.273">
     </testcase>
   </testsuite>
 </testsuites>

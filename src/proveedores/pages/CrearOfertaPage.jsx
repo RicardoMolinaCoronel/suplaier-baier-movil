@@ -259,6 +259,7 @@ const CrearOfertaPage = () => {
                   icon="tag"
                   placeholderTextColor={theme.colors.gray1}
                   label="Precio unitario"
+                  testID="CrearOferta.InputPU"
                 />
                 <FormikInputValue
                   name="pmax"
@@ -267,6 +268,7 @@ const CrearOfertaPage = () => {
                   icon="star"
                   placeholderTextColor={theme.colors.gray1}
                   label="Precio Instantáneo"
+                  testID="CrearOferta.InputPI"
                 />
                 <FormikInputValue
                   name="description"
@@ -277,6 +279,7 @@ const CrearOfertaPage = () => {
                   numberOfLines={8}
                   textAreaSize="descripcion"
                   label="Descripción"
+                  testID="CrearOferta.InputDescription"
                 />
                 <FormikInputValue
                   name="umin"
@@ -285,6 +288,7 @@ const CrearOfertaPage = () => {
                   label="Cantidad mínima"
                   placeholder="Cantidad mínima de productos"
                   icon="package"
+                  testID="CrearOferta.InputUMin"
                 />
                 <FormikInputValue
                   name="umax"
@@ -293,6 +297,7 @@ const CrearOfertaPage = () => {
                   label="Cantidad total"
                   placeholder="Cantidad total de productos"
                   icon="stack"
+                  testID="CrearOferta.InputUMax"
                 />
                 <FormikDateValue name="date" label="Fecha límite" />
 
@@ -300,6 +305,7 @@ const CrearOfertaPage = () => {
                 <TouchableOpacity
                   style={styles.registerButton}
                   onPress={handleSubmit}
+                  testID="CrearOferta.Button"
                 >
                   <StyledText
                     fontSize="subheading"

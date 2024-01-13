@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import AppProvBar from '../components/AppProvBar'; // Asegúrate de que la ruta al componente sea correcta
