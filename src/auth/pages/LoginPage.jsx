@@ -164,6 +164,7 @@ const LoginPage = () => {
                   </View>
                 )}
                 <FormikInputValue
+                  testID="LoginPage.InputUser"
                   name="user"
                   icon="person"
                   placeholder="ejemplo_proveedor.004"
@@ -171,6 +172,7 @@ const LoginPage = () => {
                   label="Usuario"
                 />
                 <FormikInputValue
+                  testID="LoginPage.InputPassword"
                   name="password"
                   icon="lock"
                   placeholder="**********"
@@ -193,6 +195,7 @@ const LoginPage = () => {
                     borderRadius: 5,
                     marginVertical: 5,
                     height: 60,
+                    testID: "LoginPage.LoginButton",
                   }}
                   onPress={handleSubmit}
                   disabled={disabled}
@@ -207,6 +210,7 @@ const LoginPage = () => {
                 </TouchableOpacity>
                 <View style={styles.borderLine} />
                 <TouchableOpacity
+                  testID="LoginPage.RegisterButton"
                   style={styles.registerButton}
                   onPress={() => {
                     navigate("/signup_type", {

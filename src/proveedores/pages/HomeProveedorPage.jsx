@@ -24,6 +24,7 @@ const HomeProveedorPage = () => {
       <OfertasDataProvider>
         <OfertasList />
       </OfertasDataProvider>
+
       <View style={styles.spaceBorder} />
       <StatusBar style="light" />
     </View>
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.colors.lightGray2,
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginTop: 5,
-    marginBottom: 10,
+    marginBottom: 16,
   },
   spaceBorder: {
     marginTop: 45,

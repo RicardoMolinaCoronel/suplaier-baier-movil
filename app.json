@@ -2,6 +2,9 @@
   "expo": {
     "name": "SuplaierMovil",
     "slug": "SuplaierMovil",
+    "plugins": [
+      "@config-plugins/detox"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,9 +18,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.suplaier.movil"
     },
     "android": {
+      "package": "com.suplaier.movil",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -25,6 +30,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d1174f99-d2ca-48c1-978a-6024edf15e51"
+      }
     }
   }
 }

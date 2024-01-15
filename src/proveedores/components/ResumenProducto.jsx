@@ -84,7 +84,7 @@ export const ResumenProducto = ({
   };
   return (
     <Modal visible={isvisible} transparent animationType="slide">
-      <View style={styles.container}>
+      <View testID="ResumenProducto" style={styles.container}>
         <ScrollView>
           <View style={styles.tituloContainer}>
             <StyledText
@@ -134,6 +134,7 @@ export const ResumenProducto = ({
             title="Crear producto"
             color={disabled ? "gray" : theme.colors.blue}
             disabled={disabled}
+            testID="ResumenProducto.Button"
           />
         </ScrollView>
       </View>

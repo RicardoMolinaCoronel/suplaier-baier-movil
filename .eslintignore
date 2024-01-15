@@ -6,6 +6,16 @@ node_modules/
 **/*.ico
 **/*.txt
 **/*.gif
+**/*.test.js
+**/*.gradle
+**/*.java
+**/*.keystore
+**/*.xml
+**/*.properties
+**/*.bat
+**/*.jar
+**/*.pro
+gradlew
 firebase-messaging-sw.js
 build/
 babel.config.js
@@ -13,3 +23,4 @@ firebase.js
 prettierignore
 *.md
 *.html
+

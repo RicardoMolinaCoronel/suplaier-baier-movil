@@ -37,3 +37,6 @@ yarn-error.*
 #urlbackend
 apiUrl.js
 apiUrl.js
+
+#tests
+junit.xml

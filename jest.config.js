@@ -5,6 +5,7 @@ module.exports = {
       // Elimina o comenta la siguiente línea si está presente
       // '\\.svg$': '<rootDir>/node_modules/react-native-svg-transformer/index.js',
     },
+    collectCoverage:true,
     moduleNameMapper: {
       // Añade esta línea para manejar archivos SVG
       '\\.svg$': '<rootDir>/node_modules/react-native-svg-transformer/index.js',
