@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.colors.lightGray2,
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginTop: 5,
-    marginBottom: 16,
+    marginBottom: 10,
   },
   spaceBorder: {
     marginTop: 45,
